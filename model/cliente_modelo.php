@@ -80,10 +80,10 @@ class cliente_modelo{
     public static function validarUsuario($data){
         $obj= new connection();
         $c= $obj->getConnection();
-        $sql="SELECT * from funcionario WHERE ID_Func=? AND Fun_Tip_Doc=? AND Fun_Correo=? AND
+        $sql="SELECT * from funcionario WHERE ID_Func=? AND Fun_Tip_Doc=? AND
                                             Fun_Pswd=?" ;
         $st=$c->prepare($sql);
-        $v= array($data["id"],$data["doc"],$data["correo"], sha1($data["password"]));
+        $v= array($data["id"],$data["doc"], sha1($data["password"]));
         $st->execute($v);
         //retorna informacion del usuario, en caso de noencontrarla retorna un vector vacío
         return $st->fetch();

@@ -144,12 +144,10 @@ let edtcliente=async()=>{
 let login=async()=>{
   let doc = document.getElementById("doc").value;
   let id = document.getElementById("id").value;
-  let correo = document.getElementById("correo").value;
   let password = document.getElementById("password").value;
   let datos = new FormData();
   datos.append("doc",doc);
   datos.append("id",id);
-  datos.append("correo",correo);
   datos.append("password",password);
 
   let respuesta=await fetch("?controller=cliente&action=validar", {

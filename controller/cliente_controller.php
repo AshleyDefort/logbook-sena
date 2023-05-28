@@ -106,7 +106,6 @@ class cliente_controller
 		extract($_POST);
         $data["doc"]=$doc;
         $data["id"]=$id;
-        $data["correo"]=$correo;
         $data["password"]=$password;
         $r=cliente_modelo::validarUsuario($data);
         if(is_array($r)){
@@ -132,7 +131,7 @@ class cliente_controller
 
 public function salir(){
     session_destroy();
-    header("Location: /Bitacora-master");
+    header("Location: /Bitacora");
 }
 
     public function edit(){

@@ -6,7 +6,7 @@ class main_controller{
     }
     public function home(){
         if (!isset($_SESSION["id"])) {
-            header("Location: /Bitacora-master");
+            header("Location: /Bitacora");
         }
         $this->obj->programas=main_modelo::lista();
         $this->obj-> loadTemplate("main/index");

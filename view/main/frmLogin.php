@@ -69,7 +69,7 @@
               id="id" name="id" placeholder="Numero de documento">
 
                                         </div>
-                                        <div class="form-group">
+                                        <div class="form-group" hidden="true">
     <input type="email" class="form-control form-control-user"
               id="correo" name="correo" placeholder="Digite correo">
 
