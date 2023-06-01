@@ -5,9 +5,9 @@
                                 <div class="card-body">
                                     <?php
                                     if($_SESSION["rol"]=="ADMIN"){
-                                        echo '<a href="?controller=cliente&action=frmRegistro" class="btn btn-primary"> Registrar </a>';
+                                        echo '<a href="?controller=funcionarios&action=frmRegistro" class="btn btn-primary"> Registrar </a>';
                                         echo '<a> </a>';
-                                        echo '<a href="?controller=cliente&action=reportePDF" class="btn btn-light"> Reporte PDF </a>';
+                                        echo '<a href="?controller=funcionarios&action=reportePDF" class="btn btn-light"> Reporte PDF </a>';
                                     }
                                     ?>
 

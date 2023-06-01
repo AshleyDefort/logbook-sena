@@ -1,5 +1,5 @@
 <?php
-class producto_modelo{
+class programas_modelo{
     public static function add($data){
        $obj= new connection();
        $c= $obj->getConnection();

@@ -5,7 +5,7 @@
         <h6 class="m-0 font-weight-bold text-light">Administrar Fichas</h6>
     </div>
     <div class="card-body">
-        <a href="?controller=producto&action=frmFichas" class="btn btn-primary">REGISTAR FICHAS</a><br><br>
+        <a href="?controller=programas&action=frmFichas" class="btn btn-primary">REGISTAR FICHAS</a><br><br>
         <div class="row" >
         <?php foreach($this->fichas as $fila) { $id=$fila["Cod_Ficha"];?>
           
@@ -18,12 +18,12 @@
                   <p class="card-text">FECHA DE INICIO: <?php echo $fila["fechaIni_Fich"]; ?></p>
                   <p class="card-text">FECHA DE FIN: <?php echo $fila["fechaFin_Fich"]; ?></p>
                   <?php echo "<td> 
-                    <a class='btn btn-primary' href='?controller=producto&action=frmaprendiz&id=$id'>  Ver  </a>
+                    <a class='btn btn-primary' href='?controller=programas&action=frmaprendiz&id=$id'>  Ver  </a>
                     </td>";
                     echo "</tr>"; ?>
                 </div>
               </div>
-            </div>
+            </div> 
           <?php } ?>
 </div><br>
 <?php

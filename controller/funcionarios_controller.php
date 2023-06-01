@@ -1,6 +1,6 @@
 <?php
-require_once "model/cliente_modelo.php";
-class cliente_controller
+require_once "model/funcionarios_modelo.php";
+class funcionarios_controller
 {
     function __construct(){
         //if (!isset($_SESSION["id"])) {
@@ -11,7 +11,7 @@ class cliente_controller
 
     public function index(){
         $limite = 3;
-        $total = cliente_modelo::Total();
+        $total = funcionarios_modelo::Total();
         
         if($total > $limite){
             $secciones = ceil($total/$limite);
@@ -26,13 +26,13 @@ class cliente_controller
         }
 
         $pagina_actual = ($pagina/$limite)+1;
-        $this->obj->clientes=cliente_modelo::lista($pagina,$limite);
+        $this->obj->funcionarioss=funcionarios_modelo::lista($pagina,$limite);
         $this->obj->pag = '';
         if($secciones >=1){
             $this->obj->pag = '<ul class="pagination pagination-sm">';
             for($i=1;$i<=$secciones;$i++){
                 if($i != $pagina_actual){
-                    $this ->obj->pag .= '<li class="page.item"><a href="?controller=cliente&action=index&pagina='.
+                    $this ->obj->pag .= '<li class="page.item"><a href="?controller=funcionarios&action=index&pagina='.
                     ($limite*($i-1)).'"class="page-link">'.$i.'</a></li>';
                 }else{
                     $this->obj->pag .= ' <li class="page-item active" aria-current="page">
@@ -42,7 +42,7 @@ class cliente_controller
             $this->obj->pag .= '</ul>';
         }
         $this->obj->tabla = "";
-        foreach ($this->obj->clientes as $fila) {//POR CADA FILA QUE EXITE EN CLIENTE SE REGISTRA EL VALOR EN LA VARIABLE FILA
+        foreach ($this->obj->funcionarioss as $fila) {//POR CADA FILA QUE EXITE EN funcionarios SE REGISTRA EL VALOR EN LA VARIABLE FILA
             $id = $fila["ID_Func"];
             $this->obj->tabla.= "<tr>";
             $this->obj->tabla.= "<td>".$fila["Fun_Nom"]."</td>";//concatenar
@@ -52,27 +52,29 @@ class cliente_controller
             $this->obj->tabla.= "<td>".$fila["Fun_Rol"]."</td>";//concatenar
             if($_SESSION["rol"]=="ADMIN"){
                 $this->obj->tabla.= "<td> 
-            <a class='btn btn-primary' href='?controller=cliente&action=frmEditar&id=$id'>Editar</a> | 
-            <a class='btn btn-danger' href='?controller=cliente&action=delete&id=$id'>Eliminar</a>
+            <a class='btn btn-primary' href='?controller=funcionarios&action=frmEditar&id=$id'>Editar</a> | 
+            <a class='btn btn-danger' href='?controller=funcionarios&action=delete&id=$id'>Eliminar</a>
                                </td>";}
                         $this->obj->tabla.= "</tr>";
         }
-        //var_dump($this->obj->clientes);para comprobar si tienes algún cliente de manera anticipada y si lo anterior funciona
-        $this->obj->loadTemplate("cliente/index");
+        //var_dump($this->obj->funcionarioss);para comprobar si tienes algún funcionarios de manera anticipada y si lo anterior funciona
+        $this->obj->loadTemplate("funcionarios/index");
     }
 
     public function frmRegistro(){
         if($_SESSION['rol'] !="ADMIN"){
-            header("Location: ?controller=cliente&action=index");
+            header("Location: ?controller=funcionarios&action=index");
         }
 
-        $this->obj->loadTemplate("cliente/frmregistro");
+        $this->obj->loadTemplate("funcionarios/frmregistro");
     }
-
+			 public function frmPerfil(){
+            $this->obj->loadTemplate("funcionarios/frmPerfil");
+        }
     public function frmEditar(){
         $id = $_GET["id"];
-        $this->obj-> cliente = cliente_modelo::findById($id);
-        $this->obj-> loadtemplate("cliente/frmEditar");
+        $this->obj-> funcionarios = funcionarios_modelo::findById($id);
+        $this->obj-> loadtemplate("funcionarios/frmEditar");
     }
 
     public function registrar(){
@@ -85,9 +87,8 @@ class cliente_controller
     $data["correo"]=$correo;
     $data["password"]=$password;
     $data["direccion"]=$direccion;
-    $data["cargo"]=$cargo;
     $data["rol"]=$rol;
-    $r=cliente_modelo::add($data);
+    $r=funcionarios_modelo::add($data);
     if($r>0){
         echo json_encode(array("mensaje"=>"se registró", "estado"=>1));
     }else{
@@ -96,9 +97,9 @@ class cliente_controller
     }
     public function delete(){
 		$id = $_GET["id"];
-		$r  = cliente_modelo::delete($id);
+		$r  = funcionarios_modelo::delete($id);
 		if($r > 0){
-			header("Location: ?controller=cliente&action=index");
+			header("Location: ?controller=funcionarios&action=index");
 		}
 	}
 
@@ -107,7 +108,7 @@ class cliente_controller
         $data["doc"]=$doc;
         $data["id"]=$id;
         $data["password"]=$password;
-        $r=cliente_modelo::validarUsuario($data);
+        $r=funcionarios_modelo::validarUsuario($data);
         if(is_array($r)){
             $_SESSION["id"]        =$r["ID_Func"];
             $_SESSION["nombre"]    =$r["Fun_Nom"];
@@ -143,9 +144,8 @@ public function salir(){
         $data["telefono"]=$telefono;
         $data["correo"]=$correo;
         $data["direccion"]=$direccion;
-        $data["cargo"]=$cargo;
         $data["rol"]=$rol;
-        $r=cliente_modelo::edit($data);
+        $r=funcionarios_modelo::edit($data);
         if($r>0){
             echo json_encode(array("mensaje"=>"se editó", "estado"=>1));
         }else{
@@ -154,14 +154,14 @@ public function salir(){
         }
 
         public function frmPassword(){
-            $this->obj->loadTemplate("cliente/frmPassword");
+            $this->obj->loadTemplate("funcionarios/frmPassword");
         }
 
         public function CambiarPassword(){
             extract($_POST);
-            $r=cliente_modelo::validarPassActual($password);
+            $r=funcionarios_modelo::validarPassActual($password);
             if(is_array($r)){
-                $r=cliente_modelo::actualizarPassword($Npassword);
+                $r=funcionarios_modelo::actualizarPassword($Npassword);
                 echo json_encode(array("mensaje" => "Password Actualizado", "estado"=>1 ));
             }else{
                 echo json_encode(array("mensaje" => "El password no coincide con el 
@@ -170,8 +170,8 @@ public function salir(){
         }
 
         public function reportePDF(){
-            $this->obj->clientes=cliente_modelo::lista();
-            $this->obj->loadTemplate("cliente/reportePDF", false);
+            $this->obj->funcionarioss=funcionarios_modelo::lista();
+            $this->obj->loadTemplate("funcionarios/reportePDF", false);
         }
 
         

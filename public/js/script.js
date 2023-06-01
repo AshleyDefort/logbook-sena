@@ -8,7 +8,6 @@ let telefono=document.getElementById("telefono").value;
 let correo=document.getElementById("correo").value;
 let password=document.getElementById("password").value;
 let direccion=document.getElementById("direccion").value;
-let cargo=document.getElementById("cargo").value;
 let rol=document.getElementById("rol").value;
 
 let datos=new FormData();
@@ -20,10 +19,9 @@ datos.append("telefono", telefono);
 datos.append("correo", correo);
 datos.append("password", password);
 datos.append("direccion", direccion);
-datos.append("cargo", cargo);
 datos.append("rol", rol);
 
-let respuesta=await fetch("?controller=cliente&action=registrar", {
+let respuesta=await fetch("?controller=funcionarios&action=registrar", {
   method: "POST",
   body: datos
 });
@@ -83,7 +81,7 @@ datos.append("cod_prog", cod_prog);
 datos.append("fech_inic", fech_inic);
 datos.append("fech_fin", fech_fin);
 
-let respuesta=await fetch("?controller=producto&action=registrar", {
+let respuesta=await fetch("?controller=programas&action=registrar", {
   method: "POST",
   body: datos
 });
@@ -106,7 +104,6 @@ let edtcliente=async()=>{
   let telefono=document.getElementById("telefono").value;
   let correo=document.getElementById("correo").value;
   let direccion=document.getElementById("direccion").value;
-  let cargo=document.getElementById("cargo").value;
   let rol=document.getElementById("rol").value;
   
   
@@ -120,13 +117,12 @@ let edtcliente=async()=>{
   datos.append("telefono", telefono);
   datos.append("correo", correo);
   datos.append("direccion", direccion);
-  datos.append("cargo", cargo);
   datos.append("rol", rol);
  
   
   
   
-  let respuesta=await fetch("?controller=cliente&action=edit", {
+  let respuesta=await fetch("?controller=funcionarios&action=edit", {
       method: "POST",
       body: datos
   });
@@ -136,9 +132,6 @@ let edtcliente=async()=>{
       '', 
       info.mensaje,
       'success'
-
-  
-      
     )
 }
 let login=async()=>{
@@ -150,7 +143,7 @@ let login=async()=>{
   datos.append("id",id);
   datos.append("password",password);
 
-  let respuesta=await fetch("?controller=cliente&action=validar", {
+  let respuesta=await fetch("?controller=funcionarios&action=validar", {
     method: "POST",
     body: datos
 });
@@ -174,7 +167,7 @@ if(info.estado == 1){
     datos.append("NCpassword",NCpassword);
     
   if(Npassword == NCpassword){
-      let respuesta=await fetch("?controller=cliente&action=CambiarPassword", {
+      let respuesta=await fetch("?controller=funcionarios&action=CambiarPassword", {
         method: "POST",
         body: datos
     });

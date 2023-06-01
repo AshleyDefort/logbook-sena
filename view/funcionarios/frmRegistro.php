@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
 
-        <form method="post" action="?controller=cliente&action=registrar" class="user" onsubmit="return false">
+        <form method="post" action="?controller=funcionarios&action=registrar" class="user" onsubmit="return false">
         
         <div class="form-group row">
         <div class="col-sm-6">
@@ -46,13 +46,6 @@
                 </div>
             </div>
             <div class="form-group row">
-            <div class="col-sm-6">
-                    <select id="cargo" name="cargo" class="form-control">
-                    <optgroup label="Cargo"></optgroup>
-                        <option value="ADMIN">ADMIN</option>
-                        <option value="FUNC">FUNC</option>
-                    </select>
-                </div>
                 <div class="col-sm-6">
                     <select id="rol" name="rol" class="form-control">
                     <optgroup label="rol"></optgroup>
@@ -61,12 +54,7 @@
                     </select>
                 </div>
             </div>
-
-
-            
             <input type="submit" name="aceptar" onclick="regCliente()" class="btn btn-primary">
-             
-            
         </form>
         
     </div>
