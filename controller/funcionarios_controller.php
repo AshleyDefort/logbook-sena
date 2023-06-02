@@ -3,9 +3,9 @@ require_once "model/funcionarios_modelo.php";
 class funcionarios_controller
 {
     function __construct(){
-        //if (!isset($_SESSION["id"])) {
-            //header("Location: /mvc_Brayan");
-        //}
+        if (!isset($_SESSION["id"])) {
+            header("Location: /Bitacora");
+        }
         $this->obj = new template();
     }
 
@@ -65,12 +65,13 @@ class funcionarios_controller
         if($_SESSION['rol'] !="ADMIN"){
             header("Location: ?controller=funcionarios&action=index");
         }
-
         $this->obj->loadTemplate("funcionarios/frmregistro");
     }
-			 public function frmPerfil(){
-            $this->obj->loadTemplate("funcionarios/frmPerfil");
-        }
+	public function frmPerfil(){
+        $id = $_SESSION['id'];
+        $this->obj-> funcionarios = funcionarios_modelo::findById($id);
+        $this->obj->loadTemplate("funcionarios/frmPerfil");
+    }
     public function frmEditar(){
         $id = $_GET["id"];
         $this->obj-> funcionarios = funcionarios_modelo::findById($id);
@@ -147,9 +148,9 @@ public function salir(){
         $data["rol"]=$rol;
         $r=funcionarios_modelo::edit($data);
         if($r>0){
-            echo json_encode(array("mensaje"=>"se editó", "estado"=>1));
+            echo json_encode(array("mensaje"=>"Se han editado los datos", "estado"=>1));
         }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se editó", "estado"=>2));
+            echo json_encode(array("mensaje"=>"ERROR: NO se han editado los datos", "estado"=>2));
         }
         }
 
@@ -164,8 +165,7 @@ public function salir(){
                 $r=funcionarios_modelo::actualizarPassword($Npassword);
                 echo json_encode(array("mensaje" => "Password Actualizado", "estado"=>1 ));
             }else{
-                echo json_encode(array("mensaje" => "El password no coincide con el 
-                registrado en la BD", "estado"=>2 ));
+                echo json_encode(array("mensaje" => "La contraseña ingresada no es correcta", "estado"=>2 ));
             }
         }
 

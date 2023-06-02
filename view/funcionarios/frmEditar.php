@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">EDITAR CLIENTE</h6>
+        <h6 class="m-0 font-weight-bold text-primary">EDITAR FUNCIONARIO</h6>
     </div>
     <div class="card-body">
 
@@ -54,7 +54,7 @@
             </div>
             <input type="hidden" name="id" id="id"
             value="<?php echo $this->funcionarios["ID_Func"];?>" >
-            <input type="submit" name="aceptar" onclick="edtcliente()" class="btn btn-primary">
+            <input type="submit" name="aceptar" onclick="edtFuncionario()" class="btn btn-primary">
              
             
         </form>

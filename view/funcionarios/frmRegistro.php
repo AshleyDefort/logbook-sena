@@ -1,6 +1,6 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">REGISTRAR FUNCIONARIO</h6>
+        <h6 class="m-0 font-weight-bold text-light">REGISTRAR FUNCIONARIO</h6>
     </div>
     <div class="card-body">
 
@@ -46,6 +46,9 @@
                 </div>
             </div>
             <div class="form-group row">
+            <div class="col-sm-6">
+                    <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                </div>
                 <div class="col-sm-6">
                     <select id="rol" name="rol" class="form-control">
                     <optgroup label="rol"></optgroup>

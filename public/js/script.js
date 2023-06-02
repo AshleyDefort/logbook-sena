@@ -96,7 +96,7 @@ Swal.fire(
 
 }
 
-let edtcliente=async()=>{
+let edtFuncionario=async()=>{
   let doc=document.getElementById("doc").value;
   let id=document.getElementById("id").value;
   let nombres=document.getElementById("nombres").value;
@@ -105,7 +105,15 @@ let edtcliente=async()=>{
   let correo=document.getElementById("correo").value;
   let direccion=document.getElementById("direccion").value;
   let rol=document.getElementById("rol").value;
-  
+
+  if (doc === '' || id === '' || nombres === '' || apellidos === '' || telefono === '' || correo === '' || direccion === '' || rol === '') {
+    Swal.fire(
+      '',
+      'Por favor, completa todos los campos',
+      'warning'
+    );
+    return; // 
+  }
   
   
   
@@ -178,7 +186,7 @@ if(info.estado == 1){
       Swal.fire('',info.mensaje,'error')
     }
 }else{
-    Swal.fire('','El password nuevo y el de confirmacion no coinciden','error')
+    Swal.fire('','La nueva contraseña y la de confirmacion no coinciden','error')
   }
 }
   
