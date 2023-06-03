@@ -19,7 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="Public/css/sb-admin-2.min.css" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -31,7 +31,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Bitacora/?controller=main&action=home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Bitacora/?controller=main&action=inicio">
                 <div class="sidebar-brand-icon">
                     <img src="public/img/sena.png " width="60px" height="60px"></img>
                 </div>
@@ -43,7 +43,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/Bitacora/?controller=main&action=home">
+                <a class="nav-link" href="/Bitacora/?controller=main&action=inicio">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span></a>
             </li>
@@ -151,7 +151,7 @@
             <li class="nav-item">
                 <a class="nav-link" href="?controller=factura&action=index">
                     <i class="fas fa-file-invoice-dollar"></i>
-                    <span>Plan de mejoramiento</span></a>
+                    <span>Acta de compromiso</span></a>
             </li>
 
             <!-- Divider -->

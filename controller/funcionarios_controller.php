@@ -77,7 +77,7 @@ class funcionarios_controller
         $this->obj-> funcionarios = funcionarios_modelo::findById($id);
         $this->obj-> loadtemplate("funcionarios/frmEditar");
     }
-
+ 
     public function registrar(){
     extract($_POST);
     $data["doc"]=$doc;
@@ -117,7 +117,7 @@ class funcionarios_controller
             $_SESSION["rol"]  =$r["Fun_Rol"]; 
             $mensaje = "";
             $estado = 1;
-            $url="?controller=main&action=home";
+            $url="?controller=main&action=inicio";
             //header("Location: ?controller=main&action=home");   
         }else{
             $mensaje = "Datos incorrectos o Incompletos";

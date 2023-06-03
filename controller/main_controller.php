@@ -20,6 +20,9 @@ class main_controller{
         $this->obj-> loadTemplate("main/frmProgramas");
     }
 
+    public function inicio(){
+        $this->obj-> loadTemplate("main/inicio");
+    }
     public function registrar(){
         extract($_POST);
         $data["codigo"]=$codigo;//las variabes son los del formularios frmproducto

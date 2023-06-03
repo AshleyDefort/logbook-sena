@@ -26,6 +26,7 @@ let respuesta=await fetch("?controller=funcionarios&action=registrar", {
   body: datos
 });
 
+
 let info= await respuesta.json();
 Swal.fire(
   '', 
@@ -189,6 +190,10 @@ if(info.estado == 1){
     Swal.fire('','La nueva contraseña y la de confirmacion no coinciden','error')
   }
 }
-  
+
+
+
+
+
 
 // funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse

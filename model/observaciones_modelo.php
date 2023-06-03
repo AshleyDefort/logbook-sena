@@ -16,8 +16,11 @@ class observaciones_modelo{
         return $st->execute($v);//organiza 
     }
     
+    
     public static function edit(){}
-    public static function delete(){}
+    public static function buscar(){
+      
+    }
     public static function find(){}
     /*public static function lista($id){
         $obj= new connection(); //creamos un ontjeto de conexión

@@ -30,9 +30,16 @@ class observaciones_controller{
         }
 
 
+
+
+
+
+
+
     public function buscarapr(){
-        $id = $_GET["id"];
+        
+        }
         
     }
-    }
+    
 
