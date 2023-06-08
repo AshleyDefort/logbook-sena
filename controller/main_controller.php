@@ -8,7 +8,6 @@ class main_controller{
         if (!isset($_SESSION["id"])) {
             header("Location: /Bitacora");
         }
-        $this->obj->programas=main_modelo::lista();
         $this->obj-> loadTemplate("main/index");
         // $this->obj-> loadTemplate("main/frmLogin", false);
     }

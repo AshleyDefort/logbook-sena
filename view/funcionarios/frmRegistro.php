@@ -1,9 +1,19 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
+<<<<<<< HEAD
+=======
+<<<<<<<< HEAD:view/observaciones/index.php
+        <h6 class="m-0 font-weight-bold text-light">Observacion</h6>
+    </div>
+    <div class="card-body">    
+    <form method="post" action="?controller=observaciones&action=crear" class="user" onsubmit="return false">
+========
+>>>>>>> dfafa97587f5ba77d877f7ef0d4fb7b5800b395b
         <h6 class="m-0 font-weight-bold text-light">REGISTRAR FUNCIONARIO</h6>
     </div>
     <div class="card-body">
 
+<<<<<<< HEAD
         <form method="post" action="?controller=funcionarios&action=registrar" class="user" onsubmit="return false" enctype="multipart/form-data">
         <div class="form-group row">
   <div class="col-sm-12 d-flex flex-column align-items-center">
@@ -32,6 +42,22 @@
                 <div class="col-sm-6">
                     <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite su ID">
                 </div>
+=======
+        <form method="post" action="?controller=funcionarios&action=registrar" class="user" onsubmit="return false">
+>>>>>>>> dfafa97587f5ba77d877f7ef0d4fb7b5800b395b:view/funcionarios/frmRegistro.php
+        
+        <div class="form-group row">
+        <div class="col-sm-6">
+        <input type="date" class="form-control form-control-user" id="Bit_Fecha" name="Bit_Fecha" placeholder="Ingresar Fecha">
+                </div>
+                <div class="col-sm-5">
+                    <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite Id Aprendiz">
+                </div>
+                <div class="col-sm-1">
+                    <a href="?controller=observaciones&action=buscarapr">
+                        <i class="fas fa-search fa-2x"></i></div>
+                    </a>
+>>>>>>> dfafa97587f5ba77d877f7ef0d4fb7b5800b395b
             </div>    
         <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -59,6 +85,12 @@
                 </div>
             </div>
             <div class="form-group row">
+<<<<<<< HEAD
+=======
+            <div class="col-sm-6">
+                    <input type="file" class="form-control" id="foto" name="foto" accept="image/*">
+                </div>
+>>>>>>> dfafa97587f5ba77d877f7ef0d4fb7b5800b395b
                 <div class="col-sm-6">
                     <select id="rol" name="rol" class="form-control">
                     <optgroup label="rol"></optgroup>
@@ -70,6 +102,7 @@
             <input type="submit" name="aceptar" onclick="regCliente()" class="btn btn-primary">
         </form>
         
+<<<<<<< HEAD
     </div>
 </div>
 <script>
@@ -86,3 +119,8 @@
   });
 </script>
 
+=======
+                           
+    </div>
+</div>
+>>>>>>> dfafa97587f5ba77d877f7ef0d4fb7b5800b395b

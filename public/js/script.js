@@ -120,7 +120,15 @@ let edtFuncionario=async()=>{
   let correo=document.getElementById("correo").value;
   let direccion=document.getElementById("direccion").value;
   let rol=document.getElementById("rol").value;
-  
+
+  if (doc === '' || id === '' || nombres === '' || apellidos === '' || telefono === '' || correo === '' || direccion === '' || rol === '') {
+    Swal.fire(
+      '',
+      'Por favor, completa todos los campos',
+      'warning'
+    );
+    return; // 
+  }
   
   
   
@@ -194,9 +202,13 @@ if(info.estado == 1){
       Swal.fire('',info.mensaje,'error')
     }
 }else{
-    Swal.fire('','El password nuevo y el de confirmacion no coinciden','error')
+    Swal.fire('','La nueva contraseña y la de confirmacion no coinciden','error')
   }
 }
-  
+
+
+
+
+
 
 // funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse

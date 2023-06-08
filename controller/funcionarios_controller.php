@@ -65,10 +65,9 @@ class funcionarios_controller
         if($_SESSION['rol'] !="ADMIN"){
             header("Location: ?controller=funcionarios&action=index");
         }
-
         $this->obj->loadTemplate("funcionarios/frmregistro");
     }
-    public function frmPerfil(){
+	public function frmPerfil(){
         $id = $_SESSION['id'];
         $this->obj-> funcionarios = funcionarios_modelo::findById($id);
         $this->obj->loadTemplate("funcionarios/frmPerfil");
@@ -78,7 +77,7 @@ class funcionarios_controller
         $this->obj-> funcionarios = funcionarios_modelo::findById($id);
         $this->obj-> loadtemplate("funcionarios/frmEditar");
     }
-
+ 
     public function registrar(){
     extract($_POST);
     $data["doc"]=$doc;
@@ -141,7 +140,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
             $_SESSION["rol"]  =$r["Fun_Rol"]; 
             $mensaje = "";
             $estado = 1;
-            $url="?controller=main&action=home";
+            $url="?controller=main&action=inicio";
             //header("Location: ?controller=main&action=home");   
         }else{
             $mensaje = "Datos incorrectos o Incompletos";
@@ -172,9 +171,9 @@ public function salir(){
         $data["rol"]=$rol;
         $r=funcionarios_modelo::edit($data);
         if($r>0){
-            echo json_encode(array("mensaje"=>"se editó", "estado"=>1));
+            echo json_encode(array("mensaje"=>"Se han editado los datos", "estado"=>1));
         }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se editó", "estado"=>2));
+            echo json_encode(array("mensaje"=>"ERROR: NO se han editado los datos", "estado"=>2));
         }
         }
 
@@ -189,8 +188,7 @@ public function salir(){
                 $r=funcionarios_modelo::actualizarPassword($Npassword);
                 echo json_encode(array("mensaje" => "Password Actualizado", "estado"=>1 ));
             }else{
-                echo json_encode(array("mensaje" => "El password no coincide con el 
-                registrado en la BD", "estado"=>2 ));
+                echo json_encode(array("mensaje" => "La contraseña ingresada no es correcta", "estado"=>2 ));
             }
         }
 
