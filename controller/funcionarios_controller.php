@@ -140,7 +140,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
             $_SESSION["rol"]  =$r["Fun_Rol"]; 
             $mensaje = "";
             $estado = 1;
-            $url="?controller=main&action=inicio";
+            $url="?controller=main&action=home";
             //header("Location: ?controller=main&action=home");   
         }else{
             $mensaje = "Datos incorrectos o Incompletos";
