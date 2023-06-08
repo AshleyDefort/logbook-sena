@@ -1,5 +1,6 @@
-//json es un formato de texto para el intercambio de información entre lenguajes
+
 let regCliente=async()=>{
+const inputFile = document.getElementById("file-input");
 let doc=document.getElementById("doc").value;
 let id=document.getElementById("id").value;
 let nombres=document.getElementById("nombres").value;
@@ -8,9 +9,18 @@ let telefono=document.getElementById("telefono").value;
 let correo=document.getElementById("correo").value;
 let password=document.getElementById("password").value;
 let direccion=document.getElementById("direccion").value;
-let cargo=document.getElementById("cargo").value;
 let rol=document.getElementById("rol").value;
+let foto = inputFile.files[0];
+console.log(foto);
 
+if (doc === '' || id === ''|| nombres === '' || apellidos === '' || telefono === '' || correo === '' || password === '' || direccion === '' || rol === '') {
+  Swal.fire(
+    '',
+    'Por favor, completa todos los campos',
+    'warning'
+  );
+  return; // 
+}
 let datos=new FormData();
 datos.append("doc", doc);
 datos.append("id", id);
@@ -20,21 +30,24 @@ datos.append("telefono", telefono);
 datos.append("correo", correo);
 datos.append("password", password);
 datos.append("direccion", direccion);
-datos.append("cargo", cargo);
 datos.append("rol", rol);
+if (foto) {
+  datos.append("foto", foto);
+}
 
-let respuesta=await fetch("?controller=cliente&action=registrar", {
-  method: "POST",
-  body: datos
-});
+try {
+    let respuesta = await fetch("?controller=funcionarios&action=registrar", {
+      method: "POST",
+      body: datos,
+    });
 
-let info= await respuesta.json();
-Swal.fire(
-  '', 
-  info.mensaje,
-  'success'
-  
-)}
+    let info = await respuesta.json();
+
+    Swal.fire("", info.mensaje, "success");
+  } catch (error) {
+    Swal.fire("", "Error al registrar los datos", "error");
+    console.log(error);
+  }}
 
 let regPrograma = async () => {
   let codigo = document.getElementById("codigo").value;
@@ -83,7 +96,7 @@ datos.append("cod_prog", cod_prog);
 datos.append("fech_inic", fech_inic);
 datos.append("fech_fin", fech_fin);
 
-let respuesta=await fetch("?controller=producto&action=registrar", {
+let respuesta=await fetch("?controller=programas&action=registrar", {
   method: "POST",
   body: datos
 });
@@ -98,7 +111,7 @@ Swal.fire(
 
 }
 
-let edtcliente=async()=>{
+let edtFuncionario=async()=>{
   let doc=document.getElementById("doc").value;
   let id=document.getElementById("id").value;
   let nombres=document.getElementById("nombres").value;
@@ -106,7 +119,6 @@ let edtcliente=async()=>{
   let telefono=document.getElementById("telefono").value;
   let correo=document.getElementById("correo").value;
   let direccion=document.getElementById("direccion").value;
-  let cargo=document.getElementById("cargo").value;
   let rol=document.getElementById("rol").value;
   
   
@@ -120,13 +132,12 @@ let edtcliente=async()=>{
   datos.append("telefono", telefono);
   datos.append("correo", correo);
   datos.append("direccion", direccion);
-  datos.append("cargo", cargo);
   datos.append("rol", rol);
  
   
   
   
-  let respuesta=await fetch("?controller=cliente&action=edit", {
+  let respuesta=await fetch("?controller=funcionarios&action=edit", {
       method: "POST",
       body: datos
   });
@@ -136,11 +147,9 @@ let edtcliente=async()=>{
       '', 
       info.mensaje,
       'success'
-
-  
-      
     )
 }
+
 let login=async()=>{
   let doc = document.getElementById("doc").value;
   let id = document.getElementById("id").value;
@@ -150,7 +159,7 @@ let login=async()=>{
   datos.append("id",id);
   datos.append("password",password);
 
-  let respuesta=await fetch("?controller=cliente&action=validar", {
+  let respuesta=await fetch("?controller=funcionarios&action=validar", {
     method: "POST",
     body: datos
 });
@@ -174,7 +183,7 @@ if(info.estado == 1){
     datos.append("NCpassword",NCpassword);
     
   if(Npassword == NCpassword){
-      let respuesta=await fetch("?controller=cliente&action=CambiarPassword", {
+      let respuesta=await fetch("?controller=funcionarios&action=CambiarPassword", {
         method: "POST",
         body: datos
     });

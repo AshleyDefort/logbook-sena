@@ -53,10 +53,10 @@
     <script src="public/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="public/js/script.js" ></script>
     <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="public/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
+    <script src="public/js/sb-admin-2.min.js"></script>
 
 </body>
 

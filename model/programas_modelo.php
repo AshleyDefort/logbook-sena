@@ -1,5 +1,5 @@
 <?php
-class producto_modelo{
+class programas_modelo{
     public static function add($data){
        $obj= new connection();
        $c= $obj->getConnection();
@@ -17,6 +17,14 @@ class producto_modelo{
     public static function edit(){}
     public static function delete(){}
     public static function find(){}
+    public static function listaProgramas(){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT * from programas";
+        $st=$c->prepare($sql);
+        $v= $st->execute();
+        return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
+    }
     public static function lista($id){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();

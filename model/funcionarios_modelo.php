@@ -1,30 +1,28 @@
 <?php
-class cliente_modelo{
+class funcionarios_modelo{
     public static function add($data){
        $obj= new connection();
        $c= $obj->getConnection();
        $sql="INSERT INTO funcionario
-       (Fun_Tip_Doc,ID_Func,Fun_Nom,Fun_Ape,Fun_Tel,Fun_Correo,Fun_Pswd,Fun_Direcc,Fun_Cargo,Fun_Rol)
+       (Fun_Tip_Doc,ID_Func,Fun_Nom,Fun_Ape,Fun_Tel,Fun_Correo,Fun_Pswd,Fun_Direcc,Fun_Rol, Fun_Img)
     VALUES (?,?,?,?,?,?,?,?,?,?)";
-    $st=$c->prepare($sql);
-    $v=array($data["doc"],
-                $data["id"],
-                $data["nombres"],
-                $data["apellidos"],
-                $data["telefono"],
-                $data["correo"],
-                sha1($data["password"]),
-                $data["direccion"],
-                $data["cargo"],
-                $data["rol"]);
-        return $st->execute($v);//organiza 
+    try {
+        $st = $c->prepare($sql);
+        $v = array($data["doc"], $data["id"], $data["nombres"], $data["apellidos"], $data["telefono"], $data["correo"], sha1($data["password"]), $data["direccion"], $data["rol"], $data["foto"]);
+        return $st->execute($v);
+    } catch (PDOException $e) {
+        // Manejar el error de la consulta
+        echo $e->getMessage();
+        return false; // O cualquier manejo de error adecuado que desees realizar
+    }
+    
     }
 
     public static function edit($data){
         $obj= new connection();
         $c= $obj->getConnection();
         $sql="UPDATE funcionario SET 
-        Fun_Tip_Doc=?,ID_Func=?, Fun_Nom=?, Fun_Ape=?, Fun_Tel=?, Fun_Correo=?, Fun_Direcc=?, Fun_Cargo=?, Fun_Rol=?
+        Fun_Tip_Doc=?,ID_Func=?, Fun_Nom=?, Fun_Ape=?, Fun_Tel=?, Fun_Correo=?, Fun_Direcc=?, Fun_Rol=?
         WHERE ID_Func=?";
      $st=$c->prepare($sql);
      $v=array($data["doc"],
@@ -34,7 +32,6 @@ class cliente_modelo{
                  $data["telefono"],
                  $data["correo"],
                  $data["direccion"],
-                 $data["cargo"],
                  $data["rol"],
                 $data["id"]);
          return $st->execute($v);//organiza 
