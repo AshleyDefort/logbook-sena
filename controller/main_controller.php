@@ -18,7 +18,7 @@ class main_controller{
     public function frmProgramas(){
         $this->obj-> loadTemplate("main/frmProgramas");
     }
-
+    
     public function registrar(){
         extract($_POST);
         $data["codigo"]=$codigo;//las variabes son los del formularios frmproducto

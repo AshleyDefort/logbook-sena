@@ -1,11 +1,11 @@
 <?php
 
-class factura_controller{
+class compromiso_controller{
     function __construct(){
         $this->obj=new template();
     }
     public function index(){
-        $this->obj-> loadTemplate("factura/index");
+        $this->obj-> loadTemplate("compromiso/index");
     }
 
 }

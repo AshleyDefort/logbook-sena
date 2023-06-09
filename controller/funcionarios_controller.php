@@ -138,6 +138,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
             $_SESSION["nombre"]    =$r["Fun_Nom"];
             $_SESSION["apellido"]  =$r["Fun_Ape"]; 
             $_SESSION["rol"]  =$r["Fun_Rol"]; 
+            $_SESSION["imagen"]  =$r["Fun_Img"]; 
             $mensaje = "";
             $estado = 1;
             $url="?controller=main&action=home";
@@ -159,7 +160,7 @@ public function salir(){
     header("Location: /Bitacora");
 }
 
-    public function edit(){
+        public function edit(){
         extract($_POST);
         $data["doc"]=$doc;
         $data["id"]=$id;
@@ -175,7 +176,7 @@ public function salir(){
         }else{
             echo json_encode(array("mensaje"=>"ERROR: NO se han editado los datos", "estado"=>2));
         }
-        }
+             }
 
         public function frmPassword(){
             $this->obj->loadTemplate("funcionarios/frmPassword");

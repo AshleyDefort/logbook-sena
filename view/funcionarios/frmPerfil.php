@@ -13,12 +13,14 @@
     $extension = pathinfo($imagen, PATHINFO_EXTENSION);
     $base64 = 'data:image/' . $extension . ';base64,' . $imagen;
     ?>
-      <img src="<?php echo $base64; ?>" alt="" class="img-fluid img-thumbnail" style="max-width: 100%; max-height: 100%; display: block;">
+      <img src="<?php echo $base64; ?>" alt="" class="img-fluid img-thumbnail" style="max-width: 100%; max-height: 100%; display: block;" id="img-profile">
     </div>
     <div class="mt-2">
       <button type="button" class="btn btn-sm btn-danger" onclick="deletePhoto()">Eliminar</button>
-      <button type="button" class="btn btn-sm btn-primary">Subir archivo</button>
+      <button type="button" id="btn-foto" class="btn btn-sm btn-primary">Subir foto</button>
+        <input id="file-input" type="file" style="display:none" accept="image/*">
     </div>
+    <div class="mt-2" id="add_labels"></div>
   </div>
 </div>
 
@@ -78,3 +80,16 @@
         
     </div>
 </div>
+<script>
+    document.getElementById("btn-foto").addEventListener('click', function() {
+        document.getElementById("file-input").click();
+    });
+
+    document.getElementById("file-input").addEventListener('change', function() {
+        let pos = this.files.length - 1;
+        let filename = this.files[pos].name;
+        document.getElementById("add_labels").textContent = filename;
+        let imagen = document.getElementById("img-profile");
+        imagen.src = URL.createObjectURL(this.files[pos]);
+    });
+</script>

@@ -4,7 +4,8 @@
     </div>
     <div class="card-body">
         <a href="?controller=main&action=frmProgramas" class="btn btn-primary">REGISTAR PROGRAMAS</a>
-        <table class="table table-bordered mt-3">
+        <div class="table-responsive">
+        <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
                                         <tr>
                                             <th>PROGRAMAS</th>
                                             <th>ACCIONES</th>
@@ -24,6 +25,7 @@
                                         }
                                         ?>
         </table>
+        </div>
                                 
     </div>
 </div>
