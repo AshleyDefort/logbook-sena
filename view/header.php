@@ -46,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/Bitacora/?controller=main&action=home">
+                <a class="nav-link" href="?controller=main&action=home">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span></a>
             </li>
@@ -146,8 +146,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="?controller=compromiso&action=index">
-                    <i class="fas fa-exclamation-triangle"></i>
+                <a class="nav-link" href="?controller=Atencion&action=index">
+                    <i class="fas fa-file-invoice-dollar"></i>
                     <span>Llamados de atencion</span></a>
             </li>
 
