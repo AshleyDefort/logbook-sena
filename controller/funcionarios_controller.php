@@ -4,7 +4,7 @@ class funcionarios_controller
 {
     function __construct(){
         if (!isset($_SESSION["id"])) {
-            header("Location: /Bitacora");
+            header("Location: /Bitacora-master");
         }
         $this->obj = new template();
     }
@@ -53,7 +53,7 @@ class funcionarios_controller
             if($_SESSION["rol"]=="ADMIN"){
                 $this->obj->tabla.= "<td> 
             <a class='btn btn-primary' href='?controller=funcionarios&action=frmEditar&id=$id'>Editar</a> | 
-            <a class='btn btn-danger' href='?controller=funcionarios&action=delete&id=$id'>Eliminar</a>
+            <a class='btn btn-danger' onclick='Eliminar1($id)'>Eliminar</a>
                                </td>";}
                         $this->obj->tabla.= "</tr>";
         }
@@ -120,7 +120,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
     }
     }
     public function delete(){
-		$id = $_GET["id"];
+		$id = $_POST["id"];
 		$r  = funcionarios_modelo::delete($id);
 		if($r > 0){
 			header("Location: ?controller=funcionarios&action=index");
@@ -157,7 +157,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
 
 public function salir(){
     session_destroy();
-    header("Location: /Bitacora");
+    header("Location:/Bitacora-master");
 }
 
         public function edit(){
@@ -170,6 +170,27 @@ public function salir(){
         $data["correo"]=$correo;
         $data["direccion"]=$direccion;
         $data["rol"]=$rol;
+        $foto = $_FILES['foto']; // Obtener los detalles de la foto
+
+// Verificar si se ha subido una foto
+if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
+    $foto = $_FILES['foto'];
+    $nombreFoto = $foto['name'];
+    $tipoFoto = $foto['type'];
+    $tamanoFoto = $foto['size'];
+    $ubicacionTemporalFoto = $foto['tmp_name'];
+    $errorFoto = $foto['error'];
+
+    $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
+
+    $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
+  } else {
+    // Asignar valor predeterminado para la foto en caso de no haberse enviado una
+    $rutaPorDefecto = "public/img/profile_photo_default.png"; // o asigna un valor predeterminado válido para la columna de la base de datos
+    $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
+    $data["foto"] = $datosFotoDefault;
+
+  }
         $r=funcionarios_modelo::edit($data);
         if($r>0){
             echo json_encode(array("mensaje"=>"Se han editado los datos", "estado"=>1));

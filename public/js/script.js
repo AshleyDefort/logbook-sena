@@ -112,6 +112,7 @@ Swal.fire(
 }
 
 let edtFuncionario=async()=>{
+  const inputFile = document.getElementById("file-input");
   let doc=document.getElementById("doc").value;
   let id=document.getElementById("id").value;
   let nombres=document.getElementById("nombres").value;
@@ -120,6 +121,8 @@ let edtFuncionario=async()=>{
   let correo=document.getElementById("correo").value;
   let direccion=document.getElementById("direccion").value;
   let rol=document.getElementById("rol").value;
+  let foto = inputFile.files[0];
+console.log(foto);
 
   if (doc === '' || id === '' || nombres === '' || apellidos === '' || telefono === '' || correo === '' || direccion === '' || rol === '') {
     Swal.fire(
@@ -141,6 +144,9 @@ let edtFuncionario=async()=>{
   datos.append("correo", correo);
   datos.append("direccion", direccion);
   datos.append("rol", rol);
+  if (foto) {
+    datos.append("foto", foto);
+  }
  
   
   
@@ -206,7 +212,60 @@ if(info.estado == 1){
   }
 }
 
+let buscar=async()=>{
+  let id = document.getElementById("id").value;
+  let datos=new FormData();
+  datos.append("id",id);
 
+  let respuesta = await fetch("?controller=Atencion&action=buscar",{
+    method: "POST",
+    body: datos
+  })
+  let info = await respuesta.json();
+  if(info.estado == 2){
+    document.getElementById("ok").disabled = true;
+    document.getElementById("nombres").value ="";
+    document.getElementById("apellidos").value ="" ;
+    document.getElementById("correo").value  ="";
+    Swal.fire('','No hay aprendices con este ID','error')
+
+  }else{
+       document.getElementById("nombres").value = info.mensaje["Apre_Nom"];
+       document.getElementById("apellidos").value = info.mensaje["Apre_Ape"];
+       document.getElementById("correo").value = info.mensaje["Apre_Correo"];
+       document.getElementById("ok").disabled = false;
+
+  }
+}
+
+let Eliminar1 =async(id) =>{
+  Swal.fire({
+    title: 'Seguro que deseas eliminar?',
+    text: "No se podrá revertir la acción!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Si, Eliminar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "?controller=funcionarios&action=index";
+          peticionEliminar(id);
+    }
+  })
+}
+
+let peticionEliminar = async(id) =>{
+  let datos = new FormData();
+  datos.append("id",id)
+  let respuesta = await fetch("?controller=funcionarios&action=delete",{
+    method: "POST",
+    body: datos
+  });
+  let info = await respuesta.json();
+  window.location.href = "?controller=funcionarios&action=index";
+}
 
 
 
