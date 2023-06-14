@@ -1,49 +1,97 @@
 <?php
+require_once 'libs/connection.php';
 class funcionarios_modelo{
     public static function add($data){
        $obj= new connection();
        $c= $obj->getConnection();
        $sql="INSERT INTO funcionario
-       (Fun_Tip_Doc,ID_Func,Fun_Nom,Fun_Ape,Fun_Tel,Fun_Correo,Fun_Pswd,Fun_Direcc,Fun_Rol, Fun_Img)
-    VALUES (?,?,?,?,?,?,?,?,?,?)";
-    try {
-        $st = $c->prepare($sql);
-        $v = array($data["doc"], $data["id"], $data["nombres"], $data["apellidos"], $data["telefono"], $data["correo"], sha1($data["password"]), $data["direccion"], $data["rol"], $data["foto"]);
-        return $st->execute($v);
-    } catch (PDOException $e) {
-        // Manejar el error de la consulta
-        echo $e->getMessage();
-        return false; // O cualquier manejo de error adecuado que desees realizar
-    }
+       (Fun_Tip_Doc,ID_Func,Fun_Nom,Fun_Ape,Fun_Tel,Fun_Correo,Fun_Pswd,Fun_Direcc,Fun_Rol, Fun_Img) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        try {
+            $st = $c->prepare($sql);
+            $v = array($data["doc"], $data["id"], $data["nombres"], $data["apellidos"], $data["telefono"], $data["correo"], sha1($data["password"]), $data["direccion"], $data["rol"], $data["foto"]);
+            return $st->execute($v);
+        } catch (PDOException $e) {
+            // Manejar el error de la consulta
+            echo $e->getMessage();
+            return false; // O cualquier manejo de error adecuado que desees realizar
+        }
     
     }
 
-    public static function edit($data){
-        $obj= new connection();
-        $c= $obj->getConnection();
-        $sql="UPDATE funcionario SET 
-        Fun_Tip_Doc=?,ID_Func=?, Fun_Nom=?, Fun_Ape=?, Fun_Tel=?, Fun_Correo=?, Fun_Direcc=?, Fun_Rol=?
-        WHERE ID_Func=?";
-     $st=$c->prepare($sql);
-     $v=array($data["doc"],
-                $data["id"],
-                $data["nombres"],
-                 $data["apellidos"],
-                 $data["telefono"],
-                 $data["correo"],
-                 $data["direccion"],
-                 $data["rol"],
-                $data["id"]);
-         return $st->execute($v);//organiza 
-     }
-        public static function delete($id){
-            $obj = new connection();
-            $c = $obj -> getConnection();
-            $sql = "DELETE FROM funcionario WHERE ID_Func = ?";
-            $st = $c -> prepare($sql);
-            $v = array($id);
-            return $st -> execute($v);
-        }
+    public static function edit($data)
+{
+    $obj = new connection();
+    $c = $obj->getConnection();
+
+    // Verificar si se ha cargado una nueva foto
+    if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
+        $foto = $_FILES['foto'];
+        $rutaPorDefecto = "../public/img/profile_photo_default.png";
+        $datosFotoDefault = file_get_contents($rutaPorDefecto);
+        $data["foto"] = $foto['tmp_name'] ? file_get_contents($foto['tmp_name']) : $datosFotoDefault;
+    
+        $sql = "UPDATE funcionario SET 
+            Fun_Tip_Doc = ?,
+            ID_Func = ?,
+            Fun_Nom = ?,
+            Fun_Ape = ?,
+            Fun_Tel = ?,
+            Fun_Correo = ?,
+            Fun_Direcc = ?,
+            Fun_Rol = ?,
+            Fun_Img = ?
+            WHERE ID_Func = ?";
+        $st = $c->prepare($sql);
+        $st->bindValue(1, $data["doc"]);
+        $st->bindValue(2, $data["id"]);
+        $st->bindValue(3, $data["nombres"]);
+        $st->bindValue(4, $data["apellidos"]);
+        $st->bindValue(5, $data["telefono"]);
+        $st->bindValue(6, $data["correo"]);
+        $st->bindValue(7, $data["direccion"]);
+        $st->bindValue(8, $data["rol"]);
+        $st->bindParam(9, $data["foto"], PDO::PARAM_LOB);
+        $st->bindValue(10, $data["id"]);
+    } else {
+        $sql = "UPDATE funcionario SET 
+            Fun_Tip_Doc = ?,
+            ID_Func = ?,
+            Fun_Nom = ?,
+            Fun_Ape = ?,
+            Fun_Tel = ?,
+            Fun_Correo = ?,
+            Fun_Direcc = ?,
+            Fun_Rol = ?
+            WHERE ID_Func = ?";
+        $st = $c->prepare($sql);
+        
+        // Utilizar directamente el método execute() con los valores
+        $st->execute(array(
+            $data["doc"],
+            $data["id"],
+            $data["nombres"],
+            $data["apellidos"],
+            $data["telefono"],
+            $data["correo"],
+            $data["direccion"],
+            $data["rol"],
+            $data["id"]
+        ));
+    }
+
+    return $st->execute();
+}
+
+    
+
+    public static function delete($id){
+        $obj = new connection();
+        $c = $obj -> getConnection();
+        $sql = "DELETE FROM funcionario WHERE ID_Func = ?";
+        $st = $c -> prepare($sql);
+        $v = array($id);
+        return $st -> execute($v);
+    }
     public static function find(){}
 
     public static function lista($pagina,$limite){

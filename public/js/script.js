@@ -110,32 +110,52 @@ Swal.fire(
 )
 
 }
+let editarFuncionario = async (datos) => {
+  try {
+    let respuesta = await fetch("?controller=funcionarios&action=edit", {
+      method: "POST",
+      body: datos,
+    });
 
-let edtFuncionario=async()=>{
-  const inputFile = document.getElementById("file-input");
-  let doc=document.getElementById("doc").value;
-  let id=document.getElementById("id").value;
-  let nombres=document.getElementById("nombres").value;
-  let apellidos=document.getElementById("apellidos").value;
-  let telefono=document.getElementById("telefono").value;
-  let correo=document.getElementById("correo").value;
-  let direccion=document.getElementById("direccion").value;
-  let rol=document.getElementById("rol").value;
-  let foto = inputFile.files[0];
-console.log(foto);
-
-  if (doc === '' || id === '' || nombres === '' || apellidos === '' || telefono === '' || correo === '' || direccion === '' || rol === '') {
-    Swal.fire(
-      '',
-      'Por favor, completa todos los campos',
-      'warning'
-    );
-    return; // 
+    let info = await respuesta.json();
+    if (info.estado === 1) {
+      Swal.fire("", info.mensaje, "success");
+    } else {
+      Swal.fire("", info.mensaje, "error");
+    }
+  } catch (error) {
+    console.error(error);
+    Swal.fire("", "Ocurrió un error al editar los datos", "error");
   }
-  
-  
-  
-  let datos=new FormData();
+};
+
+let edtFuncionario = async () => {
+  const inputFile = document.getElementById("file-input");
+  let doc = document.getElementById("doc").value;
+  let id = document.getElementById("id").value;
+  let nombres = document.getElementById("nombres").value;
+  let apellidos = document.getElementById("apellidos").value;
+  let telefono = document.getElementById("telefono").value;
+  let correo = document.getElementById("correo").value;
+  let direccion = document.getElementById("direccion").value;
+  let rol = document.getElementById("rol").value;
+  let foto = inputFile.files[0];
+
+  if (
+    doc === "" ||
+    id === "" ||
+    nombres === "" ||
+    apellidos === "" ||
+    telefono === "" ||
+    correo === "" ||
+    direccion === "" ||
+    rol === ""
+  ) {
+    Swal.fire("", "Por favor, completa todos los campos", "warning");
+    return;
+  }
+
+  let datos = new FormData();
   datos.append("doc", doc);
   datos.append("id", id);
   datos.append("nombres", nombres);
@@ -147,22 +167,11 @@ console.log(foto);
   if (foto) {
     datos.append("foto", foto);
   }
- 
-  
-  
-  
-  let respuesta=await fetch("?controller=funcionarios&action=edit", {
-      method: "POST",
-      body: datos
-  });
-  
-  let info= await respuesta.json();
-  Swal.fire(
-      '', 
-      info.mensaje,
-      'success'
-    )
-}
+
+  editarFuncionario(datos);
+};
+
+
 
 let login=async()=>{
   let doc = document.getElementById("doc").value;

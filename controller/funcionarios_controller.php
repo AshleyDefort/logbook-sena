@@ -1,10 +1,11 @@
 <?php
 require_once "model/funcionarios_modelo.php";
+require_once 'libs/connection.php';
 class funcionarios_controller
 {
     function __construct(){
         if (!isset($_SESSION["id"])) {
-            header("Location: /Bitacora-master");
+            header("Location: /Bitacora");
         }
         $this->obj = new template();
     }
@@ -79,45 +80,45 @@ class funcionarios_controller
     }
  
     public function registrar(){
-    extract($_POST);
-    $data["doc"]=$doc;
-    $data["id"]=$id;
-    $data["nombres"]=$nombres;
-    $data["apellidos"]=$apellidos;
-    $data["telefono"]=$telefono;
-    $data["correo"]=$correo;
-    $data["password"]=$password;
-    $data["direccion"]=$direccion;
-    $data["rol"]=$rol;
-    $foto = $_FILES['foto']; // Obtener los detalles de la foto
+        extract($_POST);
+        $data["doc"]=$doc;
+        $data["id"]=$id;
+        $data["nombres"]=$nombres;
+        $data["apellidos"]=$apellidos;
+        $data["telefono"]=$telefono;
+        $data["correo"]=$correo;
+        $data["password"]=$password;
+        $data["direccion"]=$direccion;
+        $data["rol"]=$rol;
+        $foto = $_FILES['foto']; // Obtener los detalles de la foto
 
-// Verificar si se ha subido una foto
-if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
-    $foto = $_FILES['foto'];
-    $nombreFoto = $foto['name'];
-    $tipoFoto = $foto['type'];
-    $tamanoFoto = $foto['size'];
-    $ubicacionTemporalFoto = $foto['tmp_name'];
-    $errorFoto = $foto['error'];
+        // Verificar si se ha subido una foto
+        if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
+            $foto = $_FILES['foto'];
+            $nombreFoto = $foto['name'];
+            $tipoFoto = $foto['type'];
+            $tamanoFoto = $foto['size'];
+            $ubicacionTemporalFoto = $foto['tmp_name'];
+            $errorFoto = $foto['error'];
 
-    $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
+            $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
 
-    $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
-  } else {
-    // Asignar valor predeterminado para la foto en caso de no haberse enviado una
-    $rutaPorDefecto = "public/img/profile_photo_default.png"; // o asigna un valor predeterminado válido para la columna de la base de datos
-    $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
-    $data["foto"] = $datosFotoDefault;
+            $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
+        } else {
+            // Asignar valor predeterminado para la foto en caso de no haberse enviado una
+            $rutaPorDefecto = "public/img/profile_photo_default.png"; // o asigna un valor predeterminado válido para la columna de la base de datos
+            $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
+            $data["foto"] = $datosFotoDefault;
 
-  }
+        }
 
-    $r=funcionarios_modelo::add($data);
-    var_dump($r);
-    if($r>0){
-        echo json_encode(array("mensaje"=>"Se han registrado los datos", "estado"=>1));
-    }else{
-        echo json_encode(array("mensaje"=>"ERROR: NO se han registrado los datos", "estado"=>2));
-    }
+        $r=funcionarios_modelo::add($data);
+        var_dump($r);
+        if($r>0){
+            echo json_encode(array("mensaje"=>"Se han registrado los datos", "estado"=>1));
+        }else{
+            echo json_encode(array("mensaje"=>"ERROR: NO se han registrado los datos", "estado"=>2));
+        }
     }
     public function delete(){
 		$id = $_POST["id"];
@@ -155,12 +156,12 @@ if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
       
       
 
-public function salir(){
-    session_destroy();
-    header("Location:/Bitacora-master");
-}
+    public function salir(){
+        session_destroy();
+        header("Location:/Bitacora");
+    }
 
-        public function edit(){
+    public function edit(){
         extract($_POST);
         $data["doc"]=$doc;
         $data["id"]=$id;
@@ -170,56 +171,57 @@ public function salir(){
         $data["correo"]=$correo;
         $data["direccion"]=$direccion;
         $data["rol"]=$rol;
-        $foto = $_FILES['foto']; // Obtener los detalles de la foto
+    
+        // Verificar si se ha subido una foto
+        if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
+            $foto = $_FILES['foto'];
+            $nombreFoto = $foto['name'];
+            $tipoFoto = $foto['type'];
+            $tamanoFoto = $foto['size'];
+            $ubicacionTemporalFoto = $foto['tmp_name'];
+            $errorFoto = $foto['error'];
+    
+            $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
+    
+            $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
+        } else {
+            // Asignar valor predeterminado para la foto en caso de no haberse enviado una
+            $rutaPorDefecto = "public/img/profile_photo_default.png";
+ // o asigna un valor predeterminado válido para la columna de la base de datos
+            $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
+            $data["foto"] = $datosFotoDefault;
+        }
+        var_dump($data);
+        $r = funcionarios_modelo::edit($data);
+        if ($r !== false) {
+            echo json_encode(array("mensaje" => "Se han editado los datos", "estado" => 1));
+        } else {
+            echo json_encode(array("mensaje" => "ERROR: No se han editado los datos", "estado" => 2));
+        }
+    }
+    
 
-// Verificar si se ha subido una foto
-if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
-    $foto = $_FILES['foto'];
-    $nombreFoto = $foto['name'];
-    $tipoFoto = $foto['type'];
-    $tamanoFoto = $foto['size'];
-    $ubicacionTemporalFoto = $foto['tmp_name'];
-    $errorFoto = $foto['error'];
+    public function frmPassword(){
+        $this->obj->loadTemplate("funcionarios/frmPassword");
+    }
 
-    $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
-
-    $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
-  } else {
-    // Asignar valor predeterminado para la foto en caso de no haberse enviado una
-    $rutaPorDefecto = "public/img/profile_photo_default.png"; // o asigna un valor predeterminado válido para la columna de la base de datos
-    $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
-    $data["foto"] = $datosFotoDefault;
-
-  }
-        $r=funcionarios_modelo::edit($data);
-        if($r>0){
-            echo json_encode(array("mensaje"=>"Se han editado los datos", "estado"=>1));
+    public function CambiarPassword(){
+        extract($_POST);
+        $r=funcionarios_modelo::validarPassActual($password);
+        if(is_array($r)){
+            $r=funcionarios_modelo::actualizarPassword($Npassword);
+            echo json_encode(array("mensaje" => "Password Actualizado", "estado"=>1 ));
         }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se han editado los datos", "estado"=>2));
+            echo json_encode(array("mensaje" => "La contraseña ingresada no es correcta", "estado"=>2 ));
         }
-             }
+    }
 
-        public function frmPassword(){
-            $this->obj->loadTemplate("funcionarios/frmPassword");
-        }
-
-        public function CambiarPassword(){
-            extract($_POST);
-            $r=funcionarios_modelo::validarPassActual($password);
-            if(is_array($r)){
-                $r=funcionarios_modelo::actualizarPassword($Npassword);
-                echo json_encode(array("mensaje" => "Password Actualizado", "estado"=>1 ));
-            }else{
-                echo json_encode(array("mensaje" => "La contraseña ingresada no es correcta", "estado"=>2 ));
-            }
-        }
-
-        public function reportePDF(){
-            $this->obj->funcionarioss=funcionarios_modelo::lista();
-            $this->obj->loadTemplate("funcionarios/reportePDF", false);
-        }
+    public function reportePDF(){
+        $this->obj->funcionarioss=funcionarios_modelo::lista();
+        $this->obj->loadTemplate("funcionarios/reportePDF", false);
+    }
 
         
-        }
+}
 
 

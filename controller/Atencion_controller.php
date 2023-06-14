@@ -2,6 +2,9 @@
 require_once "model/Atencion_modelo.php";
 class Atencion_controller{
     function __construct(){
+        if (!isset($_SESSION["id"])) {
+            header("Location: /Bitacora");
+        }
         $this->obj=new template();
     }
     public function index(){
