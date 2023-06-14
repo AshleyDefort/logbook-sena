@@ -152,7 +152,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="?controller=compromiso&action=index">
+                <a class="nav-link" href="?controller=actas&action=index">
                     <i class="fas fa-file-text"></i>
                     <span>Acta de compromiso</span></a>
             </li>

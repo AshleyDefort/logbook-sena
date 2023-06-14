@@ -8,8 +8,6 @@ class observaciones_controller{
         $this->obj=new template();
     }
     public function index(){
-        //$id=$_GET["id"];
-        //$this->obj->fichas=producto_modelo::lista($id);
         $this->obj-> loadTemplate("observaciones/index");
     }
     
@@ -23,9 +21,9 @@ class observaciones_controller{
         $data["Cod_Des_CortFK"]=$Cod_Des_CortFK;
         $r=observaciones_modelo::add($data);
         if($r>0){
-            echo json_encode(array("mensaje"=>"se registró", "estado"=>1));
+            echo json_encode(array("mensaje"=>"Observación registrada", "estado"=>1));
         }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se registró", "estado"=>2));
+            echo json_encode(array("mensaje"=>"ERROR: NO se ha registrado la observación", "estado"=>2));
         }
         }
 
