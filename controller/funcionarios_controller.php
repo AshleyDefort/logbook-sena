@@ -81,45 +81,43 @@ class funcionarios_controller
  
     public function registrar(){
         extract($_POST);
-        $data["doc"]=$doc;
-        $data["id"]=$id;
-        $data["nombres"]=$nombres;
-        $data["apellidos"]=$apellidos;
-        $data["telefono"]=$telefono;
-        $data["correo"]=$correo;
-        $data["password"]=$password;
-        $data["direccion"]=$direccion;
-        $data["rol"]=$rol;
-        $foto = $_FILES['foto']; // Obtener los detalles de la foto
-
+        $data["doc"] = $doc;
+        $data["id"] = $id;
+        $data["nombres"] = $nombres;
+        $data["apellidos"] = $apellidos;
+        $data["telefono"] = $telefono;
+        $data["correo"] = $correo;
+        $data["password"] = $password;
+        $data["direccion"] = $direccion;
+        $data["rol"] = $rol;
+    
         // Verificar si se ha subido una foto
-        if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
+        if (array_key_exists('foto', $_FILES) && $_FILES['foto']['name'] !== '') {
             $foto = $_FILES['foto'];
             $nombreFoto = $foto['name'];
             $tipoFoto = $foto['type'];
             $tamanoFoto = $foto['size'];
             $ubicacionTemporalFoto = $foto['tmp_name'];
             $errorFoto = $foto['error'];
-
+    
             $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
-
+    
             $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
         } else {
             // Asignar valor predeterminado para la foto en caso de no haberse enviado una
-            $rutaPorDefecto = "public/img/profile_photo_default.png"; // o asigna un valor predeterminado válido para la columna de la base de datos
-            $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
+            $rutaPorDefecto = "public/img/profile_photo_default.png";
+            $datosFotoDefault = file_get_contents($rutaPorDefecto);
             $data["foto"] = $datosFotoDefault;
-
         }
-
-        $r=funcionarios_modelo::add($data);
-        var_dump($r);
-        if($r>0){
-            echo json_encode(array("mensaje"=>"Se han registrado los datos", "estado"=>1));
-        }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se han registrado los datos", "estado"=>2));
+    
+        $r = funcionarios_modelo::add($data);
+        if ($r > 0) {
+            echo json_encode(array("mensaje" => "Se han registrado los datos", "estado" => 1));
+        } else {
+            echo json_encode(array("mensaje" => "ERROR: NO se han registrado los datos", "estado" => 2));
         }
     }
+    
     public function delete(){
 		$id = $_POST["id"];
 		$r  = funcionarios_modelo::delete($id);
@@ -191,7 +189,6 @@ class funcionarios_controller
             $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
             $data["foto"] = $datosFotoDefault;
         }
-        var_dump($data);
         $r = funcionarios_modelo::edit($data);
         if ($r !== false) {
             echo json_encode(array("mensaje" => "Se han editado los datos", "estado" => 1));

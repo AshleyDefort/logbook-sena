@@ -11,7 +11,7 @@
                     </div>
                     <div class="mt-2">
                         <button type="button" id="btn-foto" class="btn btn-sm btn-primary">Subir foto</button>
-                        <input id="file-input" type="file" style="display:none" accept="image/*">
+                        <input id="file-input" type="file" style="display:none" accept="image/*" name="foto">
                     </div>
                     <div class="mt-2" id="add_labels"></div>
                 </div>

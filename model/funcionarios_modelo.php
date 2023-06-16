@@ -2,21 +2,33 @@
 require_once 'libs/connection.php';
 class funcionarios_modelo{
     public static function add($data){
-       $obj= new connection();
-       $c= $obj->getConnection();
-       $sql="INSERT INTO funcionario
-       (Fun_Tip_Doc,ID_Func,Fun_Nom,Fun_Ape,Fun_Tel,Fun_Correo,Fun_Pswd,Fun_Direcc,Fun_Rol, Fun_Img) VALUES (?,?,?,?,?,?,?,?,?,?)";
+        $obj = new connection();
+        $c = $obj->getConnection();
+        $sql = "INSERT INTO funcionario (Fun_Tip_Doc, ID_Func, Fun_Nom, Fun_Ape, Fun_Tel, Fun_Correo, Fun_Pswd, Fun_Direcc, Fun_Rol, Fun_Img) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
         try {
             $st = $c->prepare($sql);
-            $v = array($data["doc"], $data["id"], $data["nombres"], $data["apellidos"], $data["telefono"], $data["correo"], sha1($data["password"]), $data["direccion"], $data["rol"], $data["foto"]);
+            $v = array(
+                $data["doc"],
+                $data["id"],
+                $data["nombres"],
+                $data["apellidos"],
+                $data["telefono"],
+                $data["correo"],
+                sha1($data["password"]),
+                $data["direccion"],
+                $data["rol"],
+                $data["foto"]
+            );
+            
             return $st->execute($v);
         } catch (PDOException $e) {
             // Manejar el error de la consulta
             echo $e->getMessage();
             return false; // O cualquier manejo de error adecuado que desees realizar
         }
-    
     }
+    
 
     public static function edit($data)
 {
@@ -26,7 +38,7 @@ class funcionarios_modelo{
     // Verificar si se ha cargado una nueva foto
     if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
         $foto = $_FILES['foto'];
-        $rutaPorDefecto = "../public/img/profile_photo_default.png";
+        $rutaPorDefecto = "public/img/profile_photo_default.png";
         $datosFotoDefault = file_get_contents($rutaPorDefecto);
         $data["foto"] = $foto['tmp_name'] ? file_get_contents($foto['tmp_name']) : $datosFotoDefault;
     

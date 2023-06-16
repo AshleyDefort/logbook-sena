@@ -31,9 +31,8 @@ datos.append("correo", correo);
 datos.append("password", password);
 datos.append("direccion", direccion);
 datos.append("rol", rol);
-if (foto) {
-  datos.append("foto", foto);
-}
+datos.append("foto", foto);
+
 
 try {
     let respuesta = await fetch("?controller=funcionarios&action=registrar", {
