@@ -13,9 +13,9 @@
                     <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite Id Aprendiz">
                 </div>
                 <div class="col-sm-1">
-                    <a href="?controller=observaciones&action=buscarapr">
-                        <i class="fas fa-search fa-2x"></i></div>
-                    </a>
+                <img type="submit" src="public/img/buscar.png" onclick="buscar2()">
+                    </div>
+            
             </div>    
         <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">

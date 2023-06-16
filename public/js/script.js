@@ -278,5 +278,31 @@ let peticionEliminar = async(id) =>{
 
 
 
+let buscar2=async()=>{
+  let id = document.getElementById("id").value;
+  let datos=new FormData();
+  datos.append("id",id);
 
+  let respuesta = await fetch("?controller=observaciones&action=buscar",{
+    method: "POST",
+    body: datos
+  })
+  let info = await respuesta.json();
+  if(info.estado == 2){
+    document.getElementById("ok").disabled = true;
+    document.getElementById("nombres").value ="";
+    document.getElementById("apellidos").value ="" ;
+    document.getElementById("correo").value  ="";
+    document.getElementById("telefono").value  ="";
+    Swal.fire('','No hay aprendices con este ID','error')
+
+  }else{
+       document.getElementById("nombres").value = info.mensaje["Apre_Nom"];
+       document.getElementById("apellidos").value = info.mensaje["Apre_Ape"];
+       document.getElementById("correo").value = info.mensaje["Apre_Correo"];
+       document.getElementById("telefono").value = info.mensaje["Apre_Tel"];
+       document.getElementById("ok").disabled = false;
+
+  }
+}
 // funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse
