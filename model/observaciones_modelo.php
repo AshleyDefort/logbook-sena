@@ -29,5 +29,14 @@ class observaciones_modelo{
         
         return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
     }*/
+    public static function buscar($id){
+        $obj= new connection(); //creamos un obtjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT * from aprendiz WHERE Id_Apre=?";
+        $st=$c->prepare($sql);
+        $v= array($id);
+        $st->execute($v);
+        return $st->fetch();
+    }
 
 }

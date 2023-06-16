@@ -28,9 +28,14 @@ class observaciones_controller{
         }
 
 
-    public function buscarapr(){
-        $id = $_GET["id"];
-        
-    }
+        public function buscar(){
+            extract($_POST);
+            
+            $r=observaciones_modelo::buscar($id);
+            if(is_array($r))
+                 echo json_encode(array("mensaje"=>$r, "estado"=>1));
+            else
+                 echo json_encode(array("mensaje"=>"sin datos", "estado"=>2));
+        }
     }
 
