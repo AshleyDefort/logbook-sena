@@ -191,7 +191,7 @@ if(info.estado == 1){
   window.location.href = info.url;
 
 }else{
-  swal.fire('',info.mensaje,'error')
+  Swal.fire('',info.mensaje,'error')
 }
 }
 

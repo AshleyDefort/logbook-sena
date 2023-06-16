@@ -5,7 +5,7 @@ class funcionarios_controller
 {
     function __construct(){
         if (!isset($_SESSION["id"])) {
-            header("Location: /Bitacora-master");
+            header("Location: /Bitacora");
         }
         $this->obj = new template();
     }
@@ -126,37 +126,39 @@ class funcionarios_controller
 		}
 	}
 
-    public function validar(){
-		extract($_POST);
-        $data["doc"]=$doc;
-        $data["id"]=$id;
-        $data["password"]=$password;
-        $r=funcionarios_modelo::validarUsuario($data);
-        if(is_array($r)){
-            $_SESSION["id"]        =$r["ID_Func"];
-            $_SESSION["nombre"]    =$r["Fun_Nom"];
-            $_SESSION["apellido"]  =$r["Fun_Ape"]; 
-            $_SESSION["rol"]  =$r["Fun_Rol"]; 
-            $_SESSION["imagen"]  =$r["Fun_Img"]; 
-            $mensaje = "";
-            $estado = 1;
-            $url="?controller=main&action=home";
-            //header("Location: ?controller=main&action=home");   
-        }else{
-            $mensaje = "Datos incorrectos o Incompletos";
-            $estado = 2;
-            $url="";
-            //echo"Usuario no registrado";
-        }
-        echo json_encode(array("mensaje" => $mensaje, "estado"=> $estado, "url"=>$url));
+    public function validar()
+{
+    extract($_POST);
+    $data["doc"] = $doc;
+    $data["id"] = $id;
+    $data["password"] = $password;
+    $r = funcionarios_modelo::validarUsuario($data);
+    
+    if (is_array($r)) {
+        $_SESSION["id"] = $r["ID_Func"];
+        $_SESSION["nombre"] = $r["Fun_Nom"];
+        $_SESSION["apellido"] = $r["Fun_Ape"]; 
+        $_SESSION["rol"] = $r["Fun_Rol"]; 
+        $_SESSION["imagen"] = $r["Fun_Img"]; 
+        $mensaje = "";
+        $estado = 1;
+        $url = "?controller=main&action=home";
+    } else {
+        $mensaje = "Datos incorrectos o Incompletos";
+        $estado = 2;
+        $url = "";
     }
+    
+    echo json_encode(array("mensaje" => $mensaje, "estado" => $estado, "url" => $url));
+    exit();
+}
 
       
       
 
     public function salir(){
         session_destroy();
-        header("Location:/Bitacora-master");
+        header("Location:/Bitacora");
     }
 
     public function edit(){
