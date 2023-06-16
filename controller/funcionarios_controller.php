@@ -5,7 +5,7 @@ class funcionarios_controller
 {
     function __construct(){
         if (!isset($_SESSION["id"])) {
-            header("Location: /Bitacora");
+            header("Location: /Bitacora-master");
         }
         $this->obj = new template();
     }
@@ -158,7 +158,7 @@ class funcionarios_controller
 
     public function salir(){
         session_destroy();
-        header("Location:/Bitacora");
+        header("Location:/Bitacora-master");
     }
 
     public function edit(){

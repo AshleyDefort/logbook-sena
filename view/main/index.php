@@ -1,40 +1,34 @@
-
-
-
-<div class="row">
-        <div class="col-4">
-            <div class="card shadow mb-3">
-                <div class=" py-3">
-                    <h6 class="m-0 font-weight-bold text-white">Observaciones</h6>
-                </div>
-                <div class="card-body text-center" >
-                    <i class="fas fa-pencil-alt fa-10x col-12 mb-5 text-primary"></i>                
-                        <a href="?controller=observaciones&action=index" class="btn btn-primary col-12">Crear Observacion</a>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-4">
-            <div class="card shadow mb-3">
-                <div class=" py-3">
-                    <h6 class="m-0 font-weight-bold text-white">Observaciones</h6>
-                </div>
-                <div class="card-body text-center" >
-                    <i class="fas fa-file-alt fa-10x col-12 mb-5 text-primary"></i>                
-                        <a href="?controller=observaciones&action=index" class="btn btn-primary col-12">Crear LLamado De Atencion</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-4">
-            <div class="card shadow mb-3">
-                <div class=" py-3">
-                    <h6 class="m-0 font-weight-bold text-white">Observaciones</h6>
-                </div>
-                <div class="card-body text-center" >
-                    <i class="fas fa-tasks fa-10x col-12 mb-5 text-primary"></i>                
-                        <a href="?controller=observaciones&action=index" class="btn btn-primary col-12">Crear Acta De Compromiso</a>
-                </div>
-            </div>
-        </div>
+<div class="card-deck">
+  <div class="card">
+    <center>
+    <br><img class="card-img-top" src="public/img/lapiz.png" ></center>
+    <div class="card-body">
+      <center>
+      <h5 class="card-title">Observaciones</h5></center>
+      <a href="?controller=observaciones&action=index" class="btn btn-primary col-12">Crear</a>
     </div>
+    
+  </div>
+  <div class="card">
+    <center>
+    <br><img class="card-img-top" src="public/img/llamado.png" ></center>
+    <div class="card-body">
+      <center>
+      <h5 class="card-title">Llamados de Atención</h5></center>
+      <a href="?controller=atencion&action=index" class="btn btn-primary col-12">Crear</a>
+    </div>
+    
+  </div>
+  <div class="card">
+    <center>
+    <br><img class="card-img-top" src="public/img/tarea.png" ></center>
+    <div class="card-body">
+      <center>
+      <h5 class="card-title">Acta de Compromiso</h5></center>
+      <a href="?controller=actas&action=index" class="btn btn-primary col-12">Crear </a>
+    </div>
+    
+  </div>
+</div>
+
+

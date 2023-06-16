@@ -3,7 +3,7 @@ require_once "model/Atencion_modelo.php";
 class Atencion_controller{
     function __construct(){
         if (!isset($_SESSION["id"])) {
-            header("Location: /Bitacora");
+            header("Location: /Bitacora-master");
         }
         $this->obj=new template();
     }
