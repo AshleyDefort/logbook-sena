@@ -4,15 +4,20 @@ class main_controller{
     function __construct(){
         $this->obj=new template();
     }
+
     public function home(){
         if (!isset($_SESSION["id"])) {
-            header("Location:/Bitacora");
+            header("Location:/Bitacora-master");
         }
         $this->obj-> loadTemplate("main/index");
         // $this->obj-> loadTemplate("main/frmLogin", false);
     }
     public function frmlogin(){
         $this->obj-> loadTemplate("main/frmLogin", false);
+    }
+
+    public function frmreccont(){
+        $this->obj-> loadTemplate("main/frmreccon", false);
     }
 
     public function frmProgramas(){

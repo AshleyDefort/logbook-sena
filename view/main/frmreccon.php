@@ -8,8 +8,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="shortcut icon" href="Public/img/logo.png" >
-    <title>Recuperación de contraseña</title>
+    <link rel="shortcut icon" href="Public/img/logo.png">
+    <title>Recuperar Contraseña</title>
 
     <!-- Custom fonts for this template-->
     <link href="Public/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -23,9 +23,9 @@
 </head>
 
 <body class="bg-light" >
-    <header class="bg-light" >
-												<a href="?controller=main&action=frmLogin"><img src="Public/img/LogoSimbolo.jpg" class="img-fluid w-25" alt="Banner"> </a>
-            
+    <header class="bg-light">
+
+            <img src="Public/img/LogoSimbolo.jpg" class="img-fluid w-25" alt="Banner"> 
 
     <div class="w-100 bg-gradient-primary" style="height:20px;">
 
@@ -35,7 +35,6 @@
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
-								
 
             <div class="col-xl-6 col-lg-9 col-md-6">
 
@@ -47,43 +46,23 @@
                             <div class="col-lg-9">
                                 <div class="p-4">
                                     <div class="text-center">
-                                        <h1 class="h4 text-green-900 mb-15">Recuperación de contraseña</h1>
+                                        <h1 class="h4 text-green-900 mb-4">RECUPERAR CONTRASEÑA</h1>
                                     </div>
  <form class="user" method="post" 
  		action="?controller=funcionarios&action=validar" onsubmit="return false">
-
-         <div class="form-group row">
-         <div class="col-sm-12">
-									<h1 class="h6 text-green-900 mb-4">Seleccione tipo de documento:</h1>
-                    <select id="doc" name="doc" class="form-control">
-																				
-                        <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                        <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
-                        <option value="Cedula de Extrangeria">Cedula de Extrangeria</option>
-                        <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>
-                    </select>
-                </div>
-
-                                        </div>
-			<h1 class="h6 text-green-900 mb-4">Número de documento:</h1>
                                         <div class="form-group">
+                                        <h5 class="text-green-900 mb-4">Numero de documento</h5>
     <input type="number" class="form-control form-control-user"
-              id="id" name="id" placeholder="Ingrese número de documento">
+              id="id" name="id" placeholder="Ingrese Su Numero de documento">
 
                                         </div>
-                                        <div class="form-group" hidden="true">
-    
-
-                                        </div>                                                                                                             
-                                        </div>
+                                        
                                         <div class="form-group text-center">
-                                            <input type="submit" value="Recuperar contraseña" class="btn btn-primary" onclick=" return recuperarcontrasena()">
+                                            <input type="submit" value="Enviar" class="btn btn-primary" onclick="login()">
                                         </div>
                                          
                                     </form>
                                     <hr>
-                                                                       
                                 </div>
                             </div>
                         </div>

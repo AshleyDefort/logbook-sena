@@ -93,7 +93,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" >Forgot Password?</a>
+                                        <a class="small" href="?controller=main&action=frmreccont">Olvidaste Tu Contraseña?</a>
                                     </div>
                                     <div class="text-center">
                                         <a class="small" href="register.html">Create an Account!</a>
