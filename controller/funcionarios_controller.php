@@ -161,43 +161,42 @@ class funcionarios_controller
         header("Location:/Bitacora");
     }
 
-    public function edit(){
-        extract($_POST);
-        $data["doc"]=$doc;
-        $data["id"]=$id;
-        $data["nombres"]=$nombres;
-        $data["apellidos"]=$apellidos;
-        $data["telefono"]=$telefono;
-        $data["correo"]=$correo;
-        $data["direccion"]=$direccion;
-        $data["rol"]=$rol;
-    
-        // Verificar si se ha subido una foto
-        if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
-            $foto = $_FILES['foto'];
-            $nombreFoto = $foto['name'];
-            $tipoFoto = $foto['type'];
-            $tamanoFoto = $foto['size'];
-            $ubicacionTemporalFoto = $foto['tmp_name'];
-            $errorFoto = $foto['error'];
-    
-            $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
-    
-            $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
-        } else {
-            // Asignar valor predeterminado para la foto en caso de no haberse enviado una
-            $rutaPorDefecto = "public/img/profile_photo_default.png";
- // o asigna un valor predeterminado válido para la columna de la base de datos
-            $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
-            $data["foto"] = $datosFotoDefault;
-        }
-        $r = funcionarios_modelo::edit($data);
-        if ($r !== false) {
-            echo json_encode(array("mensaje" => "Se han editado los datos", "estado" => 1));
-        } else {
-            echo json_encode(array("mensaje" => "ERROR: No se han editado los datos", "estado" => 2));
+    public function edit()
+{
+    extract($_POST);
+    $data["doc"] = $doc;
+    $data["id"] = $id;
+    $data["nombres"] = $nombres;
+    $data["apellidos"] = $apellidos;
+    $data["telefono"] = $telefono;
+    $data["correo"] = $correo;
+    $data["direccion"] = $direccion;
+    $data["rol"] = $rol;
+
+    // Verificar si se debe eliminar la foto
+    if (isset($_POST['eliminar_foto']) && $_POST['eliminar_foto'] === '1') {
+        // Asignar valor predeterminado para la foto en caso de eliminación
+        $rutaPorDefecto = "public/img/profile_photo_default.png";
+        $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
+        $data["foto"] = $datosFotoDefault;
+    } else {
+        // Verificar si se ha subido una nueva foto
+        if (isset($_FILES['nueva_foto']) && $_FILES['nueva_foto']['error'] === UPLOAD_ERR_OK) {
+            $rutaFoto = $_FILES['nueva_foto']['tmp_name'];
+            $datosFoto = file_get_contents($rutaFoto); // Leer el contenido de la nueva imagen
+            $data["foto"] = $datosFoto;
         }
     }
+
+    $r = funcionarios_modelo::edit($data);
+    if ($r !== false) {
+        echo json_encode(array("mensaje" => "Se han editado los datos", "estado" => 1));
+    } else {
+        echo json_encode(array("mensaje" => "ERROR: No se han editado los datos", "estado" => 2));
+    }
+}
+
+
     
 
     public function frmPassword(){

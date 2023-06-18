@@ -33,6 +33,7 @@ class observaciones_controller{
             
             $r=observaciones_modelo::buscar($id);
             if(is_array($r))
+                
                  echo json_encode(array("mensaje"=>$r, "estado"=>1));
             else
                  echo json_encode(array("mensaje"=>"sin datos", "estado"=>2));

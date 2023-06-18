@@ -31,16 +31,21 @@ class funcionarios_modelo{
     
 
     public static function edit($data)
-{
-    $obj = new connection();
-    $c = $obj->getConnection();
-
-    // Verificar si se ha cargado una nueva foto
-    if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
-        $foto = $_FILES['foto'];
-        $rutaPorDefecto = "public/img/profile_photo_default.png";
-        $datosFotoDefault = file_get_contents($rutaPorDefecto);
-        $data["foto"] = $foto['tmp_name'] ? file_get_contents($foto['tmp_name']) : $datosFotoDefault;
+    {
+        $obj = new connection();
+        $c = $obj->getConnection();
+    
+        // Verificar si se ha cargado una nueva foto
+        if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
+            $foto = $_FILES['foto'];
+            $data["foto"] = file_get_contents($foto['tmp_name']);
+        } else {
+            // Verificar si se desea eliminar la foto
+            if (isset($data['eliminar_foto']) && $data['eliminar_foto'] === '1') {
+                $rutaPorDefecto = "public/img/profile_photo_default.png";
+                $data["foto"] = file_get_contents($rutaPorDefecto);
+            }
+        }
     
         $sql = "UPDATE funcionario SET 
             Fun_Tip_Doc = ?,
@@ -64,35 +69,13 @@ class funcionarios_modelo{
         $st->bindValue(8, $data["rol"]);
         $st->bindParam(9, $data["foto"], PDO::PARAM_LOB);
         $st->bindValue(10, $data["id"]);
-    } else {
-        $sql = "UPDATE funcionario SET 
-            Fun_Tip_Doc = ?,
-            ID_Func = ?,
-            Fun_Nom = ?,
-            Fun_Ape = ?,
-            Fun_Tel = ?,
-            Fun_Correo = ?,
-            Fun_Direcc = ?,
-            Fun_Rol = ?
-            WHERE ID_Func = ?";
-        $st = $c->prepare($sql);
-        
-        // Utilizar directamente el método execute() con los valores
-        $st->execute(array(
-            $data["doc"],
-            $data["id"],
-            $data["nombres"],
-            $data["apellidos"],
-            $data["telefono"],
-            $data["correo"],
-            $data["direccion"],
-            $data["rol"],
-            $data["id"]
-        ));
+    
+        return $st->execute();
     }
+    
+    
 
-    return $st->execute();
-}
+
 
     
 

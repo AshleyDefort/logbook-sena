@@ -7,21 +7,21 @@
         <form method="post" action="?controller=funcionarios&action=edit" class="user" onsubmit="return false">
         <div class="form-group row">
   <div class="col-sm-12 d-flex flex-column align-items-center">
-    <div style="width: 10em; height: 10em; overflow: hidden;">
-    <?php
-    $imagen = base64_encode($this->funcionarios["Fun_Img"]);
-    $extension = pathinfo($imagen, PATHINFO_EXTENSION);
-    $base64 = 'data:image/' . $extension . ';base64,' . $imagen;
-    ?>
-      <img src="<?php echo $base64; ?>" alt="" class="img-fluid img-thumbnail" style="max-width: 100%; max-height: 100%; display: block;" id="img-profile">
+        <div style="width: 10em; height: 10em; overflow: hidden;">
+        <?php
+        $imagen = base64_encode($this->funcionarios["Fun_Img"]);
+        $extension = pathinfo($imagen, PATHINFO_EXTENSION);
+        $base64 = 'data:image/' . $extension . ';base64,' . $imagen;
+        ?>
+        <img src="<?php echo $base64; ?>" alt="" class="img-fluid img-thumbnail" style="max-width: 100%; max-height: 100%; display: block;" id="img-profile">
+        </div>
+        <div class="mt-2">
+        <button type="button" class="btn btn-sm btn-danger" onclick="deletePhoto()">Eliminar</button>
+        <button type="button" id="btn-foto" class="btn btn-sm btn-primary">Subir foto</button>
+            <input id="file-input" type="file" style="display:none" accept="image/*">
+        </div>
+        <div class="mt-2" id="add_labels"></div>
     </div>
-    <div class="mt-2">
-      <button type="button" class="btn btn-sm btn-danger" onclick="deletePhoto()">Eliminar</button>
-      <button type="button" id="btn-foto" class="btn btn-sm btn-primary">Subir foto</button>
-        <input id="file-input" type="file" style="display:none" accept="image/*">
-    </div>
-    <div class="mt-2" id="add_labels"></div>
-  </div>
 </div>
 
         <div class="form-group row">

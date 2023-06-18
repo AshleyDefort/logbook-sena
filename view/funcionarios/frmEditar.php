@@ -1,16 +1,30 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">EDITAR FUNCIONARIO</h6>
+        <h6 class="m-0 font-weight-bold text-light">EDITAR FUNCIONARIO</h6>
     </div>
     <div class="card-body">
 
         <form method="post" action="?controller=funcionarios&action=edit" class="user" onsubmit="return false">
-        
+        <div class="col-sm-12 d-flex flex-column align-items-center">
+        <div style="width: 10em; height: 10em; overflow: hidden;">
+        <?php
+        $imagen = base64_encode($this->funcionarios["Fun_Img"]);
+        $extension = pathinfo($imagen, PATHINFO_EXTENSION);
+        $base64 = 'data:image/' . $extension . ';base64,' . $imagen;
+        ?>
+        <img src="<?php echo $base64; ?>" alt="" class="img-fluid img-thumbnail" style="max-width: 100%; max-height: 100%; display: block;" id="img-profile">
+        </div>
+        <div class="mt-2" style="display:none">
+        <button type="button" id="btn-foto" class="btn btn-sm btn-primary">Subir foto</button>
+            <input id="file-input" type="file" style="display:none" accept="image/*">
+        </div>
+        <div class="mt-2" id="add_labels"></div>
+</div>
         <div class="form-group row">
         <div class="col-sm-6">
                     <select id="doc" name="doc" class="form-control" value="<?php echo $this->funcionarios["Fun_Tip_Doc"];?>">>
                         <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Idetidad</option>
+                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                         <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
                         <option value="Cedula de Extrangeria">Cedula de Extrangeria</option>
                         <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>

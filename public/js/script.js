@@ -11,7 +11,6 @@ let password=document.getElementById("password").value;
 let direccion=document.getElementById("direccion").value;
 let rol=document.getElementById("rol").value;
 let foto = inputFile.files[0];
-console.log(foto);
 
 if (doc === '' || id === ''|| nombres === '' || apellidos === '' || telefono === '' || correo === '' || password === '' || direccion === '' || rol === '') {
   Swal.fire(
@@ -246,62 +245,119 @@ let buscar=async()=>{
   }
 }
 
-let Eliminar1 =async(id) =>{
+let deletePhoto = async (id) => {
   Swal.fire({
-    title: 'Seguro que deseas eliminar?',
-    text: "No se podrá revertir la acción!",
+    title: '¿Seguro que deseas eliminar la foto?',
+    text: "No podrás revertir esta acción.",
     icon: 'warning',
     showCancelButton: true,
     confirmButtonColor: '#3085d6',
     cancelButtonColor: '#d33',
     cancelButtonText: 'Cancelar',
-    confirmButtonText: 'Si, Eliminar!'
+    confirmButtonText: 'Sí, eliminar'
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = "?controller=funcionarios&action=index";
-          peticionEliminar(id);
-    }
-  })
-}
+      // Enviar solicitud para eliminar la foto
+      let datos = new FormData();
+      datos.append("id", id);
+      datos.append("eliminar_foto", "1");
 
-let peticionEliminar = async(id) =>{
+      // Actualizar la foto en la vista
+      let imagenPorDefecto = "public/img/profile_photo_default.png";
+      document.getElementById("img-profile").src = imagenPorDefecto;
+    }
+  });
+};
+
+
+
+
+
+
+let buscar2 = async () => {
+  let id = document.getElementById("id").value;
   let datos = new FormData();
-  datos.append("id",id)
-  let respuesta = await fetch("?controller=funcionarios&action=delete",{
+  datos.append("id", id);
+
+  let respuesta = await fetch("?controller=observaciones&action=buscar", {
     method: "POST",
-    body: datos
+    body: datos,
   });
   let info = await respuesta.json();
-  window.location.href = "?controller=funcionarios&action=index";
-}
+  if (info.estado == 2) {
+    document.getElementById("nombres").value = "";
+    document.getElementById("apellidos").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("telefono").value = "";
+    Swal.fire("", "No hay aprendices con este ID", "error");
+  } else {
+    document.getElementById("nombres").value = info.mensaje["Apre_Nom"];
+    document.getElementById("apellidos").value = info.mensaje["Apre_Ape"];
+    document.getElementById("correo").value = info.mensaje["Apre_Correo"];
+    document.getElementById("telefono").value = info.mensaje["Apre_Tel"];
+
+    let fichas = info.mensaje.fichas; // Obtener las fichas del aprendiz
+    // Limpiar opciones existentes antes de agregar las nuevas
+    let selectFichas = document.getElementById("fichas");
+    selectFichas.innerHTML = "";
+    
+    // Generar opciones para cada ficha
+    for (let i = 0; i < fichas.length; i++) {
+      let option = document.createElement("option");
+      option.value = fichas[i];
+      option.text = fichas[i];
+      selectFichas.appendChild(option);
+    }
+    
+  }
+};
 
 
 
-let buscar2=async()=>{
-  let id = document.getElementById("id").value;
+let generarActas=async()=>{
+  let fechaActa = document.getElementById("Bit_Fecha").value;
+  let idAprendiz = document.getElementById("id").value;
+  let nomAprendiz = document.getElementById("nombres").value;
+  let apeAprendiz = document.getElementById("apellidos").value;
+  let telAprendiz = document.getElementById("telefono").value;
+  let corAprendiz = document.getElementById("correo").value;
+  let fichaAprendiz = document.getElementById("fichas").value;
+  let motRemision = document.getElementById("motivoRemision").value;
+  let descargoApre = document.getElementById("descargoApre").value;
+  let compromiso = document.getElementById("compromisos").value;
+  let recomendaciones = document.getElementById("recomendaciones").value;
+  if (fechaActa === '' || idAprendiz === ''|| nomAprendiz === '' || apeAprendiz === '' || telAprendiz === '' || corAprendiz === '' || motRemision === '' || compromiso === '' || recomendaciones === '' || fichaAprendiz==='' || descargoApre==='') {
+    Swal.fire(
+      '',
+      'Por favor, completa todos los campos',
+      'warning'
+    );
+    return; // 
+  }
   let datos=new FormData();
-  datos.append("id",id);
+  datos.append("fechaActa", fechaActa);
+  datos.append("idAprendiz", idAprendiz);
+  datos.append("nomAprendiz", nomAprendiz);
+  datos.append("apeAprendiz", apeAprendiz);
+  datos.append("telAprendiz", telAprendiz);
+  datos.append("corAprendiz", corAprendiz);
+  datos.append("fichaAprendiz", fichaAprendiz);
+  datos.append("descargoApre", descargoApre);
+  datos.append("motRemision", motRemision);
+  datos.append("compromiso", compromiso);
+  datos.append("recomendaciones", recomendaciones);
+  try {
+    let respuesta = await fetch("?controller=actas&action=registrar", {
+      method: "POST",
+      body: datos,
+    });
 
-  let respuesta = await fetch("?controller=observaciones&action=buscar",{
-    method: "POST",
-    body: datos
-  })
-  let info = await respuesta.json();
-  if(info.estado == 2){
-    document.getElementById("ok").disabled = true;
-    document.getElementById("nombres").value ="";
-    document.getElementById("apellidos").value ="" ;
-    document.getElementById("correo").value  ="";
-    document.getElementById("telefono").value  ="";
-    Swal.fire('','No hay aprendices con este ID','error')
+    let info = await respuesta.json();
 
-  }else{
-       document.getElementById("nombres").value = info.mensaje["Apre_Nom"];
-       document.getElementById("apellidos").value = info.mensaje["Apre_Ape"];
-       document.getElementById("correo").value = info.mensaje["Apre_Correo"];
-       document.getElementById("telefono").value = info.mensaje["Apre_Tel"];
-       document.getElementById("ok").disabled = false;
-
+    Swal.fire("", info.mensaje, "success");
+  } catch (error) {
+    Swal.fire("", "Error al registrar los datos", "error");
+    console.log(error);
   }
 }
 // funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse
