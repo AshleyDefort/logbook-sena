@@ -22,24 +22,32 @@ class actas_modelo
             
             $st->execute($v);
     
-            $codActa = $c->lastInsertId();
-    
-            // Insertar en la tabla "aprendices_actas"
-            $sql2 = "INSERT INTO aprendices_actas (codActaFK, idAprendizFK, codFichaFK) VALUES (?, ?, ?)";
-            $st2 = $c->prepare($sql2);
-            $v2 = array(
-                $codActa,
-                $data["idAprendiz"],
-                $data["fichaAprendiz"]
-            );
-            
-            return $st2->execute($v2);
+            return true;
         } catch (PDOException $e) {
             echo $e->getMessage();
-            return false; // 
+            return false;
         }
     }
-     
+    public static function lista($id){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFuncionario=?;";
+        $st = $c->prepare($sql);
+        $st->execute([$id]); // Pasar el valor de $id como argumento
+        return $st->fetchAll();
+    }
+    public static function datosActa($codActa){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, apr.`Apre_Tel`, acta.*, fun.Fun_Nom, fun.Fun_Ape, pro.Pro_Desc FROM acta_compromiso acta
+        JOIN aprendiz apr ON acta.`actaIdAprendiz`=apr.`Id_Apre`
+        JOIN funcionario fun ON acta.`actaFuncionario`=fun.`ID_Func`
+        JOIN ficha fic ON acta.`actaFicha`=fic.`Cod_Ficha`
+        JOIN programas pro ON fic.`Cod_ProFK`=pro.`Cod_Pro` WHERE acta.`codActa`=?;";
+        $st = $c->prepare($sql);
+        $st->execute([$codActa]); // Pasar el valor de $id como argumento
+        return $st->fetchAll();
+    }
 }
 
 ?>

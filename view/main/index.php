@@ -25,7 +25,7 @@
     <div class="card-body">
       <center>
       <h5 class="card-title">Acta de Compromiso</h5></center>
-      <a href="?controller=actas&action=index" class="btn btn-primary col-12">Crear </a>
+      <a href="?controller=actas&action=frmActas" class="btn btn-primary col-12">Crear </a>
     </div>
     
   </div>

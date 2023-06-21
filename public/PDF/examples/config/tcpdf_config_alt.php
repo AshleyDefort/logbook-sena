@@ -63,18 +63,18 @@ define ('K_TCPDF_EXTERNAL_CONFIG', true);
  * Default images directory.
  * By default it is automatically set but you can also set it as a fixed string to improve performances.
  */
-define ('K_PATH_IMAGES', 'http://localhost/Bitacora/public/img/');
+define ('K_PATH_IMAGES', dirname(__FILE__).'/../images/');
 
 /**
  * Deafult image logo used be the default Header() method.
  * Please set here your own logo or an empty string to disable it.
  */
-define ('PDF_HEADER_LOGO', 'logoSena.jpg');
+define ('PDF_HEADER_LOGO', 'tcpdf_logo.jpg');
 
 /**
  * Header logo image width in user units.
  */
-define ('PDF_HEADER_LOGO_WIDTH', 15);
+define ('PDF_HEADER_LOGO_WIDTH', 30);
 
 /**
  * Cache directory for temporary files (full path).
@@ -104,17 +104,17 @@ define ('PDF_CREATOR', 'TCPDF');
 /**
  * Document author.
  */
-define ('PDF_AUTHOR', 'ADSI 2452524');
+define ('PDF_AUTHOR', 'TCPDF');
 
 /**
  * Header title.
  */
-define ('PDF_HEADER_TITLE', 'BITACORA SENA');
+define ('PDF_HEADER_TITLE', 'TCPDF Example');
 
 /**
  * Header description string.
  */
-define ('PDF_HEADER_STRING', "SENA CIYA - Centro Industrial Y de Aviación ");
+define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
 
 /**
  * Document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch].

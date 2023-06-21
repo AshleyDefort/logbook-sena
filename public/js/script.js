@@ -355,9 +355,11 @@ let generarActas=async()=>{
     let info = await respuesta.json();
 
     Swal.fire("", info.mensaje, "success");
+    
   } catch (error) {
     Swal.fire("", "Error al registrar los datos", "error");
     console.log(error);
   }
 }
+
 // funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse
