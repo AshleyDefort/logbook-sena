@@ -1,0 +1,53 @@
+<?php
+require_once 'libs/connection.php';
+class actas_modelo 
+{
+    public static function add($data){
+        $obj = new connection();
+        $c = $obj->getConnection();
+        $sql = "INSERT INTO acta_compromiso (actaFecha, actaIdAprendiz, actaFicha, actaFuncionario, actaMotivoRemision, actaDescargoAprendiz, actaCompromisos, actaRecomendaciones) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        try {
+            $st = $c->prepare($sql);
+            $v = array(
+                $data["fechaActa"],
+                $data["idAprendiz"],
+                $data["fichaAprendiz"],
+                $data["idFuncionario"],
+                $data["motRemision"],
+                $data["descargoApre"],
+                $data["compromiso"],
+                $data["recomendaciones"]
+            );
+            
+            $st->execute($v);
+    
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
+    }
+    public static function lista($id){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFuncionario=?;";
+        $st = $c->prepare($sql);
+        $st->execute([$id]); // Pasar el valor de $id como argumento
+        return $st->fetchAll();
+    }
+    public static function datosActa($codActa){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, apr.`Apre_Tel`, acta.*, fun.Fun_Nom, fun.Fun_Ape, pro.Pro_Desc FROM acta_compromiso acta
+        JOIN aprendiz apr ON acta.`actaIdAprendiz`=apr.`Id_Apre`
+        JOIN funcionario fun ON acta.`actaFuncionario`=fun.`ID_Func`
+        JOIN ficha fic ON acta.`actaFicha`=fic.`Cod_Ficha`
+        JOIN programas pro ON fic.`Cod_ProFK`=pro.`Cod_Pro` WHERE acta.`codActa`=?;";
+        $st = $c->prepare($sql);
+        $st->execute([$codActa]); // Pasar el valor de $id como argumento
+        return $st->fetchAll();
+    }
+}
+
+?>

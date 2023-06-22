@@ -4,11 +4,11 @@ class main_controller{
     function __construct(){
         $this->obj=new template();
     }
+
     public function home(){
         if (!isset($_SESSION["id"])) {
-            header("Location: /Bitacora");
+            header("Location:/Bitacora");
         }
-        $this->obj->programas=main_modelo::lista();
         $this->obj-> loadTemplate("main/index");
         // $this->obj-> loadTemplate("main/frmLogin", false);
     }
@@ -16,10 +16,14 @@ class main_controller{
         $this->obj-> loadTemplate("main/frmLogin", false);
     }
 
+    public function frmreccont(){
+        $this->obj-> loadTemplate("main/frmreccon", false);
+    }
+
     public function frmProgramas(){
         $this->obj-> loadTemplate("main/frmProgramas");
     }
-
+    
     public function registrar(){
         extract($_POST);
         $data["codigo"]=$codigo;//las variabes son los del formularios frmproducto

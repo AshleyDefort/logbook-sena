@@ -1,29 +1,34 @@
-<div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-white">Administrar Programas</h6>
-    </div>
+<div class="card-deck">
+  <div class="card">
+    <center>
+    <br><img class="card-img-top" src="public/img/lapiz.png" ></center>
     <div class="card-body">
-        <a href="?controller=main&action=frmProgramas" class="btn btn-primary">REGISTAR PROGRAMAS</a>
-        <table class="table table-bordered mt-3">
-                                        <tr>
-                                            <th>PROGRAMAS</th>
-                                            <th>ACCIONES</th>
-                                        </tr>
-                                        <?php
-                                        foreach ($this->programas as $fila) {//POR CADA FILA QUE EXITE EN CLIENTE SE REGISTRA EL VALOR EN LA VARIABLE FILA
-                                            $id=$fila["Cod_Pro"];
-                                            echo "<tr>";
-                                            echo "<td>".$fila["Pro_Desc"]."</td>";//concatenar
-                                            
-                                            
-                                                echo "<td> 
-                                                <a class='btn btn-primary' href='?controller=programas&action=index&id=$id'>  Ver  </a>
-                                                                   </td>";
-                                                            echo "</tr>";
-                                           
-                                        }
-                                        ?>
-        </table>
-                                
+      <center>
+      <h5 class="card-title">Observaciones</h5></center>
+      <a href="?controller=observaciones&action=index" class="btn btn-primary col-12">Crear</a>
     </div>
+    
+  </div>
+  <div class="card">
+    <center>
+    <br><img class="card-img-top" src="public/img/llamado.png" ></center>
+    <div class="card-body">
+      <center>
+      <h5 class="card-title">Llamados de Atención</h5></center>
+      <a href="?controller=atencion&action=index" class="btn btn-primary col-12">Crear</a>
+    </div>
+    
+  </div>
+  <div class="card">
+    <center>
+    <br><img class="card-img-top" src="public/img/tarea.png" ></center>
+    <div class="card-body">
+      <center>
+      <h5 class="card-title">Acta de Compromiso</h5></center>
+      <a href="?controller=actas&action=frmActas" class="btn btn-primary col-12">Crear </a>
+    </div>
+    
+  </div>
 </div>
+
+

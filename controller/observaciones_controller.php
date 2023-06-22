@@ -2,11 +2,12 @@
 require_once "model/observaciones_modelo.php";
 class observaciones_controller{
     function __construct(){
+        if (!isset($_SESSION["id"])) {
+            header("Location: /Bitacora");
+        }
         $this->obj=new template();
     }
     public function index(){
-        //$id=$_GET["id"];
-        //$this->obj->fichas=producto_modelo::lista($id);
         $this->obj-> loadTemplate("observaciones/index");
     }
     
@@ -20,16 +21,22 @@ class observaciones_controller{
         $data["Cod_Des_CortFK"]=$Cod_Des_CortFK;
         $r=observaciones_modelo::add($data);
         if($r>0){
-            echo json_encode(array("mensaje"=>"se registró", "estado"=>1));
+            echo json_encode(array("mensaje"=>"Observación registrada", "estado"=>1));
         }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se registró", "estado"=>2));
+            echo json_encode(array("mensaje"=>"ERROR: NO se ha registrado la observación", "estado"=>2));
         }
         }
 
 
-    public function buscarapr(){
-        $id = $_GET["id"];
-        
-    }
+        public function buscar(){
+            extract($_POST);
+            
+            $r=observaciones_modelo::buscar($id);
+            if(is_array($r))
+                
+                 echo json_encode(array("mensaje"=>$r, "estado"=>1));
+            else
+                 echo json_encode(array("mensaje"=>"sin datos", "estado"=>2));
+        }
     }
 

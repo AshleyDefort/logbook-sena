@@ -3,12 +3,19 @@ require_once "model/programas_modelo.php";
 
 class programas_controller{
     function __construct(){
+        if (!isset($_SESSION["id"])) {
+            header("Location: /Bitacora");
+        }
         $this->obj=new template();
     }
     public function index(){
+        $this->obj->programas=programas_modelo::listaProgramas();
+        $this->obj-> loadTemplate("programas/index");
+    }
+    public function fichas(){
         $id=$_GET["id"];
         $this->obj->fichas=programas_modelo::lista($id);
-        $this->obj-> loadTemplate("programas/index");
+        $this->obj-> loadTemplate("programas/fichas");
     }
     public function frmFichas(){
         $this->obj-> loadTemplate("programas/frmFichas");

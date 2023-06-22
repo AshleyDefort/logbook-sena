@@ -29,5 +29,33 @@ class observaciones_modelo{
         
         return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
     }*/
+    public static function buscar($id)
+{
+    $obj = new connection(); //creamos un objeto de conexión
+    $c = $obj->getConnection();
+    $sql = "SELECT aprendiz.*, apre_ficha.Cod_Ficha FROM aprendiz
+            INNER JOIN apre_ficha ON aprendiz.Id_Apre = apre_ficha.Id_Apre
+            WHERE aprendiz.Id_Apre = ?";
+    $st = $c->prepare($sql);
+    $v = array($id);
+    $st->execute($v);
+    $aprendiz = $st->fetch();
+
+    if ($aprendiz) {
+        $fichas = array();
+        $sqlFichas = "SELECT Cod_Ficha FROM apre_ficha WHERE Id_Apre = ?";
+        $stFichas = $c->prepare($sqlFichas);
+        $stFichas->execute($v);
+
+        while ($row = $stFichas->fetch()) {
+            $fichas[] = $row["Cod_Ficha"];
+        }
+
+        $aprendiz["fichas"] = $fichas;
+    }
+
+    return $aprendiz;
+}
+
 
 }

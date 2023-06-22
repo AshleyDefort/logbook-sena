@@ -22,5 +22,10 @@
                                         ?>
                                        
         </table>
+        <?php
+                                    
+                                    echo '<a href="?controller=main&action=home" class="btn btn-light"> Volver </a>';
+                                                        
+                                    ?> 
     </div>
 </div>

@@ -17,9 +17,12 @@
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
+
     <!-- Custom styles for this template-->
     <link href="Public/css/sb-admin-2.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
 <body id="page-top">
@@ -43,7 +46,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="/Bitacora/?controller=main&action=home">
+                <a class="nav-link" href="?controller=main&action=home">
                     <i class="fas fa-home"></i>
                     <span>Inicio</span></a>
             </li>
@@ -123,42 +126,45 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="?controller=main&action=home">
-                    <i class="fas fa-user"></i>
+                <a class="nav-link" href="?controller=programas&action=index">
+                    <i class="fas fa-book"></i>
                     <span>Programas</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="?controller=funcionarios&action=index">
-                    <i class="fas fa-user"></i>
+                    <i class="fas fa-users"></i>
                     <span>Funcionarios</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="?controller=observaciones&action=index">
-                    <i class="fab fa-product-hunt"></i>
+                    <i class="fas fa-comment"></i>
                     
                     <span>Observaciones</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="?controller=factura&action=index">
+                <a class="nav-link" href="?controller=Atencion&action=index">
                     <i class="fas fa-file-invoice-dollar"></i>
                     <span>Llamados de atencion</span></a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="?controller=factura&action=index">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                    <span>Plan de mejoramiento</span></a>
+                <a class="nav-link" href="?controller=actas&action=index">
+                    <i class="fas fa-file-text"></i>
+                    <span>Acta de compromiso</span></a>
             </li>
 
-            <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+             <!-- Divider -->
+             <hr class="sidebar-divider d-none d-md-block">
 
             <!-- Sidebar Toggler (Sidebar) -->
-            
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
 
         </ul>
         <!-- End of Sidebar -->
@@ -173,9 +179,9 @@
                 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
                     <!-- Sidebar Toggle (Topbar) -->
-                    <!-- <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
-                    </button> -->
+                    </button> 
 
                     <!-- Topbar Search -->
                    <!--  <form
@@ -209,28 +215,29 @@
                 }
         ?>
         </span>
+        <?php
+    $imagen = base64_encode($_SESSION["imagen"]);
+    $extension = pathinfo($imagen, PATHINFO_EXTENSION);
+    $base64 = 'data:image/' . $extension . ';base64,' . $imagen;
+    ?>
                                 <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                    src="<?php echo $base64; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="?controller=funcionarios&action=frmPerfil">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
                                 <a class="dropdown-item" href="?controller=funcionarios&action=frmPassword">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    <i class="fas fa-lock fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cambiar Contraseña
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="?controller=funcionarios&action=salir">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
+                                    Salir
                                 </a>
                             </div>
                         </li>
