@@ -17,13 +17,13 @@
                                             
                                             
                                                 echo "<td> 
-                                                <a class='btn btn-primary' href='?controller=producto&action=index&id=$id'>  Ver  </a>
+                                                <a class='btn btn-primary' href='?controller=programas&action=index&id=$id'>  Ver  </a>
                                                                    </td>";
                                                             echo "</tr>";
                                            
                                         }
                                         ?>
         </table>
-                                  
+                                
     </div>
 </div>

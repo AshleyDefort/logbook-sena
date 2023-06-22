@@ -85,11 +85,11 @@ $tbl = '<table border="1" cellspacing="3" cellpadding="3">
                 <th>APELLIDOS</th>
                 <th>CORREO</th>
             </tr>';
-            foreach ($this->clientes as $cliente){
+            foreach ($this->clientes as $funcionarios){
                 $tbl .="<tr>";
-                $tbl .="<td>".$cliente["Fun_Nom"]."</td>";
-                $tbl .="<td>".$cliente["Fun_Ape"]."</td>";
-                $tbl .="<td>".$cliente["Fun_Correo"]."</td>";
+                $tbl .="<td>".$funcionarios["Fun_Nom"]."</td>";
+                $tbl .="<td>".$funcionarios["Fun_Ape"]."</td>";
+                $tbl .="<td>".$funcionarios["Fun_Correo"]."</td>";
                 $tbl .="</tr>";
             }
 

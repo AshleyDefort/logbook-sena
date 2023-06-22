@@ -123,22 +123,35 @@
 
             <!-- Nav Item - Charts -->
             <li class="nav-item">
-                <a class="nav-link" href="?controller=cliente&action=index">
+                <a class="nav-link" href="?controller=main&action=home">
+                    <i class="fas fa-user"></i>
+                    <span>Programas</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="?controller=funcionarios&action=index">
                     <i class="fas fa-user"></i>
                     <span>Funcionarios</span></a>
             </li>
 
             <!-- Nav Item - Tables -->
             <li class="nav-item">
-                <a class="nav-link" href="?controller=producto&action=index">
+                <a class="nav-link" href="?controller=observaciones&action=index">
                     <i class="fab fa-product-hunt"></i>
-                    <span>Fichas</span></a>
+                    
+                    <span>Observaciones</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="?controller=factura&action=index">
                     <i class="fas fa-file-invoice-dollar"></i>
-                    <span>Facturas</span></a>
+                    <span>Llamados de atencion</span></a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="?controller=factura&action=index">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    <span>Plan de mejoramiento</span></a>
             </li>
 
             <!-- Divider -->
@@ -206,7 +219,7 @@
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Perfil
                                 </a>
-                                <a class="dropdown-item" href="?controller=cliente&action=frmPassword">
+                                <a class="dropdown-item" href="?controller=funcionarios&action=frmPassword">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Cambiar Contraseña
                                 </a>
@@ -215,7 +228,7 @@
                                     Activity Log
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="?controller=cliente&action=salir">
+                                <a class="dropdown-item" href="?controller=funcionarios&action=salir">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     Logout
                                 </a>

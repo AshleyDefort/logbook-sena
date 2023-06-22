@@ -1,5 +1,5 @@
 <?php
-class cliente_modelo{
+class funcionarios_modelo{
     public static function add($data){
        $obj= new connection();
        $c= $obj->getConnection();

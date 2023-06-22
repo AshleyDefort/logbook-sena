@@ -23,7 +23,7 @@ datos.append("direccion", direccion);
 datos.append("cargo", cargo);
 datos.append("rol", rol);
 
-let respuesta=await fetch("?controller=cliente&action=registrar", {
+let respuesta=await fetch("?controller=funcionarios&action=registrar", {
   method: "POST",
   body: datos
 });
@@ -83,7 +83,7 @@ datos.append("cod_prog", cod_prog);
 datos.append("fech_inic", fech_inic);
 datos.append("fech_fin", fech_fin);
 
-let respuesta=await fetch("?controller=producto&action=registrar", {
+let respuesta=await fetch("?controller=programas&action=registrar", {
   method: "POST",
   body: datos
 });
@@ -126,7 +126,7 @@ let edtcliente=async()=>{
   
   
   
-  let respuesta=await fetch("?controller=cliente&action=edit", {
+  let respuesta=await fetch("?controller=funcionarios&action=edit", {
       method: "POST",
       body: datos
   });
@@ -150,7 +150,7 @@ let login=async()=>{
   datos.append("id",id);
   datos.append("password",password);
 
-  let respuesta=await fetch("?controller=cliente&action=validar", {
+  let respuesta=await fetch("?controller=funcionarios&action=validar", {
     method: "POST",
     body: datos
 });
@@ -174,7 +174,7 @@ if(info.estado == 1){
     datos.append("NCpassword",NCpassword);
     
   if(Npassword == NCpassword){
-      let respuesta=await fetch("?controller=cliente&action=CambiarPassword", {
+      let respuesta=await fetch("?controller=funcionarios&action=CambiarPassword", {
         method: "POST",
         body: datos
     });

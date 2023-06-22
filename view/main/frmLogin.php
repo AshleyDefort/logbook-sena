@@ -25,7 +25,7 @@
 <body class="bg-light" >
     <header class="bg-light">
 
-            <img src="Public/img/LogoSimbolo.jpg" class="img-fluid w-25" alt="Banner" style=""> 
+            <img src="Public/img/LogoSimbolo.jpg" class="img-fluid w-25" alt="Banner"> 
 
     <div class="w-100 bg-gradient-primary" style="height:20px;">
 
@@ -49,7 +49,7 @@
                                         <h1 class="h4 text-green-900 mb-4">BITÁCORA SENA</h1>
                                     </div>
  <form class="user" method="post" 
- 		action="?controller=cliente&action=validar" onsubmit="return false">
+ 		action="?controller=funcionarios&action=validar" onsubmit="return false">
 
          <div class="form-group row">
          <div class="col-sm-12">

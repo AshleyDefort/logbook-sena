@@ -3,7 +3,7 @@
         <h6 class="m-0 font-weight-bold text-light">REGISTRAR FICHA</h6>
     </div>
     <div class="card-body">
-        <form method="post" action="?controller=producto&action=registrar" class="user" onsubmit="return false">
+        <form method="post" action="?controller=programas&action=registrar" class="user" onsubmit="return false">
             <div class="form-group row">
                 <div class="col-sm-8 mb-3 mb-sm-0">
                     <input type="number" class="form-control form-control-user" id="ficha" 

@@ -1,24 +1,21 @@
 <div class="card shadow mb-4">
     <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">REGISTRAR FUNCIONARIO</h6>
+        <h6 class="m-0 font-weight-bold text-light">Observacion</h6>
     </div>
-    <div class="card-body">
-
-        <form method="post" action="?controller=cliente&action=registrar" class="user" onsubmit="return false">
+    <div class="card-body">    
+    <form method="post" action="?controller=observaciones&action=crear" class="user" onsubmit="return false">
         
         <div class="form-group row">
         <div class="col-sm-6">
-                    <select id="doc" name="doc" class="form-control">
-                        <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Idetidad</option>
-                        <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
-                        <option value="Cedula de Extrangeria">Cedula de Extrangeria</option>
-                        <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>
-                    </select>
+        <input type="date" class="form-control form-control-user" id="Bit_Fecha" name="Bit_Fecha" placeholder="Ingresar Fecha">
                 </div>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite su ID">
+                <div class="col-sm-5">
+                    <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite Id Aprendiz">
                 </div>
+                <div class="col-sm-1">
+                    <a href="?controller=observaciones&action=buscarapr">
+                        <i class="fas fa-search fa-2x"></i></div>
+                    </a>
             </div>    
         <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -69,5 +66,6 @@
             
         </form>
         
+                           
     </div>
 </div>
