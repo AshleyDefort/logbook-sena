@@ -267,10 +267,37 @@ let deletePhoto = async (id) => {
       document.getElementById("img-profile").src = imagenPorDefecto;
     }
   });
-};
+}
 
 
+let Eliminar1 =async(id) =>{
+  Swal.fire({
+    title: 'Seguro que deseas eliminar?',
+    text: "No se podrá revertir la acción!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Si, Eliminar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "?controller=funcionarios&action=index";
+          peticionEliminar(id);
+    }
+  })
+}
 
+let peticionEliminar = async(id) =>{
+  let datos = new FormData();
+  datos.append("id",id)
+  let respuesta = await fetch("?controller=funcionarios&action=delete",{
+    method: "POST",
+    body: datos
+  });
+  let info = await respuesta.json();
+  window.location.href = "?controller=funcionarios&action=index";
+}
 
 
 

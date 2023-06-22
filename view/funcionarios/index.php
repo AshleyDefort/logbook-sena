@@ -11,11 +11,6 @@
                                     }
                                     ?>
 
-                                       <select name=items id="items">
-                                        <option value="3">-- 3 --</option>
-                                        <option value="6">-- 6 --</option>
-                                        <option value="12">-- 12 --</option>
-                                       </select> 
                                     <div class="table-responsive">
                                         <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
                                             <tr>
