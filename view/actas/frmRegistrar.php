@@ -65,6 +65,11 @@
                 </div>
             </div>
             <input type="submit" name="aceptar" onclick="generarActas()" class="btn btn-primary" value="Generar Acta">
+            <?php
+                                    
+                                    echo '<a href="?controller=actas&action=index" class="btn btn-light"> Volver </a>';
+                                                        
+                                    ?> 
         </form>
     </div>
 </div>

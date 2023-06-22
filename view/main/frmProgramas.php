@@ -16,7 +16,7 @@
             <input type="submit" name="aceptar" onclick="regPrograma()" class="btn btn-primary">
             <?php
                                     
-                                    echo '<a href="?controller=main&action=home" class="btn btn-light"> Volver </a>';
+                                    echo '<a href="?controller=programas&action=index" class="btn btn-light"> Volver </a>';
                                                         
                                     ?>      
         </form>

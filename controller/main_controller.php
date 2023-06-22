@@ -7,7 +7,7 @@ class main_controller{
 
     public function home(){
         if (!isset($_SESSION["id"])) {
-            header("Location:/Bitacora");
+            header("Location:/Bitacora-master");
         }
         $this->obj-> loadTemplate("main/index");
         // $this->obj-> loadTemplate("main/frmLogin", false);

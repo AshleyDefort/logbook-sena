@@ -6,16 +6,10 @@
                                     <?php
                                     if($_SESSION["rol"]=="ADMIN"){
                                         echo '<a href="?controller=funcionarios&action=frmRegistro" class="btn btn-primary"> Registrar </a>';
-                                        echo '<a> </a>';
-                                        echo '<a href="?controller=funcionarios&action=reportePDF" class="btn btn-light"> Reporte PDF </a>';
+                                        
                                     }
                                     ?>
 
-                                       <select name=items id="items">
-                                        <option value="3">-- 3 --</option>
-                                        <option value="6">-- 6 --</option>
-                                        <option value="12">-- 12 --</option>
-                                       </select> 
                                     <div class="table-responsive">
                                         <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
                                             <tr>
