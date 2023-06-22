@@ -28,7 +28,7 @@
 </div><br>
 <?php
                                     
-                                    echo '<a href="?controller=main&action=home" class="btn btn-light"> Volver </a>';
+                                    echo '<a href="?controller=programas&action=index" class="btn btn-light"> Volver </a>';
                                                         
                                     ?>             
     </div>

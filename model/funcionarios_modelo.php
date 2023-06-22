@@ -90,12 +90,12 @@ class funcionarios_modelo{
     public static function find(){}
 
     public static function lista($pagina,$limite){
-        $obj= new connection(); //creamos un ontjeto de conexión
+        $obj= new connection(); 
         $c= $obj->getConnection();
         $sql="SELECT * from funcionario LIMIT $pagina, $limite";
         $st=$c->prepare($sql);
         $v= $st->execute();
-        return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
+        return $st->fetchAll();
     }
     public static function findById($id){
         $obj= new connection(); //creamos un obtjeto de conexión

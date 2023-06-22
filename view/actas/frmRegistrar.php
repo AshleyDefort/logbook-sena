@@ -6,7 +6,9 @@
         <form method="post" action="?controller=observaciones&action=crear" class="user" onsubmit="return false">
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="date" class="form-control form-control-user" id="Bit_Fecha" name="Bit_Fecha" >
+                    <input type="date" class="form-control form-control-user" id="Bit_Fecha" name="Bit_Fecha" value="<?php
+echo date("Y-m-d");
+?>" >
                 </div>
                 <div class="col-sm-5">
                     <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite Id Aprendiz">
@@ -65,6 +67,11 @@
                 </div>
             </div>
             <input type="submit" name="aceptar" onclick="generarActas()" class="btn btn-primary" value="Generar Acta">
+            <?php
+                                    
+                                    echo '<a href="?controller=actas&action=index" class="btn btn-light"> Volver </a>';
+                                                        
+                                    ?> 
         </form>
     </div>
 </div>

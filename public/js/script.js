@@ -47,6 +47,49 @@ try {
     console.log(error);
   }}
 
+
+  let regApre=async()=>{
+    let id=document.getElementById("id").value;
+    let nombres=document.getElementById("nombres").value;
+    let apellidos=document.getElementById("apellidos").value;
+    let telefono=document.getElementById("telefono").value;
+    let correo=document.getElementById("correo").value;
+    let sexo=document.getElementById("sexo").value;
+    let rol=document.getElementById("rol").value;
+    
+    if (id === ''|| nombres === '' || apellidos === '' || telefono === '' || correo === '' || sexo === '' || rol === '') {
+      Swal.fire(
+        '',
+        'Por favor, completa todos los campos',
+        'warning'
+      );
+      return; // 
+    }
+    let datos=new FormData();
+    datos.append("id", id);
+    datos.append("nombres", nombres);
+    datos.append("apellidos", apellidos);
+    datos.append("telefono", telefono);
+    datos.append("correo", correo);
+    datos.append("sexo", sexo);
+    datos.append("rol", rol);
+    
+    try {
+        let respuesta = await fetch("?controller=aprendices&action=registrar", {
+          method: "POST",
+          body: datos,
+        });
+    
+        let info = await respuesta.json();
+    
+        Swal.fire("", info.mensaje, "success");
+      } catch (error) {
+        Swal.fire("", "Error al registrar los datos", "error");
+        console.log(error);
+      }}
+
+
+      
 let regPrograma = async () => {
   let codigo = document.getElementById("codigo").value;
   let descripcion = document.getElementById("descripcion").value;
@@ -169,8 +212,6 @@ let edtFuncionario = async () => {
   editarFuncionario(datos);
 };
 
-
-
 let login=async()=>{
   let doc = document.getElementById("doc").value;
   let id = document.getElementById("id").value;
@@ -267,10 +308,37 @@ let deletePhoto = async (id) => {
       document.getElementById("img-profile").src = imagenPorDefecto;
     }
   });
-};
+}
 
 
+let Eliminar1 =async(id) =>{
+  Swal.fire({
+    title: 'Seguro que deseas eliminar?',
+    text: "No se podrá revertir la acción!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Si, Eliminar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "?controller=funcionarios&action=index";
+          peticionEliminar(id);
+    }
+  })
+}
 
+let peticionEliminar = async(id) =>{
+  let datos = new FormData();
+  datos.append("id",id)
+  let respuesta = await fetch("?controller=funcionarios&action=delete",{
+    method: "POST",
+    body: datos
+  });
+  let info = await respuesta.json();
+  window.location.href = "?controller=funcionarios&action=index";
+}
 
 
 
@@ -361,5 +429,26 @@ let generarActas=async()=>{
     console.log(error);
   }
 }
-
+let selectFiltros = async() =>{
+  select = document.getElementById("filtro").value;
+  input = document.getElementById("texto");
+  switch (select) {
+    case "Ficha de caracterización":
+      input.setAttribute("type", "number");
+      input.placeholder = "Dígite ficha de caracterización";
+      break;
+    case "ID de aprendiz":
+      input.setAttribute("type", "number");
+      input.placeholder = "Dígite ID del aprendiz";
+      break;
+    case "Fecha de creación":
+      input.setAttribute("type", "date");
+      break;
+    case "":
+      input.setAttribute("type", "hidden");
+      break;
+    default:
+      break;
+  }
+}
 // funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse
