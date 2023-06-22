@@ -169,8 +169,6 @@ let edtFuncionario = async () => {
   editarFuncionario(datos);
 };
 
-
-
 let login=async()=>{
   let doc = document.getElementById("doc").value;
   let id = document.getElementById("id").value;
