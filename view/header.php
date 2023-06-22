@@ -136,7 +136,11 @@
                     <i class="fas fa-users"></i>
                     <span>Funcionarios</span></a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="?controller=aprendices&action=index">
+                    <i class="fas fa-users"></i>
+                    <span>Aprendices </span></a>
+            </li>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="?controller=observaciones&action=index">

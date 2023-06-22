@@ -47,6 +47,49 @@ try {
     console.log(error);
   }}
 
+
+  let regApre=async()=>{
+    let id=document.getElementById("id").value;
+    let nombres=document.getElementById("nombres").value;
+    let apellidos=document.getElementById("apellidos").value;
+    let telefono=document.getElementById("telefono").value;
+    let correo=document.getElementById("correo").value;
+    let sexo=document.getElementById("sexo").value;
+    let rol=document.getElementById("rol").value;
+    
+    if (id === ''|| nombres === '' || apellidos === '' || telefono === '' || correo === '' || sexo === '' || rol === '') {
+      Swal.fire(
+        '',
+        'Por favor, completa todos los campos',
+        'warning'
+      );
+      return; // 
+    }
+    let datos=new FormData();
+    datos.append("id", id);
+    datos.append("nombres", nombres);
+    datos.append("apellidos", apellidos);
+    datos.append("telefono", telefono);
+    datos.append("correo", correo);
+    datos.append("sexo", sexo);
+    datos.append("rol", rol);
+    
+    try {
+        let respuesta = await fetch("?controller=aprendices&action=registrar", {
+          method: "POST",
+          body: datos,
+        });
+    
+        let info = await respuesta.json();
+    
+        Swal.fire("", info.mensaje, "success");
+      } catch (error) {
+        Swal.fire("", "Error al registrar los datos", "error");
+        console.log(error);
+      }}
+
+
+      
 let regPrograma = async () => {
   let codigo = document.getElementById("codigo").value;
   let descripcion = document.getElementById("descripcion").value;
