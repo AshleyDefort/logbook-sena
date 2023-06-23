@@ -168,17 +168,17 @@ class actas_controller{
         $y += $pdf->getLasth() + 10; 
 
        // Línea 6
-        $left_column = '<b>Descargo Aprendiz: </b><br><span style="text-transform: capitalize">'.$descargoApre.'</span>';
+        $left_column = '<b>Descargo Aprendiz: </b><br><span style="text-transform: none">'.$descargoApre.'</span>';
         $pdf->writeHTMLCell(180, '', '', $y, $left_column, 0, 0, 0, true, 'J', true);
         $y += $pdf->getLasth() + 10; // Incremento de 10
 
         // Línea 7
-        $left_column = '<b>Compromisos Adquiridos: </b><br><span style="text-transform: capitalize">'.$compromisos.'</span>';
+        $left_column = '<b>Compromisos Adquiridos: </b><br><span style="text-transform: none">'.$compromisos.'</span>';
         $pdf->writeHTMLCell(180, '', '', $y, $left_column, 0, 0, 0, true, 'J', true);
         $y += $pdf->getLasth() + 10;  // Incremento de 10
 
         // Línea 8
-        $left_column = '<b>Recomendaciones: </b><br><span style="text-transform: capitalize">'.$recomendaciones.'</span>';
+        $left_column = '<b>Recomendaciones: </b><br><span style="text-transform: none">'.$recomendaciones.'</span>';
         $pdf->writeHTMLCell(180, '', '', $y, $left_column, 0, 0, 0, true, 'J', true);
         $y += $pdf->getLasth() + 10;  // Incremento de 10
 

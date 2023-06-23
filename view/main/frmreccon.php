@@ -48,20 +48,27 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-green-900 mb-4">RECUPERAR CONTRASEÑA</h1>
                                     </div>
- <form class="user" method="post" 
- 		action="?controller=funcionarios&action=validar" onsubmit="return false">
-                                        <div class="form-group">
-                                        <h5 class="text-green-900 mb-4">Numero de documento</h5>
-    <input type="number" class="form-control form-control-user"
-              id="id" name="id" placeholder="Ingrese Su Numero de documento">
+                                    <form class="user" id="formulario">
+  <div class="form-group row">
+    <div class="col-sm-12">
+      <select id="doc" name="doc" class="form-control">
+        <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
+        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
+        <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
+        <option value="Cedula de Extranjeria">Cedula de Extranjería</option>
+        <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="number" class="form-control form-control-user" id="id" name="id" placeholder="Ingrese su número de documento">
+    <input type="hidden" id="idHidden" name="idHidden">
+  </div>
+  <div class="form-group text-center">
+    <button type="button" class="btn btn-primary" onclick="recovery()">Enviar</button>
+  </div>
+</form>
 
-                                        </div>
-                                        
-                                        <div class="form-group text-center">
-                                            <input type="submit" value="Enviar" class="btn btn-primary" onclick="login()">
-                                        </div>
-                                         
-                                    </form>
                                     <hr>
                                 </div>
                             </div>
@@ -74,7 +81,7 @@
         </div>
 
     </div>
-    <footer class="bg-gradient-primary text-center text-lg-start">
+    <footer class="bg-gradient-primary text-center text-lg-start" style="position: absolute;bottom: 0px; width:100%;">
   <!-- Copyright -->
   <div class="text-center p-3 bg-gradient-primary text-light">
     © 202X Copyright:
@@ -93,7 +100,7 @@
     <!-- Custom scripts for all pages-->
     <script src="Public/js/sb-admin-2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="Public/js/script.js"></script>
+    <script src="public/js/script.js"></script>
 
 </body>
 </html>

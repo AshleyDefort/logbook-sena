@@ -54,10 +54,10 @@
          <div class="form-group row">
          <div class="col-sm-12">
                     <select id="doc" name="doc" class="form-control">
-                        <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
+                        <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
                         <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
                         <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
-                        <option value="Cedula de Extrangeria">Cedula de Extrangeria</option>
+                        <option value="Cedula de Extranjeria">Cédula de Extranjeria</option>
                         <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>
                     </select>
                 </div>
@@ -109,7 +109,7 @@
         </div>
 
     </div>
-    <footer class="bg-gradient-primary text-center text-lg-start">
+    <footer class="bg-gradient-primary text-center text-lg-start" style="position: absolute;bottom: 0px; width:100%;">
   <!-- Copyright -->
   <div class="text-center p-3 bg-gradient-primary text-light">
     © 202X Copyright:
