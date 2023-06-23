@@ -34,11 +34,11 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Bitacora/?controller=main&action=home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Bitacora-master/?controller=main&action=home">
                 <div class="sidebar-brand-icon">
                     <img src="public/img/sena.png " width="60px" height="60px"></img>
                 </div>
-                <div class="sidebar-brand-text mx-1">BITACORA <sup></sup></div>
+                <div class="sidebar-brand-text mx-1">S.D.G.C <sup></sup></div>
             </a>
 
             <!-- Divider -->
@@ -136,13 +136,17 @@
                     <i class="fas fa-users"></i>
                     <span>Funcionarios</span></a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link" href="?controller=aprendices&action=index">
+                    <i class="fas fa-users"></i>
+                    <span>Aprendices </span></a>
+            </li>
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="?controller=observaciones&action=index">
                     <i class="fas fa-comment"></i>
                     
-                    <span>Observaciones</span></a>
+                    <span>Observador del Aprendiz</span></a>
             </li>
 
             <li class="nav-item">
