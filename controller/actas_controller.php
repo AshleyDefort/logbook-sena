@@ -202,6 +202,56 @@ class actas_controller{
 
         // Descargar el PDF
         $pdf->Output('acta_compromiso.pdf', 'I');
+    }
+    public function filtros() {
+        $id = $_SESSION["id"];
+        $filtro = $_GET['filtro'];
+        $texto = $_GET['texto'];
+        
+        // Realizar la consulta según el filtro seleccionado
+        switch ($filtro) {
+          case "Ficha de caracterización":
+            $actas = actas_modelo::listByFicha($id, $texto);
+            break;
+          case "ID de aprendiz":
+            $actas = actas_modelo::listById($id, $texto);
+            break;
+          case "Fecha de creación":
+            $actas = actas_modelo::listByDate($id, $texto);
+            break;
+          default:
+            $actas = actas_modelo::lista($id);
+            break;
+        }
+        
+        $tabla = "";
+        $encabezados = "
+        <tr>
+            <th>NOMBRE APRENDIZ</th>
+            <th>FICHA</th>
+            <th>FECHA COMPROMISO</th>
+            <th>MOTIVO DE REMISIÓN</th>
+            <th>ACCIONES</th>
+        </tr>
+    ";
+        // Generar la tabla HTML con los resultados
+        foreach ($actas as $fila) {
+          $nombreCompleto = $fila["Apre_Nom"] . " " . $fila["Apre_Ape"];
+          $codActa = $fila["codActa"];
+          
+          $tabla .= "<tr>";
+          $tabla .= "<td>".$nombreCompleto."</td>";
+          $tabla .= "<td>".$fila["actaFicha"]."</td>";
+          $tabla .= "<td>".$fila["actaFecha"]."</td>";
+          $tabla .= "<td>".$fila["actaMotivoRemision"]."</td>";
+          $tabla .= "<td>
+            <a class='btn btn-secondary' href='?controller=actas&action=generarPDFActa&codActa=".$codActa."' target='_blank'>Descargar</a>
+          </td>";
+          $tabla .= "</tr>";
+        }
+        $tablaCompleta = $encabezados . $tabla;
+        // Devolver la tabla HTML como respuesta
+        echo $tablaCompleta;
       }
       
     

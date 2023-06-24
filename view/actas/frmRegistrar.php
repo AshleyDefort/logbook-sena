@@ -7,6 +7,7 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <input type="date" class="form-control form-control-user" id="Bit_Fecha" name="Bit_Fecha" value="<?php
+date_default_timezone_set('America/Bogota'); 
 echo date("Y-m-d");
 ?>" >
                 </div>
@@ -41,13 +42,19 @@ echo date("Y-m-d");
                 </div>
                 <div class="col-sm-6">
                 <label for="motivoRemision" class="form-label">Motivo Remisión</label>
-                    <select id="motivoRemision" name="motivoRemision" class="form-control">
+                    <select id="motivoRemision" name="motivoRemision" class="form-control" onchange="mostrarInput()">
                         <option value="Bajo rendimiento académico">Bajo rendimiento académico</option>
                         <option value="Inasistencia">Inasistencia</option>
                         <option value="Impuntualidad">Impuntualidad</option>
                         <option value="Comportamiento inapropiado">Comportamiento inapropiado</option>
                         <option value="Incumplimiento de normas y reglamentos">Incumplimiento de normas y reglamentos</option>
+                        <option value="Otro">Otro</option>
                     </select>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col">
+                <textarea hidden class="form-control" id="otroMotivoRemision" rows="1" maxlength="500" placeholder="Escriba aquí el motivo de remisión"></textarea>
                 </div>
             </div>
             <div class="form-group row">

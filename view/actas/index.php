@@ -12,7 +12,7 @@
                                     <option value="Fecha de creación">Fecha de creación</option>
                                 </select>
                                 <input type="hidden" name="texto" id="texto">
-                                <a href="?controller=actas&action=filtros"> <i class="fa fa-filter fa-sm fa-fw mr-2 text-gray-500"></i> </a>
+                                <a onclick="filtrar()"> <i class="fa fa-filter fa-sm fa-fw mr-2 text-gray-500"></i> </a>
                                     <div class="table-responsive">
                                         <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
                                             <tr>

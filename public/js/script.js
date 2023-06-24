@@ -402,6 +402,10 @@ let generarActas=async()=>{
     );
     return; // 
   }
+  if(motRemision === 'Otro'){
+    let otro = document.getElementById("otroMotivoRemision").value;
+    motRemision = otro;
+  }
   let datos=new FormData();
   datos.append("fechaActa", fechaActa);
   datos.append("idAprendiz", idAprendiz);
@@ -448,6 +452,31 @@ let selectFiltros = async() =>{
       input.setAttribute("type", "hidden");
       break;
     default:
+      break;
+  }
+}
+let filtrar = () => {
+  let select = document.getElementById("filtro").value;
+  let input = document.getElementById("texto").value;
+  
+  // Realizar la petición AJAX al controlador
+  fetch(`?controller=actas&action=filtros&filtro=${select}&texto=${input}`)
+    .then(response => response.text())
+    .then(data => {
+      // Actualizar la tabla con los resultados obtenidos
+      document.getElementById("dataTable").innerHTML = data;
+    })
+    .catch(error => console.error(error));
+}
+let mostrarInput = async() =>{
+  select = document.getElementById("motivoRemision").value;
+  input = document.getElementById("otroMotivoRemision");
+  switch (select) {
+    case "Otro":
+      input.removeAttribute("hidden");
+      break;
+    default:
+      input.setAttribute("hidden", "true");
       break;
   }
 }
