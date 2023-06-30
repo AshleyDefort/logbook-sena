@@ -9,8 +9,7 @@ class programas_controller{
         $this->obj=new template();
     }
     public function index(){
-        $id=$_SESSION["id"];
-        $this->obj->programas=programas_modelo::listaProgramas($id);
+        $this->obj->programas=programas_modelo::listaProgramas();
         $this->obj-> loadTemplate("programas/index");
     }
     public function fichas(){
