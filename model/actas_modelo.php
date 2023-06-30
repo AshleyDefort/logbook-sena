@@ -31,9 +31,16 @@ class actas_modelo
     public static function lista($id){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
-        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFuncionario=?;";
-        $st = $c->prepare($sql);
-        $st->execute([$id]); // Pasar el valor de $id como argumento
+        if($_SESSION["rol"]=="ADMIN"){
+            $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz`;";
+            $st = $c->prepare($sql);
+            $st->execute(); // 
+            
+        }else {
+            $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFuncionario=?;";
+            $st = $c->prepare($sql);
+            $st->execute([$id]); // Pasar el valor de $id como argumento
+        }
         return $st->fetchAll();
     }
     public static function listByDate($id, $fechaActa){
