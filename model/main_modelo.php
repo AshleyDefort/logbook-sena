@@ -25,7 +25,6 @@ class main_modelo{
     }
 
     public static function lista(){
-        
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
         $sql="SELECT * from programas";
