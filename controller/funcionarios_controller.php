@@ -157,7 +157,7 @@ class funcionarios_controller
 
     public function salir(){
         session_destroy();
-        header("Location:/Bitacora");
+        header("Location:/Bitacora-master");
     }
 
     public function edit()
