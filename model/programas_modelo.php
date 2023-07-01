@@ -17,31 +17,30 @@ class programas_modelo{
     public static function edit(){}
     public static function delete(){}
     public static function find(){}
-    public static function listaProgramas($id){
+    public static function listaProgramas(){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
-        if($_SESSION["rol"]=="ADMIN"){
-            $sql="SELECT * from programas;";
-            $st = $c->prepare($sql);
-            $st->execute(); // 
+        $sql="SELECT * from programas;";
+        $st = $c->prepare($sql);
+        $st->execute(); // 
+        return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
+    }
+        public static function lista($codPrograma,$id,$rol){
+            $obj= new connection(); //creamos un ontjeto de conexión
+            $c= $obj->getConnection();
+            if ($rol==="ADMIN") {
+                $sql="SELECT * FROM ficha WHERE ficha.Cod_ProFK=?;";
+                $st=$c->prepare($sql);
+                $st->execute(array($codPrograma));
+            } else {
+                $sql="SELECT * FROM ficha INNER JOIN programas ON programas.`Cod_Pro`=ficha.`Cod_ProFK` INNER JOIN ficha_fucionario ON ficha.`Cod_Ficha`=ficha_fucionario.`cod_ficha` WHERE programas.`Cod_Pro`=? AND ficha_fucionario.`id_funcionario`=?;";
+                $st=$c->prepare($sql);
+                $st->execute(array($codPrograma,$id));
+            }
             
-        }else {
-            $sql="SELECT * FROM programas INNER JOIN ficha ON ficha.`Cod_ProFK`=programas.`Cod_Pro` INNER JOIN ficha_fucionario ON ficha_fucionario.`cod_ficha`=ficha.`Cod_Ficha` WHERE ficha_fucionario.`id_funcionario`=?;";
-            $st = $c->prepare($sql);
-            $st->execute([$id]); // Pasar el valor de $id como argumento
+            
+            return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
         }
-        return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
-    }
-    public static function lista($id){
-        $obj= new connection(); //creamos un ontjeto de conexión
-        $c= $obj->getConnection();
-        $sql="SELECT * from ficha WHERE Cod_ProFK=?";
-        $st=$c->prepare($sql);
-        
-         $st->execute(array($id));
-        
-        return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
-    }
 
     public static function lista2($id){
         $obj= new connection(); //creamos un ontjeto de conexión

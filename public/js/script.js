@@ -211,7 +211,6 @@ let edtFuncionario = async () => {
 
   editarFuncionario(datos);
 };
-
 let login=async()=>{
   let doc = document.getElementById("doc").value;
   let id = document.getElementById("id").value;
@@ -231,27 +230,45 @@ if(info.estado == 1){
   window.location.href = info.url;
 
 }else{
-  Swal.fire('',info.mensaje,'error')
+  Swal.fire("",info.mensaje,'error');
 }
 }
 
   let CambiarPass=async()=>{
-    let password = document.getElementById("password").value;
-    let Npassword = document.getElementById("Npassword").value;
-    let NCpassword = document.getElementById("NCpassword").value;
+    let passwordElement = document.getElementById("password");
+    let NpasswordElement = document.getElementById("Npassword");
+    let NCpasswordElement = document.getElementById("NCpassword");
+    let password = passwordElement.value;
+    let Npassword = NpasswordElement.value;
+    let NCpassword = NCpasswordElement.value;
     let datos = new FormData();
     datos.append("password",password);
     datos.append("Npassword",Npassword);
     datos.append("NCpassword",NCpassword);
-    
-  if(Npassword == NCpassword){
-      let respuesta=await fetch("?controller=funcionarios&action=CambiarPassword", {
-        method: "POST",
-        body: datos
-    });
+    if (
+      Npassword === "" ||
+      NCpassword === ""
+    ) {
+      Swal.fire("", "Por favor, completa todos los campos", "warning");
+      return;
+    }
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,}$/;
+    if (!passwordRegex.test(Npassword)) {
+      Swal.fire("", "La contraseña debe tener al menos 8 caracteres y debe contener como mínimo una letra mayúscula, una letra minúscula, un número y un carácter especial.", "warning");
+      return;
+    }
+
+    if(Npassword == NCpassword){
+        let respuesta=await fetch("?controller=funcionarios&action=CambiarPassword", {
+          method: "POST",
+          body: datos
+      });
     let info = await respuesta.json();
     if(info.estado == 1){
-      Swal.fire('',info.mensaje,'succes')
+      Swal.fire('',info.mensaje,'success')
+      passwordElement.value="";
+      NpasswordElement.value="";
+      NCpasswordElement.value=""
     }else{
       Swal.fire('',info.mensaje,'error')
     }

@@ -139,7 +139,7 @@ class funcionarios_controller
         $_SESSION["nombre"] = $r["Fun_Nom"];
         $_SESSION["apellido"] = $r["Fun_Ape"]; 
         $_SESSION["rol"] = $r["Fun_Rol"]; 
-        $_SESSION["imagen"] = $r["Fun_Img"]; 
+        $_SESSION["imagen"] = $r["Fun_Img"];
         $mensaje = "";
         $estado = 1;
         $url = "?controller=main&action=home";
@@ -148,10 +148,9 @@ class funcionarios_controller
         $estado = 2;
         $url = "";
     }
-    
-    echo json_encode(array("mensaje" => $mensaje, "estado" => $estado, "url" => $url));
-    exit();
+    echo json_encode(array("mensaje" => $mensaje, "estado"=> $estado, "url"=>$url));
 }
+
 
       
       

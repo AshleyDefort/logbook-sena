@@ -116,7 +116,6 @@ class funcionarios_modelo{
         return $st->rowCount();
     }
 
-
     public static function validarUsuario($data){
         $obj= new connection();
         $c= $obj->getConnection();

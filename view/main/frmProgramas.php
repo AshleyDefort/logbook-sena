@@ -13,6 +13,7 @@
                 </div>
                 
             </div>
+            
             <input type="submit" name="aceptar" onclick="regPrograma()" class="btn btn-primary">
             <?php
                                     

@@ -48,8 +48,8 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-green-900 mb-4">BITÁCORA SENA</h1>
                                     </div>
- <form class="user" method="post" 
- 		action="?controller=funcionarios&action=validar">
+                                    <form class="user" method="post" 
+ 		action="?controller=cliente&action=validar" onsubmit="return false;">
 
          <div class="form-group row">
          <div class="col-sm-12">
@@ -87,16 +87,13 @@
                                             </div>
                                         </div>
                                         <div class="form-group text-center">
-                                        <input type="submit" value="Ingresar" class="btn btn-primary" onclick="login(); return false;">
+                                        <input type="submit" value="Enviar" class="btn btn-primary" onclick="login()">
                                         </div>
                                          
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="?controller=main&action=frmreccont">Olvidaste Tu Contraseña?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="?controller=main&action=frmreccont">¿Olvidaste Tu Contraseña?</a>
                                     </div>
                                 </div>
                             </div>
