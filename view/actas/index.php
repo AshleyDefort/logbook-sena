@@ -3,7 +3,9 @@
     <h6 class="m-0 font-weight-bold text-light">ACTAS DE COMPROMISO</h6>
 </div>
 <div class="card-body">
+<a href="?controller=actas&action=frmActas" class="btn btn-primary mb-3"> Nueva Acta </a><br>
     <?php if (empty($this->tabla)): ?>
+        <label for="filtro"></label>
     <?php else: ?>
         <label for="filtro">Filtrar por:</label>
         <select name="filtro" id="filtro" onchange="selectFiltros()">
@@ -21,14 +23,33 @@
             <div class="col-12 text-center"><label class="text-center">No hay actas de compromiso creadas.</label></div>
         <?php else: ?>
             <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
-                <!-- Encabezados de la tabla -->
-                <?php echo $this->tabla; ?>
-            </table>
+                                            <tr>
+                                                <th>NOMBRE APRENDIZ</th>
+                                                <th>FICHA</th>
+                                                <th>FECHA COMPROMISO</th>
+                                                <th>MOTIVO DE REMISIÓN</th>
+                                                <th>ACCIONES</th>
+                                            </tr>
+                                            <?php
+                                            echo $this->tabla;
+                                            ?>
+                                        </table>
         <?php endif; ?>
     </div>
-
-    <a href="?controller=actas&action=frmActas" class="btn btn-primary"> Nueva Acta </a>
     <p></p>
 </div>
                          
 </div>
+<script>
+    function handleEnterKey(event) {
+        // Verificar si la tecla presionada es Enter (código 13)
+        if (event.keyCode === 13) {
+            event.preventDefault(); // Evitar el comportamiento predeterminado del Enter (por ejemplo, enviar el formulario)
+            filtrar(); // Realizar el filtro
+        }
+    }
+    var textoInput = document.getElementById('texto');
+
+    // Agregar un evento al campo de texto para capturar la tecla Enter
+    textoInput.addEventListener('keyup', handleEnterKey);
+</script>

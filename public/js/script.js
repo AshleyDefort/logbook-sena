@@ -1,4 +1,4 @@
-
+	
 let regCliente=async()=>{
 const inputFile = document.getElementById("file-input");
 let doc=document.getElementById("doc").value;
@@ -20,6 +20,11 @@ if (doc === '' || id === ''|| nombres === '' || apellidos === '' || telefono ===
   );
   return; // 
 }
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()]).{8,}$/;
+    if (!passwordRegex.test(password)) {
+      Swal.fire("", "La contraseña debe tener al menos 8 caracteres y debe contener como mínimo una letra mayúscula, una letra minúscula, un número y un carácter especial.", "warning");
+      return;
+    }
 let datos=new FormData();
 datos.append("doc", doc);
 datos.append("id", id);
@@ -46,8 +51,15 @@ try {
     Swal.fire("", "Error al registrar los datos", "error");
     console.log(error);
   }}
-
-
+  function showPasswordRequirements() {
+    const requirements = "La contraseña debe tener al menos 8 caracteres y debe contener como mínimo una letra mayúscula, una letra minúscula, un número y un carácter especial.";
+    const passwordRequirementsElement = document.getElementById("password-requirements");
+    passwordRequirementsElement.textContent = requirements;
+}
+function hidePasswordRequirements() {
+  const passwordRequirementsElement = document.getElementById("password-requirements");
+  passwordRequirementsElement.textContent = "";
+}
   let regApre=async()=>{
     let id=document.getElementById("id").value;
     let nombres=document.getElementById("nombres").value;
@@ -122,35 +134,38 @@ let regPrograma = async () => {
   document.getElementById("descripcion").value = '';
 }
 
-let regFichas=async()=>{
-  let ficha = document.getElementById("ficha").value;
-  let desc = document.getElementById("desc").value;
-  let cod_prog = document.getElementById("cod_prog").value;
-  let fech_inic = document.getElementById("fech_inic").value;
-  let fech_fin = document.getElementById("fech_fin").value;
+let regFichas = async () => {
+  try {
+    let ficha = document.getElementById("ficha").value;
+    let desc = document.getElementById("desc").value;
+    let cod_prog = document.getElementById("cod_prog").value;
+    let fech_inic = document.getElementById("fech_inic").value;
+    let fech_fin = document.getElementById("fech_fin").value;
+    let instructores = document.getElementById("instructores").value;
+
+    let datos = new FormData();
+    datos.append("ficha", ficha);
+    datos.append("desc", desc);
+    datos.append("cod_prog", cod_prog);
+    datos.append("fech_inic", fech_inic);
+    datos.append("fech_fin", fech_fin);
+    datos.append("instructores", instructores);
+
+    let respuesta = await fetch("?controller=programas&action=registrar", {
+      method: "POST",
+      body: datos,
+    });
+
+    let info = await respuesta.json();
+
+    Swal.fire("", info.mensaje, "success");
+  } catch (error) {
+    Swal.fire("", "Error al registrar los datos", "error");
+    console.log(error);
+  }
+};
 
 
-let datos = new FormData();
-datos.append("ficha", ficha);
-datos.append("desc", desc);
-datos.append("cod_prog", cod_prog);
-datos.append("fech_inic", fech_inic);
-datos.append("fech_fin", fech_fin);
-
-let respuesta=await fetch("?controller=programas&action=registrar", {
-  method: "POST",
-  body: datos
-});
-
-let info= await respuesta.json();
-Swal.fire(
-  '', 
-  info.mensaje,
-  'success'
-  
-)
-
-}
 let editarFuncionario = async (datos) => {
   try {
     let respuesta = await fetch("?controller=funcionarios&action=edit", {

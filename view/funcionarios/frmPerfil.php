@@ -43,10 +43,10 @@
             <div class="form-group row">
             <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="nombres" 
-                    name="nombres" placeholder="Nombres" value="<?php echo $_SESSION["nombre"];?>">
+                    name="nombres" placeholder="Nombres" value="<?php echo $this->funcionarios["Fun_Nom"];?>">
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos" value="<?php echo $_SESSION["apellido"];?>">
+                    <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos" value="<?php echo $this->funcionarios["Fun_Ape"];?>">
                 </div>
 
             </div>

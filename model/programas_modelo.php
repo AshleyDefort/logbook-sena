@@ -1,22 +1,40 @@
 <?php
 class programas_modelo{
-    public static function add($data){
-       $obj= new connection();
-       $c= $obj->getConnection();
-       $sql="INSERT INTO ficha
-       (Cod_Ficha,Desc_Fich,Cod_ProFK,FechaIni_Fich,FechaFin_Fich)
-    VALUES (?,?,?,?,?)";
-    $st=$c->prepare($sql);  
-    $v=array($data["ficha"],
-                $data["desc"],
-                $data["cod_prog"],
-                $data["fech_inic"],
-                $data["fech_fin"]);
-        return $st->execute($v);//organiza 
-    }
+    public static function add($data)
+{
+    $obj = new connection();
+    $c = $obj->getConnection();
+    $sql = "INSERT INTO ficha (Cod_Ficha, Desc_Fich, Cod_ProFK, FechaIni_Fich, FechaFin_Fich) VALUES (?, ?, ?, ?, ?)";
+    $st = $c->prepare($sql);
+    $v = array(
+        $data["ficha"],
+        $data["desc"],
+        $data["cod_prog"],
+        $data["fech_inic"],
+        $data["fech_fin"]
+    );
+    $success = $st->execute($v);
+    if ($success) {
+        foreach ($data["instructores"] as $instructorID) {
+            $sql = "INSERT INTO ficha_funcionario (cod_ficha, id_funcionario) VALUES (?, ?)";
+            $st = $c->prepare($sql);
+            $st->execute([$data["ficha"], $instructorID]);
+        }
+    }   
+    return $success;
+}
+
     public static function edit(){}
     public static function delete(){}
-    public static function find(){}
+    public static function findById($codPrograma){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT * from programas WHERE Cod_Pro=?;";
+        $st=$c->prepare($sql);
+        $v= array($codPrograma);
+        $st->execute($v);
+        return $st->fetch();
+    }
     public static function listaProgramas(){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
@@ -33,7 +51,7 @@ class programas_modelo{
                 $st=$c->prepare($sql);
                 $st->execute(array($codPrograma));
             } else {
-                $sql="SELECT * FROM ficha INNER JOIN programas ON programas.`Cod_Pro`=ficha.`Cod_ProFK` INNER JOIN ficha_fucionario ON ficha.`Cod_Ficha`=ficha_fucionario.`cod_ficha` WHERE programas.`Cod_Pro`=? AND ficha_fucionario.`id_funcionario`=?;";
+                $sql="SELECT * FROM ficha INNER JOIN programas ON programas.`Cod_Pro`=ficha.`Cod_ProFK` INNER JOIN ficha_funcionario ON ficha.`Cod_Ficha`=ficha_funcionario.`cod_ficha` WHERE programas.`Cod_Pro`=? AND ficha_funcionario.`id_funcionario`=?;";
                 $st=$c->prepare($sql);
                 $st->execute(array($codPrograma,$id));
             }

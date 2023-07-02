@@ -31,34 +31,61 @@ class actas_modelo
     public static function lista($id){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
-        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFuncionario=?;";
-        $st = $c->prepare($sql);
-        $st->execute([$id]); // Pasar el valor de $id como argumento
+        if ($_SESSION["rol"]==="ADMIN") {
+            $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz`;";
+            $st = $c->prepare($sql);
+            $st->execute(); // Pasar el valor de $id como argumento
+        } else {
+            $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFuncionario=?;";
+            $st = $c->prepare($sql);
+            $st->execute([$id]); // Pasar el valor de $id como argumento
+        }
         return $st->fetchAll();
     }
     public static function listByDate($id, $fechaActa){
         $fechaActa = date('Y-m-d', strtotime($fechaActa));
         $obj = new connection(); // creamos un objeto de conexión
         $c = $obj->getConnection();
-        $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.actaFuncionario = ? AND acta.`actaFecha` = ?;";
-        $st = $c->prepare($sql);
-        $st->execute([$id, $fechaActa]); // Pasar los valores de $id y $fechaCreacion como argumentos
+        if ($_SESSION["rol"]==="ADMIN") {
+            $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.`actaFecha` = ?;";
+            $st = $c->prepare($sql);
+            $st->execute([$fechaActa]); // Pasar los valores de $id y $fechaCreacion como argumentos
+        } else {
+            $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.actaFuncionario = ? AND acta.`actaFecha` = ?;";
+            $st = $c->prepare($sql);
+            $st->execute([$id, $fechaActa]); // Pasar los valores de $id y $fechaCreacion como argumentos
+        }
+        
         return $st->fetchAll();
     }
     public static function listById($id, $idApre){
         $obj = new connection(); // creamos un objeto de conexión
         $c = $obj->getConnection();
-        $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.actaFuncionario = ? AND acta.`actaIdAprendiz` = ?;";
-        $st = $c->prepare($sql);
-        $st->execute([$id, $idApre]); // Pasar los valores de $id y $fechaCreacion como argumentos
+        if ($_SESSION["rol"]==="ADMIN") {
+            $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.`actaIdAprendiz` = ?;";
+            $st = $c->prepare($sql);
+            $st->execute([$idApre]); 
+        } else {
+            $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.actaFuncionario = ? AND acta.`actaIdAprendiz` = ?;";
+            $st = $c->prepare($sql);
+            $st->execute([$id, $idApre]); 
+        }
+        
         return $st->fetchAll();
     }
     public static function listByFicha($id, $ficha){
         $obj = new connection(); // creamos un objeto de conexión
         $c = $obj->getConnection();
-        $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.actaFuncionario = ? AND acta.`actaFicha` = ?;";
-        $st = $c->prepare($sql);
-        $st->execute([$id, $ficha]); // Pasar los valores de $id y $fechaCreacion como argumentos
+        if ($_SESSION["rol"]==="ADMIN") {
+            $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.`actaFicha` = ?;";
+            $st = $c->prepare($sql);
+            $st->execute([$ficha]);  
+        } else {
+            $sql = "SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre` = acta.`actaIdAprendiz` WHERE acta.actaFuncionario = ? AND acta.`actaFicha` = ?;";
+            $st = $c->prepare($sql);
+            $st->execute([$id, $ficha]);             
+        }
+        
         return $st->fetchAll();
     }
     public static function datosActa($codActa){

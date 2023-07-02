@@ -52,7 +52,9 @@
 
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Contraseña">
+                <input type="password" name="password" class="form-control form-control-user" id="password" placeholder="Contraseña"
+        onfocus="showPasswordRequirements()"  onblur="hidePasswordRequirements()"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}">
+                <span id="password-requirements" style="color: gray;"></span>
                 </div>
                 <div class="col-sm-6">
                     <input type="text" name="direccion" class="form-control form-control-user" id="direccion" placeholder="Direccion">

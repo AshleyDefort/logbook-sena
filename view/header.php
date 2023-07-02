@@ -1,3 +1,7 @@
+<?php
+require_once "header_helper.php";
+$profileData = getProfileData();
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -21,7 +25,7 @@
     <!-- Custom styles for this template-->
     <link href="Public/css/sb-admin-2.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 </head>
 
@@ -34,7 +38,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Bitacora-master/?controller=main&action=home">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Bitacora/?controller=main&action=home">
                 <div class="sidebar-brand-icon">
                     <img src="public/img/sena.png " width="60px" height="60px"></img>
                 </div>
@@ -214,13 +218,13 @@
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <span class="mr-2 d-none d-lg-inline text-gray-600 small"><?php
-                if(isset($_SESSION["id"])){
-                    echo $_SESSION["nombre"]." ".$_SESSION["apellido"];
+                if ($profileData) {
+                    echo $profileData["Fun_Nom"]." ".$profileData["Fun_Ape"];
                 }
         ?>
         </span>
         <?php
-    $imagen = base64_encode($_SESSION["imagen"]);
+    $imagen = base64_encode($profileData["Fun_Img"]);
     $extension = pathinfo($imagen, PATHINFO_EXTENSION);
     $base64 = 'data:image/' . $extension . ';base64,' . $imagen;
     ?>
