@@ -2,21 +2,88 @@
 require_once 'libs/connection.php';
 class aprendices_modelo{
     public static function add($data){
-       $obj= new connection();
-       $c= $obj->getConnection();
-       $sql="INSERT INTO aprendiz
-       (Id_Apre,Apre_Nom,Apre_Ape,Apre_Tel, Apre_Correo,Apre_Sexo,Apre_Rol) VALUES (?,?,?,?,?,?,?)";
-        try {
-            $st = $c->prepare($sql);
-            $v = array($data["id"], $data["nombres"], $data["apellidos"], $data["telefono"], $data["correo"], $data["sexo"], $data["rol"]);
-            return $st->execute($v);
-        } catch (PDOException $e) {
-            // Manejar el error de la consulta
-            echo $e->getMessage();
-            return false; // O cualquier manejo de error adecuado que desees realizar
+        $obj = new connection();
+        $c = $obj->getConnection();
+        $sql = "INSERT INTO aprendiz (Id_Apre, Apre_Nom, Apre_Ape, Apre_Tel, Apre_Correo, Apre_Sexo) VALUES (?, ?, ?, ?, ?, ?)";
+        $st = $c->prepare($sql);
+        $v = array(
+            $data["id"],
+            $data["nombres"],
+            $data["apellidos"],
+            $data["telefono"],
+            $data["correo"],
+            $data["sexo"]
+        );
+        $success = $st->execute($v);
+    
+        if ($success) {
+            if (isset($data["ficha"])) {
+                if ($data["ficha"] !== null) {
+                    $sql = "INSERT INTO apre_ficha (Cod_Ficha, Id_Apre, ApreRol) VALUES (?, ?, ?)";
+                    $st = $c->prepare($sql);
+                    
+                    $ficha = $data["ficha"];
+                    $id = $data["id"];
+                    $rol = $data["rol"];
+                    
+                    $success = $st->execute([$ficha, $id, $rol]);
+                    if (!$success) {
+                        $errorInfo = $st->errorInfo();
+                        echo "Error en la inserción de apre_ficha: " . $errorInfo[2];
+                    }
+                }
+            }
+        } else if ($st->errorCode() == "23000") {//Error clave duplicada
+            $errorInfo = $st->errorInfo();
+            $errorMessage = "El aprendiz con el ID ".$data["id"]." ya está registrado.";
+            echo "Error en la inserción de aprendiz: " . $errorMessage;
         }
     
+        return $success;
     }
+    
+    
+    
+    public static function existeAprendiz($id){
+        $obj = new connection();
+        $c = $obj->getConnection();
+        $sql = "SELECT COUNT(*) FROM aprendiz WHERE Id_Apre = ?";
+        $st = $c->prepare($sql);
+        $st->execute([$id]);
+        $count = $st->fetchColumn();
+        
+        return ($count > 0);
+    }
+    
+    public static function addFicha($data){
+        $obj = new connection();
+        $c = $obj->getConnection();
+        $sql = "SELECT COUNT(*) FROM ficha WHERE Cod_Ficha = ?";
+        $st = $c->prepare($sql);
+        $st->execute([$data["ficha"]]);
+        $count = $st->fetchColumn();
+        
+        if ($count > 0) {
+            $sql = "INSERT INTO apre_ficha (Cod_Ficha, Id_Apre, ApreRol) VALUES (?, ?, ?)";
+            $st = $c->prepare($sql);
+            
+            $ficha = $data["ficha"];
+            $id = $data["id"];
+            $rol = $data["rol"];
+            
+            $success = $st->execute([$ficha, $id, $rol]);
+            
+            if (!$success) {
+                $errorInfo = $st->errorInfo();
+                echo "Error en la inserción de apre_ficha: " . $errorInfo[2];
+            }
+        } else {
+            $success = false;
+        }
+        
+        return $success;
+    }
+    
 
     public static function edit($data)
 {

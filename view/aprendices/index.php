@@ -5,7 +5,7 @@
     <div class="card-body">
         <?php
         if ($_SESSION["rol"] == "ADMIN") {
-            echo '<a href="?controller=aprendices&action=frmRegistro" class="btn btn-primary"> Registrar </a>';
+            echo '<a href="?controller=aprendices&action=frmRegistro&ficha=" class="btn btn-primary"> Registrar </a>';
             echo '<a> </a>';
             echo '<a href="?controller=aprendices&action=reportePDF" class="btn btn-light"> Reporte PDF </a>';
         }

@@ -52,7 +52,6 @@ class aprendices_controller
             $this->obj->tabla.= "<td>".$fila["Apre_Tel"]."</td>";//concatenar
             $this->obj->tabla.= "<td>".$fila["Apre_Correo"]."</td>";//concatenar
             $this->obj->tabla.= "<td>".$fila["Apre_Sexo"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Apre_Rol"]."</td>";//concatenar
             if($_SESSION["rol"]=="ADMIN"){
                 $this->obj->tabla.= "<td> 
             <a class='btn btn-primary' href='?controller=aprendices&action=frmEditar&id=$id'>Editar</a> | 
@@ -65,12 +64,11 @@ class aprendices_controller
     }
 
     public function frmRegistro(){
-        //if($_SESSION['rol'] !="ADMIN"){
-         //   header("Location: ?controller=aprendices&action=index");
-        //}
+        $ficha = $_GET["ficha"];
+        $this->obj->ficha = $ficha;
         $this->obj->loadTemplate("aprendices/frmregistro");
     }
-	
+    
     
     public function frmEditar(){
         $id = $_GET["id"];
@@ -80,22 +78,45 @@ class aprendices_controller
  
     public function registrar(){
         extract($_POST);
-        $data["id"]=$id;
-        $data["nombres"]=$nombres;
-        $data["apellidos"]=$apellidos;
-        $data["telefono"]=$telefono;
-        $data["correo"]=$correo;
-        $data["sexo"]=$sexo;
-        $data["rol"]=$rol;
-
-        $r=aprendices_modelo::add($data);
-        var_dump($r);
-        if($r>0){
-            echo json_encode(array("mensaje"=>"Se han registrado los datos", "estado"=>1));
-        }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se han registrado los datos", "estado"=>2));
+        $data["id"] = $id;
+        $data["nombres"] = $nombres;
+        $data["apellidos"] = $apellidos;
+        $data["telefono"] = $telefono;
+        $data["correo"] = $correo;
+        $data["sexo"] = $sexo;
+        $data["rol"] = $rol;
+        
+        if (!empty($ficha)) {
+            $data["ficha"] = $ficha;
+        } else {
+            $data["ficha"] = null;
+        }
+        
+        $aprendizExiste = aprendices_modelo::existeAprendiz($id);
+        
+        if ($aprendizExiste) {
+            if (!empty($ficha)) {
+                $r = aprendices_modelo::addFicha($data);
+                
+                if ($r) {
+                    echo json_encode(array("mensaje"=>"El aprendiz ya estaba registrado y ha sido añadido a la ficha de formación", "estado"=>1));
+                } else {
+                    echo json_encode(array("mensaje"=>"ERROR: No se ha podido añadir el aprendiz a la ficha de formación", "estado"=>2));
+                }
+            } else {
+                echo json_encode(array("mensaje"=>"El aprendiz ya está registrado", "estado"=>3));
+            }
+        } else {
+            $r = aprendices_modelo::add($data);
+            
+            if ($r) {
+                echo json_encode(array("mensaje"=>"Se ha registrado el aprendiz", "estado"=>1));
+            } else {
+                echo json_encode(array("mensaje"=>"ERROR: No se ha podido registrar el aprendiz", "estado"=>2));
+            }
         }
     }
+    
     public function delete(){
 		$id = $_POST["id"];
 		$r  = aprendices_modelo::delete($id);

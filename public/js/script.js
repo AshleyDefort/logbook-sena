@@ -62,6 +62,7 @@ function hidePasswordRequirements() {
 }
   let regApre=async()=>{
     let id=document.getElementById("id").value;
+    let ficha=document.getElementById("ficha").value;
     let nombres=document.getElementById("nombres").value;
     let apellidos=document.getElementById("apellidos").value;
     let telefono=document.getElementById("telefono").value;
@@ -72,13 +73,14 @@ function hidePasswordRequirements() {
     if (id === ''|| nombres === '' || apellidos === '' || telefono === '' || correo === '' || sexo === '' || rol === '') {
       Swal.fire(
         '',
-        'Por favor, completa todos los campos',
+        'Por favor, completa todos los campos obligatorios',
         'warning'
       );
       return; // 
     }
     let datos=new FormData();
     datos.append("id", id);
+    datos.append("ficha", ficha);
     datos.append("nombres", nombres);
     datos.append("apellidos", apellidos);
     datos.append("telefono", telefono);
@@ -87,18 +89,25 @@ function hidePasswordRequirements() {
     datos.append("rol", rol);
     
     try {
-        let respuesta = await fetch("?controller=aprendices&action=registrar", {
+      let respuesta = await fetch("?controller=aprendices&action=registrar", {
           method: "POST",
           body: datos,
-        });
-    
-        let info = await respuesta.json();
-    
-        Swal.fire("", info.mensaje, "success");
-      } catch (error) {
-        Swal.fire("", "Error al registrar los datos", "error");
-        console.log(error);
-      }}
+      });
+
+      let info = await respuesta.json();
+
+      if (info.estado === 1) {
+          Swal.fire("", info.mensaje, "success");
+      } else if (info.estado === 2) {
+          Swal.fire("", info.mensaje, "error");
+      }else if (info.estado===3){
+        Swal.fire("", info.mensaje, "error");
+      }
+  } catch (error) {
+      Swal.fire("", "Error al registrar los datos", "error");
+      console.log(error);
+  }
+    }
 
 
       
@@ -395,6 +404,7 @@ let buscar2 = async () => {
     document.getElementById("apellidos").value = info.mensaje["Apre_Ape"];
     document.getElementById("correo").value = info.mensaje["Apre_Correo"];
     document.getElementById("telefono").value = info.mensaje["Apre_Tel"];
+    document.getElementById("sexo").value=info.mensaje["Apre_Sexo"];
 
     let fichas = info.mensaje.fichas; // Obtener las fichas del aprendiz
     // Limpiar opciones existentes antes de agregar las nuevas

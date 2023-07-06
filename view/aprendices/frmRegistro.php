@@ -15,11 +15,22 @@
 
             <div class="form-group row">
                 
+                <div class="col-sm-5">
+                    <input type="number" class="form-control form-control-user" id="id" name="id" placeholder="Digite su ID">
+                </div>
+                <div class="col-sm-1">
+                    <img type="submit" src="public/img/buscar.png" onclick="buscar2()">
+                </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite su ID">
+                <input type="number" class="form-control form-control-user" id="ficha" name="ficha" placeholder="Dígite el número de ficha (Opcional)" <?php 
+                if ($this->ficha!="") {
+                    echo 'value="' . $this->ficha . '" readonly';
+                } ?>>
+    
+    
+    
                 </div>
             </div>
-
             <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="nombres" name="nombres" placeholder="Nombres">
@@ -40,15 +51,21 @@
 
             <div class="form-group row">
                 <div class="col-sm-6">
-                    <input type="text" name="sexo" class="form-control form-control-user" id="sexo" placeholder="Sexo">
+                <select id="sexo" name="sexo" class="form-control">
+                        <optgroup label="Sexo"></optgroup>
+                            <option value="FEMENINO">Femenino</option>
+                            <option value="MASCULINO">Masculino</option>
+                        </optgroup>
+                    </select>
                 </div>
                
                 <div class="col-sm-6">
                     <select id="rol" name="rol" class="form-control">
-                        <optgroup label="rol"></optgroup>
-                        <option value="ADMIN">ADMIN</option>
-                        <option value="FUNC">FUNC</option>
-                    </select>
+                        <optgroup label="Rol"></optgroup>
+                        <option value="APRENDIZ">Aprendiz</option>
+                        <option value="LÍDER">Líder</option>
+                        <option value="COLÍDER">Colíder</option>
+                </select>
                 </div>
             </div>
 
