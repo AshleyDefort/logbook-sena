@@ -160,10 +160,10 @@ class aprendices_modelo{
     }
     public static function find(){}
 
-    public static function lista($pagina,$limite){
+    public static function lista(){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
-        $sql="SELECT * from aprendiz LIMIT $pagina, $limite";
+        $sql="SELECT * from aprendiz";
         $st=$c->prepare($sql);
         $v= $st->execute();
         return $st->fetchAll();//ayuda a retornar a los clientes, en este caso

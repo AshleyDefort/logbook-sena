@@ -49,7 +49,7 @@
                                         <h1 class="h4 text-green-900 mb-4">BITÁCORA SENA</h1>
                                     </div>
                                     <form class="user" method="post" 
- 		action="?controller=cliente&action=validar" onsubmit="return false;">
+ 		action="?controller=funcionarios&action=validar" onsubmit="return false;">
 
          <div class="form-group row">
          <div class="col-sm-12">
@@ -67,11 +67,6 @@
                                         <div class="form-group">
     <input type="number" class="form-control form-control-user"
               id="id" name="id" placeholder="Numero de documento">
-
-                                        </div>
-                                        <div class="form-group" hidden="true">
-    <input type="email" class="form-control form-control-user"
-              id="correo" name="correo" placeholder="Digite correo">
 
                                         </div>
                                        

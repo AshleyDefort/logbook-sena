@@ -235,28 +235,40 @@ let edtFuncionario = async () => {
 
   editarFuncionario(datos);
 };
-let login=async()=>{
-  let doc = document.getElementById("doc").value;
-  let id = document.getElementById("id").value;
-  let password = document.getElementById("password").value;
-  let datos = new FormData();
-  datos.append("doc",doc);
-  datos.append("id",id);
-  datos.append("password",password);
-
-  let respuesta=await fetch("?controller=funcionarios&action=validar", {
-    method: "POST",
-    body: datos
-});
-
-let info = await respuesta.json();
-if(info.estado == 1){
-  window.location.href = info.url;
-
-}else{
-  Swal.fire("",info.mensaje,'error');
+let login = async () => {
+  try {
+    let doc = document.getElementById("doc").value;
+    let id = document.getElementById("id").value;
+    let password = document.getElementById("password").value;
+    let datos = new FormData();
+    datos.append("doc", doc);
+    datos.append("id", id);
+    datos.append("password", password);
+  
+    let respuesta = await fetch("?controller=funcionarios&action=validar", {
+      method: "POST",
+      body: datos
+    });
+  
+    // Verificar si la respuesta es válida antes de analizarla como JSON
+    if (!respuesta.ok) {
+      throw new Error("Error en la solicitud: " + respuesta.status);
+    }
+  
+    let info = await respuesta.json();
+  
+    if (info.estado == 1) {
+      window.location.href = info.url;
+    } else {
+      Swal.fire("", info.mensaje, 'error');
+    }
+  } catch (error) {
+    console.error("Ocurrió un error al realizar la solicitud:", error);
+    // Aquí puedes agregar código para manejar el error, como mostrar un mensaje al usuario
+  }
 }
-}
+
+
 
   let CambiarPass=async()=>{
     let passwordElement = document.getElementById("password");
@@ -475,6 +487,57 @@ let generarActas=async()=>{
     console.log(error);
   }
 }
+let generarLlamadoDeAtencion=async()=>{
+  let fechaLlamado = document.getElementById("fechaLlamado").value;
+  let idAprendiz = document.getElementById("id").value;
+  let nomAprendiz = document.getElementById("nombres").value;
+  let apeAprendiz = document.getElementById("apellidos").value;
+  let telAprendiz = document.getElementById("telefono").value;
+  let corAprendiz = document.getElementById("correo").value;
+  let fichaAprendiz = document.getElementById("fichas").value;
+  let motRemision = document.getElementById("motivoRemision").value;
+  let accionTomada = document.getElementById("accionTomada").value;
+  if (fechaLlamado === '' || idAprendiz === ''|| nomAprendiz === '' || apeAprendiz === '' || telAprendiz === '' || corAprendiz === '' || motRemision === '' || accionTomada === '' || fichaAprendiz==='') {
+    Swal.fire(
+      '',
+      'Por favor, completa todos los campos',
+      'warning'
+    );
+    return; // 
+  }
+  if(motRemision === 'Otro'){
+    let otro = document.getElementById("otroMotivoRemision").value;
+    motRemision = otro;
+  }
+  if(accionTomada === 'Otro'){
+    let otraAccion = document.getElementById("otroMotivoRemision").value;
+    accionTomada = otraAccion;
+  }
+  let datos=new FormData();
+  datos.append("fechaLlamado", fechaLlamado);
+  datos.append("idAprendiz", idAprendiz);
+  datos.append("nomAprendiz", nomAprendiz);
+  datos.append("apeAprendiz", apeAprendiz);
+  datos.append("telAprendiz", telAprendiz);
+  datos.append("corAprendiz", corAprendiz);
+  datos.append("fichaAprendiz", fichaAprendiz);
+  datos.append("accionTomada", accionTomada);
+  datos.append("motRemision", motRemision);
+  try {
+    let respuesta = await fetch("?controller=atencion&action=registrar", {
+      method: "POST",
+      body: datos,
+    });
+
+    let info = await respuesta.json();
+
+    Swal.fire("", info.mensaje, "success");
+    
+  } catch (error) {
+    Swal.fire("", "Error al registrar los datos", "error");
+    console.log(error);
+  }
+}
 let selectFiltros = async() =>{
   select = document.getElementById("filtro").value;
   input = document.getElementById("texto");
@@ -522,4 +585,16 @@ let mostrarInput = async() =>{
       break;
   }
 }
+
+$(document).ready(function() {
+  $('#dataTable').DataTable(
+      {
+      language: {
+          url: "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json"
+      },
+      lengthMenu: [10, 15, 20, 25, 50]
+  }
+  );
+});
+
 // funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse

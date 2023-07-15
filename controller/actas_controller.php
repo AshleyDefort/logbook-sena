@@ -77,7 +77,7 @@ class actas_controller{
         // Establecer las propiedades del documento
         $pdf->SetCreator(PDF_CREATOR);
         $pdf->SetAuthor('SENA');
-        $pdf->SetTitle('COMPROMISO');
+        $pdf->SetTitle('Acta de Compromiso');
         $pdf->SetSubject('ACTA COMPROMISO');
         $pdf->SetKeywords('Compromiso, SENA');
         

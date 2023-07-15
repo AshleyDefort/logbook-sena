@@ -24,6 +24,8 @@ echo date("Y-m-d");
                 </div>
                 <div class="col-sm-6">
                     <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos del aprendiz">
+                    
+                    <input type="hidden" class="form-control form-control-user" id="sexo" name="sexo" placeholder="Apellidos del aprendiz">
                 </div>
             </div>
             <div class="form-group row">

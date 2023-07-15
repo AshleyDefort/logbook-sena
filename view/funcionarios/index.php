@@ -1,34 +1,47 @@
 <div class="card shadow mb-4">
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-light">Registro Funcionario</h6>
-                                </div>
-                                <div class="card-body">
-                                    <?php
-                                    if($_SESSION["rol"]=="ADMIN"){
-                                        echo '<a href="?controller=funcionarios&action=frmRegistro" class="btn btn-primary"> Registrar </a>';
-                                        
-                                    }
-                                    ?>
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-light">Funcionarios</h6>
+    </div>
+    <div class="card-body">
+        <?php if ($_SESSION["rol"] == "ADMIN") {
+            echo '<a href="?controller=funcionarios&action=frmRegistro" class="btn btn-primary mb-3">Registrar</a>';
+        } ?>
+        <div class="table-responsive" id="contenidoTabla">
+            <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0" style="text-transform:uppercase;">
+                <thead>
+                    <th>NOMBRES</th>
+                    <th>APELLIDOS</th>
+                    <th>TELEFONO</th>
+                    <th>CORREO</th>
+                    <th>ROL</th>
+                    <?php
+                    if ($_SESSION["rol"] == "ADMIN") {
+                        echo '<th>ACCIONES</th>';
+                    }
+                    ?>
+                </thead>
+                <tbody>
+                <?php 
+                  foreach ($this->funcionarios as $fila) {
+                      $id = $fila["ID_Func"];
+                      echo "<tr>";
+                      echo"<td>" . $fila["Fun_Nom"] . "</td>";
+                      echo "<td>" . $fila["Fun_Ape"] . "</td>";
+                      echo "<td>" . $fila["Fun_Tel"] . "</td>";
+                     echo "<td style=\"text-transform:lowercase;\">" . $fila["Fun_Correo"] . "</td>";
+                      echo "<td>" . $fila["Fun_Rol"] . "</td>";
+                      if ($_SESSION["rol"] == "ADMIN") {
+                          echo "<td> 
+                              <a class='btn btn-primary' href='?controller=funcionarios&action=frmEditar&id=$id'>Editar</a> | 
+                              <a class='btn btn-danger' onclick='Eliminar1($id)'>Eliminar</a>
+                          </td>";
+                      }
+                  }
+    
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
-                                            <tr>
-                                                <th>NOMBRES</th>
-                                                <th>APELLIDOS</th>
-                                                <th>TELEFONO</th>
-                                                <th>CORREO</th>
-                                                <th>ROL</th>
-                                                <th></th>
-                                            </tr>
-                                            <?php
-                                            echo $this->tabla;
-                                            ?>
-                                        </table>
-                                    </div>
-                                    <p>
-                                        <?php
-                                        echo $this->pag;
-                                        ?>
-                                    </p>
-                                </div>
-                            </div>

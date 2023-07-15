@@ -68,5 +68,13 @@ class programas_modelo{
     $st->execute([$id]);
         return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
     }
+    public static function listaActas($codActa){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFicha=?;";
+        $st = $c->prepare($sql);
+        $st->execute([$codActa]); // Pasar el valor de $id como argumento
+        return $st->fetchAll();
+    }
 
 }

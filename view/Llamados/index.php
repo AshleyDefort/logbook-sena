@@ -1,42 +1,30 @@
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-light">Llamado de atención</h6>
-    </div>
-    <div class="card-body">    
-    <form method="post" action="?controller=observaciones&action=crear" class="user" onsubmit="return false">
-        
-        <div class="form-group row">
-                <div class="col-sm-5">
-                    <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite Id Aprendiz">
-                </div>
-                <div class="col-sm-1">
-                    <img type="submit" src="public/img/buscar.png" onclick="buscar()">
-                </div>
-            </div>    
-        <div class="form-group row">
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="nombres" 
-                    name="nombres" placeholder="Nombres" >
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos">
-                </div>
-            </div>
-            <div class="form-group row">
-            <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="programa" placeholder="PROGRAMA" name="programa">
-                </div>
-                <div class="col-sm-6">
-                    <input type="email" class="form-control form-control-user" id="correo" name="correo" placeholder="Correo">
-                </div>
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-light">LLAMADOS DE ATENCIÓN</h6>
 </div>
-
-
-            <input type="submit" name="aceptar" id="ok" class="btn btn-primary">
-             
-            
-        </form>
-        
-                           
+<div class="card-body">
+<a href="?controller=atencion&action=frmRegistrar" class="btn btn-primary mb-3"> Nuevo Llamado de Atención </a><br>
+    <div class="table-responsive">
+        <?php if (empty($this->tabla)): ?>
+            <div class="col-12 text-center"><label class="text-center">No hay llamados de atención.</label></div>
+        <?php else: ?>
+            <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <th>NOMBRE APRENDIZ</th>
+                                                <th>FICHA</th>
+                                                <th>FECHA COMPROMISO</th>
+                                                <th>MOTIVO DE REMISIÓN</th>
+                                                <th>ACCIONES</th>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            echo $this->tabla;
+                                            ?>
+                                            </tbody>
+                                        </table>
+        <?php endif; ?>
     </div>
+    <p></p>
+</div>
+                         
 </div>

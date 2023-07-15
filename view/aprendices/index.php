@@ -5,36 +5,40 @@
     <div class="card-body">
         <?php
         if ($_SESSION["rol"] == "ADMIN") {
-            echo '<a href="?controller=aprendices&action=frmRegistro&ficha=" class="btn btn-primary"> Registrar </a>';
+            echo '<a href="?controller=aprendices&action=frmRegistro&ficha=" class="btn btn-primary mb-3"> Registrar </a>';
             echo '<a> </a>';
-            echo '<a href="?controller=aprendices&action=reportePDF" class="btn btn-light"> Reporte PDF </a>';
+            echo '<a href="?controller=aprendices&action=reportePDF" class="btn btn-light mb-3"> Reporte PDF </a>';
         }
         ?>
-
-        <select name=items id="items">
-            <option value="3">-- 3 --</option>
-            <option value="6">-- 6 --</option>
-            <option value="12">-- 12 --</option>
-        </select>
         <div class="table-responsive">
             <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
-                <tr>
+                <thead>
+                    <th>ID</th>
                     <th>NOMBRES</th>
                     <th>APELLIDOS</th>
                     <th>TELEFONO</th>
                     <th>CORREO</th>
-                    <th>ROL</th>
-                    <th></th>
-                </tr>
+                    <th>ACCIONES</th>
+                </thead>
+                <tbody>
                 <?php
-                echo $this->tabla;
+                foreach ($this->aprendices as $fila) {//POR CADA FILA QUE EXITE EN aprendices SE REGISTRA EL VALOR EN LA VARIABLE FILA
+                    $id = $fila["Id_Apre"];
+                    echo "<tr>";
+                    echo "<td>".$fila["Id_Apre"]."</td>";
+                    echo "<td>".$fila["Apre_Nom"]."</td>";//concatenar
+                    echo "<td>".$fila["Apre_Ape"]."</td>";//concatenar
+                    echo "<td>".$fila["Apre_Tel"]."</td>";//concatenar
+                    echo "<td>".$fila["Apre_Correo"]."</td>";//concatenar
+                    if($_SESSION["rol"]=="ADMIN"){
+                        echo "<td> 
+                    <a class='btn btn-primary' href='?controller=aprendices&action=frmEditar&id=$id'>Editar</a> | 
+                    <a class='btn btn-danger' onclick='Eliminar1($id)'>Eliminar</a>
+                                       </td>";}
+                }
                 ?>
+                </tbody>
             </table>
         </div>
-        <p>
-            <?php
-            echo $this->pag;
-            ?>
-        </p>
     </div>
 </div>

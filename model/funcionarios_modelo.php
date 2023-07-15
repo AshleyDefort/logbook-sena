@@ -89,10 +89,10 @@ class funcionarios_modelo{
     }
     public static function find(){}
 
-    public static function lista($pagina,$limite){
+    public static function lista(){
         $obj= new connection(); 
         $c= $obj->getConnection();
-        $sql="SELECT * from funcionario LIMIT $pagina, $limite";
+        $sql = "SELECT * FROM funcionario";
         $st=$c->prepare($sql);
         $v= $st->execute();
         return $st->fetchAll();

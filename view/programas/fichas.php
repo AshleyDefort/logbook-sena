@@ -20,7 +20,7 @@
                     <p class="card-text">FECHA DE INICIO: <?php echo $fila["fechaIni_Fich"]; ?></p>
                     <p class="card-text">FECHA DE FIN: <?php echo $fila["fechaFin_Fich"]; ?></p>
                     <?php echo "<td> 
-                      <a class='btn btn-primary' href='?controller=programas&action=frmaprendiz&id=$id'>  Ver  </a>
+                      <a class='btn btn-primary' href='?controller=programas&action=infoFicha&id=$id'>  Ver  </a>
                       </td>";
                       echo "</tr>"; ?>
                   </div>

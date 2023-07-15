@@ -11,55 +11,7 @@ class aprendices_controller
     }
 
     public function index(){
-        $limite = 10;
-        $total = aprendices_modelo::Total();
-        
-        if($total > $limite){
-            $secciones = ceil($total/$limite);
-        }else{
-            $secciones = 1;
-        }
-
-        if(isset($_GET["pagina"]) && is_numeric($_GET["pagina"])){
-            $pagina = $_GET["pagina"];
-        }else{
-            $pagina=0;
-        }
-
-        $pagina_actual = ($pagina/$limite)+1;
-        $this->obj->aprendicess=aprendices_modelo::lista($pagina,$limite);
-        $this->obj->pag = '';
-        if($secciones >=1){
-            $this->obj->pag = '<ul class="pagination pagination-sm">';
-            for($i=1;$i<=$secciones;$i++){
-                if($i != $pagina_actual){
-                    $this ->obj->pag .= '<li class="page.item"><a href="?controller=aprendices&action=index&pagina='.
-                    ($limite*($i-1)).'"class="page-link">'.$i.'</a></li>';
-                }else{
-                    $this->obj->pag .= ' <li class="page-item active" aria-current="page">
-                    <span class="page-link">'.$i.'</span></li>';
-                }
-            }
-            $this->obj->pag .= '</ul>';
-        }
-        $this->obj->tabla = "";
-        foreach ($this->obj->aprendicess as $fila) {//POR CADA FILA QUE EXITE EN aprendices SE REGISTRA EL VALOR EN LA VARIABLE FILA
-            $id = $fila["Id_Apre"];
-            $this->obj->tabla.= "<tr>";
-            $this->obj->tabla.= "<td>".$fila["Id_Apre"]."</td>";
-            $this->obj->tabla.= "<td>".$fila["Apre_Nom"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Apre_Ape"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Apre_Tel"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Apre_Correo"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Apre_Sexo"]."</td>";//concatenar
-            if($_SESSION["rol"]=="ADMIN"){
-                $this->obj->tabla.= "<td> 
-            <a class='btn btn-primary' href='?controller=aprendices&action=frmEditar&id=$id'>Editar</a> | 
-            <a class='btn btn-danger' onclick='Eliminar1($id)'>Eliminar</a>
-                               </td>";}
-                        $this->obj->tabla.= "</tr>";
-        }
-        //var_dump($this->obj->aprendicess);para comprobar si tienes algún aprendices de manera anticipada y si lo anterior funciona
+        $this->obj->aprendices=aprendices_modelo::lista();
         $this->obj->loadTemplate("aprendices/index");
     }
 

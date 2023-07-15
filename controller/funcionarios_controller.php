@@ -10,57 +10,11 @@ class funcionarios_controller
         $this->obj = new template();
     }
 
-    public function index(){
-        $limite = 10;
-        $total = funcionarios_modelo::Total();
-        
-        if($total > $limite){
-            $secciones = ceil($total/$limite);
-        }else{
-            $secciones = 1;
-        }
-
-        if(isset($_GET["pagina"]) && is_numeric($_GET["pagina"])){
-            $pagina = $_GET["pagina"];
-        }else{
-            $pagina=0;
-        }
-
-        $pagina_actual = ($pagina/$limite)+1;
-        $this->obj->funcionarioss=funcionarios_modelo::lista($pagina,$limite);
-        $this->obj->pag = '';
-        if($secciones >=1){
-            $this->obj->pag = '<ul class="pagination pagination-sm">';
-            for($i=1;$i<=$secciones;$i++){
-                if($i != $pagina_actual){
-                    $this ->obj->pag .= '<li class="page.item"><a href="?controller=funcionarios&action=index&pagina='.
-                    ($limite*($i-1)).'"class="page-link">'.$i.'</a></li>';
-                }else{
-                    $this->obj->pag .= ' <li class="page-item active" aria-current="page">
-                    <span class="page-link">'.$i.'</span></li>';
-                }
-            }
-            $this->obj->pag .= '</ul>';
-        }
-        $this->obj->tabla = "";
-        foreach ($this->obj->funcionarioss as $fila) {//POR CADA FILA QUE EXITE EN funcionarios SE REGISTRA EL VALOR EN LA VARIABLE FILA
-            $id = $fila["ID_Func"];
-            $this->obj->tabla.= "<tr>";
-            $this->obj->tabla.= "<td>".$fila["Fun_Nom"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Fun_Ape"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Fun_Tel"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Fun_Correo"]."</td>";//concatenar
-            $this->obj->tabla.= "<td>".$fila["Fun_Rol"]."</td>";//concatenar
-            if($_SESSION["rol"]=="ADMIN"){
-                $this->obj->tabla.= "<td> 
-            <a class='btn btn-primary' href='?controller=funcionarios&action=frmEditar&id=$id'>Editar</a> | 
-            <a class='btn btn-danger' onclick='Eliminar1($id)'>Eliminar</a>
-                               </td>";}
-                        $this->obj->tabla.= "</tr>";
-        }
-        //var_dump($this->obj->funcionarioss);para comprobar si tienes algún funcionarios de manera anticipada y si lo anterior funciona
+    public function index() {
+        $this->obj->funcionarios=funcionarios_modelo::lista();
         $this->obj->loadTemplate("funcionarios/index");
     }
+    
 
     public function frmRegistro(){
         if($_SESSION['rol'] !="ADMIN"){
@@ -133,13 +87,11 @@ class funcionarios_controller
     $data["id"] = $id;
     $data["password"] = $password;
     $r = funcionarios_modelo::validarUsuario($data);
-    
     if (is_array($r)) {
         $_SESSION["id"] = $r["ID_Func"];
         $_SESSION["nombre"] = $r["Fun_Nom"];
         $_SESSION["apellido"] = $r["Fun_Ape"]; 
         $_SESSION["rol"] = $r["Fun_Rol"]; 
-        $_SESSION["imagen"] = $r["Fun_Img"];
         $mensaje = "";
         $estado = 1;
         $url = "?controller=main&action=home";

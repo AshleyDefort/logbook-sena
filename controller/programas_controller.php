@@ -28,10 +28,11 @@ class programas_controller{
         $this->obj->loadTemplate("programas/frmFichas");
     }
 
-    public function frmaprendiz(){
+    public function infoFicha(){
         $id=$_GET["id"];
         $this->obj->aprendiz=programas_modelo::lista2($id);
-        $this->obj-> loadTemplate("programas/frmaprendiz");
+        $this->obj->actas=programas_modelo::listaActas($id);
+        $this->obj-> loadTemplate("programas/infoFicha");
     }
     public function registrar()
     {

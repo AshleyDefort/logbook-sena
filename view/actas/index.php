@@ -4,9 +4,10 @@
 </div>
 <div class="card-body">
 <a href="?controller=actas&action=frmActas" class="btn btn-primary mb-3"> Nueva Acta </a><br>
-    <?php if (empty($this->tabla)): ?>
+
+    <!--<?php //if (empty($this->tabla)): ?>
         <label for="filtro"></label>
-    <?php else: ?>
+    <?php //else: ?>
         <label for="filtro">Filtrar por:</label>
         <select name="filtro" id="filtro" onchange="selectFiltros()">
             <option value="">Seleccionar</option>
@@ -16,23 +17,25 @@
         </select>
         <input type="hidden" name="texto" id="texto">
         <a onclick="filtrar()"><i class="fa fa-filter fa-sm fa-fw mr-2 text-gray-500"></i></a>
-    <?php endif; ?>
-
+    <?php //endif; ?>
+    -->
     <div class="table-responsive">
         <?php if (empty($this->tabla)): ?>
             <div class="col-12 text-center"><label class="text-center">No hay actas de compromiso creadas.</label></div>
         <?php else: ?>
             <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
-                                            <tr>
+                                            <thead>
                                                 <th>NOMBRE APRENDIZ</th>
                                                 <th>FICHA</th>
                                                 <th>FECHA COMPROMISO</th>
                                                 <th>MOTIVO DE REMISIÓN</th>
                                                 <th>ACCIONES</th>
-                                            </tr>
+                                            </thead>
+                                            <tbody>
                                             <?php
                                             echo $this->tabla;
                                             ?>
+                                            </tbody>
                                         </table>
         <?php endif; ?>
     </div>

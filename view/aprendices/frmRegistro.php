@@ -12,7 +12,6 @@
                     <div class="mt-2" id="add_labels"></div>
                 </div>
             </div>
-
             <div class="form-group row">
                 
                 <div class="col-sm-5">
