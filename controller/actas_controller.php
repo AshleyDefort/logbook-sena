@@ -19,8 +19,8 @@ class actas_controller{
             $this->obj->tabla .= "<td>".$fila["actaFicha"]."</td>";
             $this->obj->tabla .= "<td>".$fila["actaFecha"]."</td>";
             $this->obj->tabla .= "<td>".$fila["actaMotivoRemision"]."</td>";
-            $this->obj->tabla .= "<td>
-                <a class='btn btn-secondary' href='?controller=actas&action=generarPDFActa&codActa=".$codActa."' target='_blank'>Descargar</a>
+            $this->obj->tabla .= "<td class='text-center'>
+                <a class='fas fa-file-pdf text-gray-700' href='?controller=actas&action=generarPDFActa&codActa=".$codActa."' target='_blank'></a>
             </td>";
             $this->obj->tabla .= "</tr>";
         }
@@ -157,9 +157,7 @@ class actas_controller{
         //Línea 4
         $y +=10;
         $left_column = '<b>Teléfono Aprendiz: </b><span style="text-transform: capitalize">'.$telAprendiz.'</span>';
-        $right_column = '<b>Dirección Aprendiz: </b><span style="text-transform: capitalize">'." ".'</span>';
         $pdf->writeHTMLCell(80, '', '', $y, $left_column, 0, 0, 0, true, 'J', true);
-        $pdf->writeHTMLCell(90, '', '', '', $right_column, 0, 0, 0, true, 'J', true);
 
         //Línea 5
         $y +=10;

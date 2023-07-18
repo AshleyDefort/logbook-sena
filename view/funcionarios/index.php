@@ -31,9 +31,9 @@
                      echo "<td style=\"text-transform:lowercase;\">" . $fila["Fun_Correo"] . "</td>";
                       echo "<td>" . $fila["Fun_Rol"] . "</td>";
                       if ($_SESSION["rol"] == "ADMIN") {
-                          echo "<td> 
-                              <a class='btn btn-primary' href='?controller=funcionarios&action=frmEditar&id=$id'>Editar</a> | 
-                              <a class='btn btn-danger' onclick='Eliminar1($id)'>Eliminar</a>
+                          echo "<td class='text-center'> 
+                              <a class='fas fa-edit' href='?controller=funcionarios&action=frmEditar&id=$id'></a> | 
+                              <a class='fas fa-trash text-danger' onclick='Eliminar1($id)'></a>
                           </td>";
                       }
                   }

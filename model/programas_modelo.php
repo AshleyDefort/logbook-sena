@@ -59,7 +59,14 @@ class programas_modelo{
             
             return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
         }
-
+    public static function infoFicha($id){
+        $obj= new connection(); 
+        $c= $obj->getConnection();
+        $sql="SELECT funcionario.*, ficha.*, ficha_funcionario.* FROM funcionario INNER JOIN ficha_funcionario ON funcionario.`ID_Func`=ficha_funcionario.`id_funcionario` INNER JOIN ficha ON ficha.`Cod_Ficha`=ficha_funcionario.`cod_ficha` WHERE ficha.Cod_Ficha=?";
+        $st = $c->prepare($sql);
+    $st->execute([$id]);
+        return $st->fetchAll();
+    }
     public static function lista2($id){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
@@ -68,13 +75,28 @@ class programas_modelo{
     $st->execute([$id]);
         return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
     }
-    public static function listaActas($codActa){
+    public static function listaActas($codFicha){
         $obj= new connection(); //creamos un ontjeto de conexión
         $c= $obj->getConnection();
         $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, acta.`codActa`, acta.`actaFicha`, acta.`actaFecha`, acta.`actaMotivoRemision` FROM aprendiz apr INNER JOIN acta_compromiso acta ON apr.`Id_Apre`=acta.`actaIdAprendiz` WHERE acta.actaFicha=?;";
         $st = $c->prepare($sql);
-        $st->execute([$codActa]); // Pasar el valor de $id como argumento
+        $st->execute([$codFicha]); // Pasar el valor de $id como argumento
         return $st->fetchAll();
     }
-
+    public static function listaLlamados($codFicha){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, atencion.* FROM aprendiz apr INNER JOIN llamado_de_atencion atencion ON apr.`Id_Apre`=atencion.`llamadoIdApre` WHERE atencion.llamadoFicha=?;";
+        $st = $c->prepare($sql);
+        $st->execute([$codFicha]); // Pasar el valor de $id como argumento
+        return $st->fetchAll();
+    }
+    public static function listaObservaciones($codFicha){
+        $obj= new connection(); //creamos un ontjeto de conexión
+        $c= $obj->getConnection();
+        $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, obs.* FROM aprendiz apr INNER JOIN observaciones obs ON apr.`Id_Apre`=obs.`Id_ApreFK` WHERE obs.fk_ficha=?;";
+        $st = $c->prepare($sql);
+        $st->execute([$codFicha]); // Pasar el valor de $id como argumento
+        return $st->fetchAll();
+    }
 }

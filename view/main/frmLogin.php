@@ -54,11 +54,11 @@
          <div class="form-group row">
          <div class="col-sm-12">
                     <select id="doc" name="doc" class="form-control">
-                        <option value="Cedula de Ciudadania">Cédula de Ciudadanía</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                        <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
-                        <option value="Cedula de Extranjeria">Cédula de Extranjeria</option>
-                        <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="TI">Tarjeta de Identidad</option>
+                        <option value="PEP">Permiso Especial de Permanencia</option>
+                        <option value="CE">Cédula de Extranjería</option>
+                        <option value="PPP">Permiso por Protección Temporal</option>
                     </select>
                 </div>
 

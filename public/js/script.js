@@ -98,6 +98,11 @@ function hidePasswordRequirements() {
 
       if (info.estado === 1) {
           Swal.fire("", info.mensaje, "success");
+          document.getElementById("id").value="";
+          document.getElementById("nombres").value="";
+          document.getElementById("apellidos").value="";
+          document.getElementById("telefono").value="";
+          document.getElementById("correo").value="";
       } else if (info.estado === 2) {
           Swal.fire("", info.mensaje, "error");
       }else if (info.estado===3){
@@ -168,6 +173,12 @@ let regFichas = async () => {
     let info = await respuesta.json();
 
     Swal.fire("", info.mensaje, "success");
+    document.getElementById("ficha").value = "";
+    document.getElementById("desc").value = "";
+    document.getElementById("cod_prog").value = "";
+    document.getElementById("fech_inic").value = "";
+    document.getElementById("fech_fin").value = "";
+    document.getElementById("instructores").value = "";
   } catch (error) {
     Swal.fire("", "Error al registrar los datos", "error");
     console.log(error);
@@ -235,6 +246,7 @@ let edtFuncionario = async () => {
 
   editarFuncionario(datos);
 };
+
 let login = async () => {
   try {
     let doc = document.getElementById("doc").value;
@@ -366,7 +378,7 @@ let deletePhoto = async (id) => {
 
 let Eliminar1 =async(id) =>{
   Swal.fire({
-    title: 'Seguro que deseas eliminar?',
+    title: 'Seguro que deseas eliminar la información?',
     text: "No se podrá revertir la acción!",
     icon: 'warning',
     showCancelButton: true,
@@ -481,7 +493,16 @@ let generarActas=async()=>{
     let info = await respuesta.json();
 
     Swal.fire("", info.mensaje, "success");
-    
+    document.getElementById("id").value = "";
+    document.getElementById("nombres").value = "";
+    document.getElementById("apellidos").value = "";
+    document.getElementById("telefono").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("fichas").value = "";
+    document.getElementById("motivoRemision").value = "";
+    document.getElementById("descargoApre").value = "";
+    document.getElementById("compromisos").value = "";
+    document.getElementById("recomendaciones").value = "";
   } catch (error) {
     Swal.fire("", "Error al registrar los datos", "error");
     console.log(error);
@@ -532,12 +553,177 @@ let generarLlamadoDeAtencion=async()=>{
     let info = await respuesta.json();
 
     Swal.fire("", info.mensaje, "success");
+    document.getElementById("id").value = "";
+    document.getElementById("nombres").value = "";
+    document.getElementById("apellidos").value = "";
+    document.getElementById("telefono").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("fichas").value = "";
+    document.getElementById("motivoRemision").value = "";
+    document.getElementById("accionTomada").value = "";
+  } catch (error) {
+    Swal.fire("", "Error al registrar los datos", "error");
+    console.log(error);
+  }
+}
+let regObservacion=async()=>{
+  let fechaObservacion = document.getElementById("FechaObs").value;
+  let idAprendiz = document.getElementById("id").value;
+  let nomAprendiz = document.getElementById("nombres").value;
+  let apeAprendiz = document.getElementById("apellidos").value;
+  let fichaAprendiz = document.getElementById("fichas").value;
+  let observacion = document.getElementById("observacion").value;
+  let descripcion = document.getElementById("descripcion").value;
+  if (fechaObservacion === '' || idAprendiz === ''|| nomAprendiz === '' || apeAprendiz === '' || observacion === '' || descripcion === '' || fichaAprendiz==='') {
+    Swal.fire(
+      '',
+      'Por favor, completa todos los campos',
+      'warning'
+    );
+    return; // 
+  }
+  let datos=new FormData();
+  datos.append("fechaObservacion", fechaObservacion);
+  datos.append("idAprendiz", idAprendiz);
+  datos.append("nomAprendiz", nomAprendiz);
+  datos.append("apeAprendiz", apeAprendiz);
+  datos.append("fichaAprendiz", fichaAprendiz);
+  datos.append("observacion", observacion);
+  datos.append("descripcion", descripcion);
+  try {
+    let respuesta = await fetch("?controller=observaciones&action=registrar", {
+      method: "POST",
+      body: datos,
+    });
+
+    let info = await respuesta.json();
+
+    Swal.fire("", info.mensaje, "success");
+    document.getElementById("id").value = '';
+    document.getElementById("nombres").value = '';
+    document.getElementById("apellidos").value = '';
+    document.getElementById("fichas").value = '';
+    document.getElementById("observacion").value = '';
+    document.getElementById("descripcion").value = '';
     
   } catch (error) {
     Swal.fire("", "Error al registrar los datos", "error");
     console.log(error);
   }
 }
+let eliminarObservacion =async(id) =>{
+  Swal.fire({
+    title: 'Seguro que deseas eliminar la información?',
+    text: "No se podrá revertir la acción!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Si, Eliminar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "?controller=observaciones&action=index";
+          eliminarObservacionConf(id);
+    }
+  })
+}
+
+let eliminarObservacionConf = async(id) =>{
+  let datos = new FormData();
+  datos.append("id",id)
+  let respuesta = await fetch("?controller=observaciones&action=delete",{
+    method: "POST",
+    body: datos
+  });
+  let info = await respuesta.json();
+  window.location.href = "?controller=observaciones&action=index";
+}
+
+
+let edtAprendiz = async () => {
+  let id = document.getElementById("id").value;
+  let nombres = document.getElementById("nombres").value;
+  let apellidos = document.getElementById("apellidos").value;
+  let telefono = document.getElementById("telefono").value;
+  let correo = document.getElementById("correo").value;
+  let sexo = document.getElementById("sexo").value;
+
+  if (
+    id === "" ||
+    nombres === "" ||
+    apellidos === "" ||
+    telefono === "" ||
+    correo === "" ||
+    sexo === ""
+  ) {
+    Swal.fire("", "Por favor, completa todos los campos", "warning");
+    return;
+  }
+
+  let datos = new FormData();
+  datos.append("id", id);
+  datos.append("nombres", nombres);
+  datos.append("apellidos", apellidos);
+  datos.append("telefono", telefono);
+  datos.append("correo", correo);
+  datos.append("sexo", sexo);
+
+  try {
+    let respuesta = await fetch("?controller=aprendices&action=edit", {
+      method: "POST",
+      body: datos,
+    });
+
+    let info = await respuesta.json();
+    if (info.estado === 1) {
+      Swal.fire("", info.mensaje, "success");
+    } else {
+      Swal.fire("", info.mensaje, "error");
+    }
+  } catch (error) {
+    console.error(error);
+    Swal.fire("", "Ocurrió un error al editar los datos", "error");
+  }
+};
+let eliminarAprendiz = async (id) => {
+  Swal.fire({
+    title: 'Seguro que deseas eliminar la información?',
+    text: "No se podrá revertir la acción!",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    cancelButtonText: 'Cancelar',
+    confirmButtonText: 'Si, Eliminar!'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      eliminarAprendizConf(id)
+        .then(() => {
+          window.location.href = "?controller=aprendices&action=index";
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    }
+  });
+}
+
+let eliminarAprendizConf = async (id) => {
+  let datos = new FormData();
+  datos.append("id", id);
+  let respuesta = await fetch("?controller=aprendices&action=delete", {
+    method: "POST",
+    body: datos
+  });
+  let info = await respuesta.json();
+  if (info.success) {
+    return Promise.resolve();
+  } else {
+    return Promise.reject(new Error("Error en la eliminación del aprendiz"));
+  }
+}
+
 let selectFiltros = async() =>{
   select = document.getElementById("filtro").value;
   input = document.getElementById("texto");
@@ -596,5 +782,66 @@ $(document).ready(function() {
   }
   );
 });
+function openModal(link) {
+  var nombre = link.data('nombre');
+  var ficha = link.data('ficha');
+  var fecha = link.data('fecha');
+  var titulo = link.data('titulo');
+  var descripcion = link.data('descripcion');
+  Swal.fire({
+      title: 'Detalles de la observación',
+      html: 'Cargando...',
+      showCancelButton: false,
+      showConfirmButton: false,
+      allowOutsideClick: true,
+      focusConfirm: false,
+      customClass: {
+          container: 'modal-container',
+      },
+      didOpen: () => {
+          var modalContent = `
+              <table class="table table-bordered">
+                  <tr class="bg-gray-100 text-gray-900">
+                      <td>Nombre completo:</td>
+                  </tr>
+                  <tr>
+                      <td>${nombre}</td>
+                  </tr>
+                  <tr class="bg-gray-100 text-gray-900">
+                      <td>Ficha del aprendiz:</td>
+                  </tr>
+                  <tr>
+                      <td>${ficha}</td>
+                  </tr>
+                  <tr class="bg-gray-100 text-gray-900">
+                      <td>Fecha de la observación:</td>
+                  </tr>
+                  <tr>
+                      <td>${fecha}</td>
+                  </tr>
+                  <tr class="bg-gray-100 text-gray-900">
+                      <td>Título de la observación:</td>
+                  </tr>
+                  <tr>
+                      <td>${titulo}</td>
+                  </tr>
+                  <tr class="bg-gray-100 text-gray-900">
+                      <td>Descripción de la observación:</td>
+                  </tr>
+                  <tr>
+                      <td>${descripcion}</td>
+                  </tr>
+              </table>
+          `;
 
-// funciones sincronicas ó async son las que esperan a que una funcion termine de cargarse para ejecutarse
+          Swal.update({
+              html: modalContent,
+              showConfirmButton: true,
+          });
+      }
+  });
+}
+$('.open-modal').on('click', function(e) {
+  e.preventDefault();
+  openModal($(this));
+});

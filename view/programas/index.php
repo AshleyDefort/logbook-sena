@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th>PROGRAMAS</th>
-            <th>ACCIONES</th>
+            <th class="text-center">ACCIONES</th>
         </tr>
     </thead>
     <tbody>
@@ -17,9 +17,9 @@
         foreach ($this->programas as $fila) {
             $id = $fila["Cod_Pro"];
             echo "<tr>";
-            echo "<td>".$fila["Pro_Desc"]."</td>";
-            echo "<td> 
-                    <a class='btn btn-primary' href='?controller=programas&action=fichas&id=$id'>Ver</a>
+            echo "<td style=\"text-transform:capitalize;\">".$fila["Pro_Desc"]."</td>";
+            echo "<td class='text-center'> 
+                    <a style='text-decoration:none;' class='fas fa-eye' href='?controller=programas&action=fichas&id=$id'></a>
                   </td>";
             echo "</tr>";
         }

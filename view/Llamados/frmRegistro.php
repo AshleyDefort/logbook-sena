@@ -85,7 +85,7 @@ echo date("Y-m-d");
                 <textarea hidden class="form-control" id="otraAccionTomada" rows="1" maxlength="500" placeholder="Escriba aquí la acción tomada"></textarea>
                 </div>
             </div>
-            <input type="submit" name="aceptar" onclick="generarLlamadoDeAtencion()" class="btn btn-primary" value="Generar Acta">
+            <input type="submit" name="aceptar" onclick="generarLlamadoDeAtencion()" class="btn btn-primary" value="Registrar">
             <?php
                                     
                                     echo '<a href="?controller=atencion&action=index" class="btn btn-light"> Volver </a>';

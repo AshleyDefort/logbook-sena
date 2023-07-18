@@ -30,9 +30,9 @@ class main_controller{
         $data["descripcion"]=$descripcion;
         $r=main_modelo::add($data);
         if($r>0){
-            echo json_encode(array("mensaje"=>"Se registró", "estado"=>1));
+            echo json_encode(array("mensaje"=>"El programa se ha registrado correctamente", "estado"=>1));
         }else{
-            echo json_encode(array("mensaje"=>"ERROR: NO se registró", "estado"=>2));
+            echo json_encode(array("mensaje"=>"ERROR: NO se ha podido registrar el programa", "estado"=>2));
         }
         }
 

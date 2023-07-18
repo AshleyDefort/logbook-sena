@@ -17,6 +17,11 @@
                 <div class="col-sm-5">
                     <input type="number" class="form-control form-control-user" id="id" name="id" placeholder="Digite su ID">
                 </div>
+                <div class="col-sm-6" hidden>
+                <label for="fichas" class="form-label">Seleccionar Ficha</label>
+                    <select id="fichas" name="fichas" class="form-control">
+                    </select>
+                </div>
                 <div class="col-sm-1">
                     <img type="submit" src="public/img/buscar.png" onclick="buscar2()">
                 </div>

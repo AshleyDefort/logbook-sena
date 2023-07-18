@@ -68,15 +68,17 @@ class aprendices_controller
             }
         }
     }
-    
     public function delete(){
-		$id = $_POST["id"];
-		$r  = aprendices_modelo::delete($id);
-		if($r > 0){
-			header("Location: ?controller=aprendices&action=index");
-		}
-	}
-
+        $id = $_POST["id"];
+        $r = aprendices_modelo::delete($id);
+        if($r > 0){
+            echo json_encode(["success" => true]);
+        } else {
+            echo json_encode(["success" => false]);
+        }
+        exit;
+    }
+    
     
 
       
@@ -86,35 +88,13 @@ class aprendices_controller
 
     public function edit(){
         extract($_POST);
-        $data["doc"]=$doc;
         $data["id"]=$id;
         $data["nombres"]=$nombres;
         $data["apellidos"]=$apellidos;
         $data["telefono"]=$telefono;
         $data["correo"]=$correo;
-        $data["direccion"]=$direccion;
-        $data["rol"]=$rol;
+        $data["sexo"]=$sexo;
     
-        // Verificar si se ha subido una foto
-        if (isset($_FILES['foto']) && $_FILES['foto']['name'] !== '') {
-            $foto = $_FILES['foto'];
-            $nombreFoto = $foto['name'];
-            $tipoFoto = $foto['type'];
-            $tamanoFoto = $foto['size'];
-            $ubicacionTemporalFoto = $foto['tmp_name'];
-            $errorFoto = $foto['error'];
-    
-            $datosFoto = file_get_contents($ubicacionTemporalFoto); // Leer el contenido de la foto
-    
-            $data["foto"] = $datosFoto; // Asignar los datos de la foto al arreglo de datos a insertar en la base de datos
-        } else {
-            // Asignar valor predeterminado para la foto en caso de no haberse enviado una
-            $rutaPorDefecto = "public/img/profile_photo_default.png";
- // o asigna un valor predeterminado válido para la columna de la base de datos
-            $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
-            $data["foto"] = $datosFotoDefault;
-        }
-        var_dump($data);
         $r = aprendices_modelo::edit($data);
         if ($r !== false) {
             echo json_encode(array("mensaje" => "Se han editado los datos", "estado" => 1));

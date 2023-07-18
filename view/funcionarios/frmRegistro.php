@@ -20,11 +20,11 @@
             <div class="form-group row">
                 <div class="col-sm-6">
                     <select id="doc" name="doc" class="form-control">
-                        <option value="Cédula de Ciudadanía">Cédula de Ciudadanía</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                        <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
-                        <option value="Cédula de Extranjería">Cédula de Extranjería</option>
-                        <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>
+                        <option value="CC">Cédula de Ciudadanía</option>
+                        <option value="TI">Tarjeta de Identidad</option>
+                        <option value="PEP">Permiso Especial de Permanencia</option>
+                        <option value="CE">Cédula de Extranjería</option>
+                        <option value="PPP">Permiso por Protección Temporal</option>
                     </select>
                 </div>
                 <div class="col-sm-6">
@@ -72,6 +72,7 @@
             </div>
 
             <input type="submit" name="aceptar" onclick="regCliente()" class="btn btn-primary">
+            <a href="?controller=funcionarios&action=index" class="btn btn-secondary"> Volver </a><br>
         </form>
     </div>
 </div>

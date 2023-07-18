@@ -1,43 +1,45 @@
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-light">Observacion</h6>
+<div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-light">OBSERVADOR DEL APRENDIZ</h6>
+</div>
+<div class="card-body">
+<a href="?controller=observaciones&action=frmRegistro" class="btn btn-primary mb-3"> Crear Observación </a><br>
+
+    <!--<?php //if (empty($this->tabla)): ?>
+        <label for="filtro"></label>
+    <?php //else: ?>
+        <label for="filtro">Filtrar por:</label>
+        <select name="filtro" id="filtro" onchange="selectFiltros()">
+            <option value="">Seleccionar</option>
+            <option value="Ficha de caracterización">Ficha de caracterización</option>
+            <option value="ID de aprendiz">ID de aprendiz</option>
+            <option value="Fecha de creación">Fecha de creación</option>
+        </select>
+        <input type="hidden" name="texto" id="texto">
+        <a onclick="filtrar()"><i class="fa fa-filter fa-sm fa-fw mr-2 text-gray-500"></i></a>
+    <?php //endif; ?>
+    -->
+    <div class="table-responsive">
+        <?php if (empty($this->tabla)): ?>
+            <div class="col-12 text-center"><label class="text-center">No hay observaciones creadas.</label></div>
+        <?php else: ?>
+            <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
+                                            <thead>
+                                                <th>NOMBRE APRENDIZ</th>
+                                                <th>FICHA</th>
+                                                <th>FECHA OBSERVACIÓN</th>
+                                                <th>TÍTULO</th>
+                                                <th>ACCIONES</th>
+                                            </thead>
+                                            <tbody>
+                                            <?php
+                                            echo $this->tabla;
+                                            ?>
+                                            </tbody>
+                                        </table>
+        <?php endif; ?>
     </div>
-    <div class="card-body">    
-    <form method="post" action="?controller=observaciones&action=crear" class="user" onsubmit="return false">
-        
-        <div class="form-group row">
-        <div class="col-sm-6">
-        <input type="date" class="form-control form-control-user" id="Bit_Fecha" name="Bit_Fecha" placeholder="Ingresar Fecha">
-                </div>
-                <div class="col-sm-5">
-                    <input type="text" class="form-control form-control-user" id="id" name="id" placeholder="Digite Id Aprendiz">
-                </div>
-                <div class="col-sm-1">
-                <img type="submit" src="public/img/buscar.png" onclick="buscar2()">
-                    </div>
-            </div>    
-        <div class="form-group row">
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="text" class="form-control form-control-user" id="nombres" 
-                    name="nombres" placeholder="Nombres">
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos">
-                </div>
-            </div>
-            <div class="form-group row">
-            <div class="col-sm-6 mb-3 mb-sm-0">
-                    <input type="number" class="form-control form-control-user" id="telefono" placeholder="Telefono" name="telefono">
-                </div>
-                <div class="col-sm-6">
-                    <input type="email" class="form-control form-control-user" id="correo" name="correo" placeholder="Correo">
-                </div>
-</div>      
-            <input type="submit" name="aceptar" id="ok" onclick="regCliente()" class="btn btn-primary">
-             
-            
-        </form>
-        
-                           
-    </div>
+    <p></p>
+</div>
+                         
 </div>

@@ -29,7 +29,7 @@
                                                 <th>FICHA</th>
                                                 <th>FECHA COMPROMISO</th>
                                                 <th>MOTIVO DE REMISIÓN</th>
-                                                <th>ACCIONES</th>
+                                                <th>ARCHIVO</th>
                                             </thead>
                                             <tbody>
                                             <?php

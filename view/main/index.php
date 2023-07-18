@@ -5,7 +5,7 @@
     <div class="card-body">
       <center>
       <h5 class="card-title">Observaciones</h5></center>
-      <a href="?controller=observaciones&action=index" class="btn btn-primary col-12">Crear</a>
+      <a href="?controller=observaciones&action=frmRegistro" class="btn btn-primary col-12">Crear</a>
     </div>
     
   </div>
@@ -15,7 +15,7 @@
     <div class="card-body">
       <center>
       <h5 class="card-title">Llamados de Atención</h5></center>
-      <a href="?controller=atencion&action=index" class="btn btn-primary col-12">Crear</a>
+      <a href="?controller=atencion&action=frmRegistrar" class="btn btn-primary col-12">Crear</a>
     </div>
     
   </div>

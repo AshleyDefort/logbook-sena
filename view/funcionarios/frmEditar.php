@@ -22,12 +22,12 @@
 </div>
         <div class="form-group row">
         <div class="col-sm-6">
-                    <select id="doc" name="doc" class="form-control" value="<?php echo $this->funcionarios["Fun_Tip_Doc"];?>">>
-                        <option value="Cedula de Ciudadania">Cedula de Ciudadania</option>
-                        <option value="Tarjeta de Identidad">Tarjeta de Identidad</option>
-                        <option value="Permiso Especial de Permanencia">Permiso Especial de Permanencia</option>
-                        <option value="Cedula de Extrangeria">Cedula de Extrangeria</option>
-                        <option value="Permiso por Protección Temporal">Permiso por Protección Temporal</option>
+                    <select id="doc" name="doc" class="form-control">
+                    <option value="CC"<?php if ($this->funcionarios["Fun_Tip_Doc"] == "CC") echo " selected"; ?>>Cédula de Ciudadania</option>
+                    <option value="TI"<?php if ($this->funcionarios["Fun_Tip_Doc"] == "TI") echo " selected"; ?>>Tarjeta de Identidad</option>
+                    <option value="PEP"<?php if ($this->funcionarios["Fun_Tip_Doc"] == "PEP") echo " selected"; ?>>Permiso Especial de Permanencia</option>
+                    <option value="CE"<?php if ($this->funcionarios["Fun_Tip_Doc"] == "CE") echo " selected"; ?>>Cédula de Extranjería</option>
+                    <option value="PPP"<?php if ($this->funcionarios["Fun_Tip_Doc"] == "PPP") echo " selected"; ?>>Permiso por Protección Temporal</option>
                     </select>
                 </div>
                 <div class="col-sm-6">
@@ -62,15 +62,15 @@
                 <div class="col-sm-6">
                     <select id="rol" name="rol" class="form-control">
                     <optgroup label="Rol"></optgroup>
-                        <option value="ADMIN">ADMIN</option>
-                        <option value="FUNC">FUNC</option>
+                    <option value="ADMIN"<?php if ($this->funcionarios["Fun_Rol"] == "ADMIN") echo " selected"; ?>>ADMIN</option>
+            <option value="FUNC"<?php if ($this->funcionarios["Fun_Rol"] == "FUNC") echo " selected"; ?>>FUNC</option>
                     </select>
                 </div>
             </div>
             <input type="hidden" name="id" id="id"
             value="<?php echo $this->funcionarios["ID_Func"];?>" >
             <input type="submit" name="aceptar" onclick="edtFuncionario()" class="btn btn-primary">
-             
+            <a href="?controller=funcionarios&action=index" class="btn btn-secondary"> Volver </a><br>
             
         </form>
         

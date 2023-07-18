@@ -4,37 +4,48 @@ class observaciones_modelo{
        $obj= new connection();
        $c= $obj->getConnection();
        $sql="INSERT INTO observaciones
-       (Bit_Fecha,ID_FuncFK,Id_ApreFK,Bit_Des_Larg,Cod_Des_CortFK)
-    VALUES (?,?,?,?,?)";
+       (FechaObs,ID_FuncFK,Id_ApreFK,TituloObs,DescripcionObs,fk_ficha)
+    VALUES (?,?,?,?,?,?)";
     $st=$c->prepare($sql);  
-    $v=array($data["observaciones"],
-                $data["Bit_Fecha"],
-                $data["ID_FuncFK"],
-                $data["Id_ApreFK"],
-                $data["Bit_Des_Larg"],
-                $data["Cod_Des_CortFK"]);
-        return $st->execute($v);//organiza 
+    $v=array($data["fechaObservacion"],
+                $data["idFuncionario"],
+                $data["idAprendiz"],
+                $data["observacion"],
+                $data["descripcion"],
+                $data["fichaAprendiz"]);
+        return $st->execute($v);
     }
     
     public static function edit(){}
-    public static function delete(){}
+    public static function delete($id){
+        $obj = new connection();
+        $c = $obj -> getConnection();
+        $sql = "DELETE FROM observaciones WHERE CodObs = ?";
+        $st = $c -> prepare($sql);
+        $v = array($id);
+        return $st -> execute($v);
+    }
     public static function find(){}
-    /*public static function lista($id){
-        $obj= new connection(); //creamos un ontjeto de conexión
+    public static function lista($id){
+        $obj= new connection(); 
         $c= $obj->getConnection();
-        $sql="SELECT * from  WHERE Cod_ProFK=?";
-        $st=$c->prepare($sql);
-        
-         $st->execute(array($id));
-        
-        return $st->fetchAll();//ayuda a retornar a los clientes, en este caso
-    }*/
+        if ($_SESSION["rol"]==="ADMIN") {
+            $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, obs.* FROM aprendiz apr INNER JOIN observaciones obs ON apr.`Id_Apre`=obs.`Id_ApreFK`;";
+            $st = $c->prepare($sql);
+            $st->execute(); // Pasar el valor de $id como argumento
+        } else {
+            $sql="SELECT apr.`Apre_Nom`, apr.`Apre_Ape`, obs.* FROM aprendiz apr INNER JOIN observaciones obs ON apr.`Id_Apre`=obs.`Id_ApreFK` WHERE obs.Id_FuncFK=?;";
+            $st = $c->prepare($sql);
+            $st->execute([$id]); // Pasar el valor de $id como argumento
+        }
+        return $st->fetchAll();
+    }
     public static function buscar($id)
 {
     $obj = new connection(); //creamos un objeto de conexión
     $c = $obj->getConnection();
     $sql = "SELECT aprendiz.*, apre_ficha.Cod_Ficha FROM aprendiz
-            INNER JOIN apre_ficha ON aprendiz.Id_Apre = apre_ficha.Id_Apre
+            LEFT JOIN apre_ficha ON aprendiz.Id_Apre = apre_ficha.Id_Apre
             WHERE aprendiz.Id_Apre = ?";
     $st = $c->prepare($sql);
     $v = array($id);
@@ -43,19 +54,13 @@ class observaciones_modelo{
 
     if ($aprendiz) {
         $fichas = array();
-        $sqlFichas = "SELECT Cod_Ficha FROM apre_ficha WHERE Id_Apre = ?";
-        $stFichas = $c->prepare($sqlFichas);
-        $stFichas->execute($v);
-
-        while ($row = $stFichas->fetch()) {
-            $fichas[] = $row["Cod_Ficha"];
+        if ($aprendiz["Cod_Ficha"]) {
+            $fichas[] = $aprendiz["Cod_Ficha"];
         }
-
         $aprendiz["fichas"] = $fichas;
     }
 
     return $aprendiz;
 }
-
 
 }

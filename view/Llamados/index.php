@@ -11,10 +11,10 @@
             <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <th>NOMBRE APRENDIZ</th>
+                                                <th>FECHA</th>
                                                 <th>FICHA</th>
-                                                <th>FECHA COMPROMISO</th>
                                                 <th>MOTIVO DE REMISIÓN</th>
-                                                <th>ACCIONES</th>
+                                                <th>ARCHIVO</th>
                                             </thead>
                                             <tbody>
                                             <?php

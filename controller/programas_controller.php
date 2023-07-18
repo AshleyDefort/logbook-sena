@@ -30,8 +30,11 @@ class programas_controller{
 
     public function infoFicha(){
         $id=$_GET["id"];
+        $this->obj->infoFicha=programas_modelo::infoFicha($id);
         $this->obj->aprendiz=programas_modelo::lista2($id);
         $this->obj->actas=programas_modelo::listaActas($id);
+        $this->obj->llamados=programas_modelo::listaLlamados($id);
+        $this->obj->observaciones=programas_modelo::listaObservaciones($id);
         $this->obj-> loadTemplate("programas/infoFicha");
     }
     public function registrar()

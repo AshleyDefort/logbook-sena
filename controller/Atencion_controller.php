@@ -21,8 +21,8 @@ class Atencion_controller{
             $this->obj->tabla .= "<td>".$fila["atencionFecha"]."</td>";
             $this->obj->tabla .= "<td>".$fila["llamadoFicha"]."</td>";
             $this->obj->tabla .= "<td>".$fila["llamadoMotivo"]."</td>";
-            $this->obj->tabla .= "<td>
-                <a class='btn btn-secondary' href='?controller=Atencion&action=generarPDFAtencion&codLlamado=".$codLlamado."' target='_blank'>Descargar</a>
+            $this->obj->tabla .= "<td class='text-center'>
+                <a class='fas fa-file-pdf text-gray-700' href='?controller=Atencion&action=generarPDFAtencion&codLlamado=".$codLlamado."' target='_blank'></a>
             </td>";
             $this->obj->tabla .= "</tr>";
         }
@@ -76,7 +76,7 @@ class Atencion_controller{
     $motRemision    = $llamados["llamadoMotivo"];
     $accionesTomadas    = $llamados["llamadoAccionesTomadas"];
     $descripcionLlamado = "Como resultado del Proceso de Seguimiento y Evaluación a los aprendices, según acta N°".$codLlamado." de fecha ".$fechaLlamado." el comité encargado ha determinado hacerle un LLAMADO DE ATENCIÓN POR ESCRITO por motivo de: ".$motRemision." en el proceso de formación.";
-    $descripcionAccionesTomadas = "Así mismo, esta medida formativa sugiere un cambio de actitud frente a la formación, dejando manifiesto que el compromiso, la responsabilidad y la disciplina deben formar parte de un mejor desempeño y comportamiento para su ubicación laboral futura. El comité determina que debe: ".$accionesTomadas.".";
+    $descripcionAccionesTomadas = "Así mismo, esta medida formativa sugiere un cambio de actitud frente a la formación, dejando manifiesto que el compromiso, la responsabilidad y la disciplina deben formar parte de un mejor desempeño y comportamiento para su ubicación laboral futura. El curso de acción elegido por el comité encargado es: ".$accionesTomadas.".";
     $parrafoCierre = "Agradecemos tener en cuenta la anterior medida formativa con el propósito de lograr el mejoramiento requerido de su proceso formativo.";
     //Librerías
     require_once('public/PDF/tcpdf.php');

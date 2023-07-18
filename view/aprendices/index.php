@@ -18,7 +18,11 @@
                     <th>APELLIDOS</th>
                     <th>TELEFONO</th>
                     <th>CORREO</th>
-                    <th>ACCIONES</th>
+                    <?php
+                    if ($_SESSION["rol"] == "ADMIN") {
+                        echo '<th>ACCIONES</th>';
+                    }
+                    ?>
                 </thead>
                 <tbody>
                 <?php
@@ -31,9 +35,9 @@
                     echo "<td>".$fila["Apre_Tel"]."</td>";//concatenar
                     echo "<td>".$fila["Apre_Correo"]."</td>";//concatenar
                     if($_SESSION["rol"]=="ADMIN"){
-                        echo "<td> 
-                    <a class='btn btn-primary' href='?controller=aprendices&action=frmEditar&id=$id'>Editar</a> | 
-                    <a class='btn btn-danger' onclick='Eliminar1($id)'>Eliminar</a>
+                        echo "<td class='text-center'> 
+                    <a class='fas fa-edit' href='?controller=aprendices&action=frmEditar&id=$id'></a> | 
+                    <a class='fas fa-trash text-danger' onclick='eliminarAprendiz($id)'></a>
                                        </td>";}
                 }
                 ?>

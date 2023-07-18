@@ -15,13 +15,13 @@
                 <div class="card">
                   <img src="public/img/logo.png" width="100px" height="100px" class=" mx-auto mt-3" alt="...">
                   <div class="card-body">
-                    <h5 class="card-title">FICHA: <?php echo $fila["Cod_Ficha"]; ?></h5>
-                    <p class="card-text">DESCRIPCION: <?php echo $fila["Desc_Fich"]; ?></p>
-                    <p class="card-text">FECHA DE INICIO: <?php echo $fila["fechaIni_Fich"]; ?></p>
-                    <p class="card-text">FECHA DE FIN: <?php echo $fila["fechaFin_Fich"]; ?></p>
-                    <?php echo "<td> 
+                    <h5 class="card-title text-center">FICHA: <?php echo $fila["Cod_Ficha"]; ?></h5>
+                    <p class="card-text">Descripción: <?php echo $fila["Desc_Fich"]; ?></p>
+                    <p class="card-text">Inicio de Formación: <?php echo $fila["fechaIni_Fich"]; ?></p>
+                    <p class="card-text">Fin de Formación: <?php echo $fila["fechaFin_Fich"]; ?></p>
+                    <?php echo "<div class='text-center'> 
                       <a class='btn btn-primary' href='?controller=programas&action=infoFicha&id=$id'>  Ver  </a>
-                      </td>";
+                      </div>";
                       echo "</tr>"; ?>
                   </div>
                 </div>
