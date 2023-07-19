@@ -22,14 +22,14 @@ echo date("Y-m-d");
         <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                     <input type="text" class="form-control form-control-user" id="nombres" 
-                    name="nombres" placeholder="Nombres">
+                    name="nombres" placeholder="Nombres" readonly>
                 </div>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos">
+                    <input type="text" class="form-control form-control-user" id="apellidos" name="apellidos" placeholder="Apellidos" readonly>
                 </div>
-                <input type="hidden" class="form-control form-control-user" id="sexo" name="sexo" placeholder="Apellidos del aprendiz">
-                <input type="hidden" class="form-control form-control-user" id="telefono" placeholder="Telefono del aprendiz" name="telefono">
-                <input type="hidden" class="form-control form-control-user" id="correo" name="correo" placeholder="Correo del aprendiz">
+                <input type="hidden" class="form-control form-control-user" id="sexo" name="sexo" placeholder="Apellidos del aprendiz" readonly>
+                <input type="hidden" class="form-control form-control-user" id="telefono" placeholder="Telefono del aprendiz" name="telefono" readonly>
+                <input type="hidden" class="form-control form-control-user" id="correo" name="correo" placeholder="Correo del aprendiz" readonly>
             </div>
             <div class="form-group row">
             <div class="col-sm-6">

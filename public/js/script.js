@@ -11,7 +11,11 @@ let password=document.getElementById("password").value;
 let direccion=document.getElementById("direccion").value;
 let rol=document.getElementById("rol").value;
 let foto = inputFile.files[0];
-
+const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+if (!validEmail.test(correo)) {
+  Swal.fire("", "Debe ingresar una dirección de correo electrónico válida.", "warning");
+  return;
+}
 if (doc === '' || id === ''|| nombres === '' || apellidos === '' || telefono === '' || correo === '' || password === '' || direccion === '' || rol === '') {
   Swal.fire(
     '',
@@ -77,7 +81,11 @@ function hidePasswordRequirements() {
     let correo=document.getElementById("correo").value;
     let sexo=document.getElementById("sexo").value;
     let rol=document.getElementById("rol").value;
-    
+    const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    if (!validEmail.test(correo)) {
+      Swal.fire("", "Debe ingresar una dirección de correo electrónico válida.", "warning");
+      return;
+    }
     if (id === ''|| nombres === '' || apellidos === '' || telefono === '' || correo === '' || sexo === '' || rol === '') {
       Swal.fire(
         '',
@@ -290,7 +298,11 @@ let edtFuncionario = async () => {
   let direccion = document.getElementById("direccion").value;
   let rol = document.getElementById("rol").value;
   let foto = inputFile.files[0];
-
+  const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+  if (!validEmail.test(correo)) {
+    Swal.fire("", "Debe ingresar una dirección de correo electrónico válida.", "warning");
+    return;
+  }
   if (
     doc === "" ||
     id === "" ||
@@ -717,7 +729,11 @@ let edtAprendiz = async () => {
   let telefono = document.getElementById("telefono").value;
   let correo = document.getElementById("correo").value;
   let sexo = document.getElementById("sexo").value;
-
+  const validEmail =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+  if (!validEmail.test(correo)) {
+    Swal.fire("", "Debe ingresar una dirección de correo electrónico válida.", "warning");
+    return;
+  }
   if (
     id === "" ||
     nombres === "" ||
