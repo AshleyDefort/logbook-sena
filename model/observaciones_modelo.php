@@ -42,25 +42,41 @@ class observaciones_modelo{
     }
     public static function buscar($id)
 {
-    $obj = new connection(); //creamos un objeto de conexión
+    $obj = new connection();
     $c = $obj->getConnection();
-    $sql = "SELECT aprendiz.*, apre_ficha.Cod_Ficha FROM aprendiz
+    if ($_SESSION["rol"]==="ADMIN") {
+        $sql = "SELECT aprendiz.*, apre_ficha.Cod_Ficha FROM aprendiz
             LEFT JOIN apre_ficha ON aprendiz.Id_Apre = apre_ficha.Id_Apre
             WHERE aprendiz.Id_Apre = ?";
-    $st = $c->prepare($sql);
-    $v = array($id);
-    $st->execute($v);
-    $aprendiz = $st->fetch();
+        $st = $c->prepare($sql);
+        $v = array($id);
+        $st->execute($v);
+    } else {
+        $sql = "SELECT aprendiz.*, apre_ficha.Cod_Ficha FROM aprendiz
+            LEFT JOIN apre_ficha ON aprendiz.Id_Apre = apre_ficha.Id_Apre INNER JOIN ficha_funcionario ON apre_ficha.Cod_Ficha=ficha_funcionario.cod_ficha
+            WHERE aprendiz.Id_Apre = ? AND ficha_funcionario.id_funcionario=?";
+        $idFunc = $_SESSION["id"];
+        $st = $c->prepare($sql);
+        $v = array($id, $idFunc);
+        $st->execute($v);
+    }
+    
 
-    if ($aprendiz) {
-        $fichas = array();
-        if ($aprendiz["Cod_Ficha"]) {
-            $fichas[] = $aprendiz["Cod_Ficha"];
+    $aprendiz = null;
+
+    while ($row = $st->fetch()) {
+        if (!$aprendiz) {
+            $aprendiz = $row; 
+            $aprendiz["fichas"] = array(); 
         }
-        $aprendiz["fichas"] = $fichas;
+
+        if ($row["Cod_Ficha"]) {
+            $aprendiz["fichas"][] = $row["Cod_Ficha"]; // Agregamos las fichas al array
+        }
     }
 
     return $aprendiz;
 }
+
 
 }
