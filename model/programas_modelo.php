@@ -23,7 +23,73 @@ class programas_modelo{
     }   
     return $success;
 }
+public static function totalAprendices($codFicha){
+    $obj= new connection(); //creamos un obtjeto de conexión
+    $c= $obj->getConnection();
+    $sql="SELECT * from apre_ficha WHERE Cod_Ficha=?";
+    $st=$c->prepare($sql);
+    $st->execute([$codFicha]);
+    return $st->rowCount();
+}
+public static function totalActas($codFicha){
+    $obj= new connection(); //creamos un obtjeto de conexión
+    $c= $obj->getConnection();
+    $sql="SELECT * from acta_compromiso WHERE actaFicha=?";
+    $st=$c->prepare($sql);
+    $st->execute([$codFicha]);
+    return $st->rowCount();
+}
+public static function totalLlamados($codFicha){
+    $obj= new connection(); //creamos un obtjeto de conexión
+    $c= $obj->getConnection();
+    $sql="SELECT * from llamado_de_atencion WHERE llamadoFicha=?";
+    $st=$c->prepare($sql);
+    $st->execute([$codFicha]);
+    return $st->rowCount();
+}
+public static function totalObservaciones($codFicha){
+    $obj= new connection(); //creamos un obtjeto de conexión
+    $c= $obj->getConnection();
+    $sql="SELECT * from observaciones WHERE fk_ficha=?";
+    $st=$c->prepare($sql);
+    $st->execute([$codFicha]);
+    return $st->rowCount();
+}
+public static function findByIdInstructor($id){
+    $obj= new connection(); //creamos un obtjeto de conexión
+    $c= $obj->getConnection();
+    $sql="SELECT Fun_Nom, Fun_Ape, Fun_Tel, Fun_Correo, ID_Func FROM funcionario WHERE ID_Func=?";
+    $st=$c->prepare($sql);
+    $v= array($id);
+    $st->execute($v);
+    return $st->fetch();
+}
 
+    public static function editFicha($data){
+        $obj = new connection();
+        $c = $obj->getConnection();
+        $sql = "UPDATE ficha  SET Cod_Ficha=?, Desc_Fich=?, FechaIni_Fich=?, FechaFin_Fich=? WHERE ficha.Cod_Ficha=?";
+        $st = $c->prepare($sql);
+        $v = array(
+            $data["numFicha"],
+            $data["descFicha"],
+            $data["fechaInicio"],
+            $data["fechaFin"],
+            $data["numFicha"]
+        );
+        $success = $st->execute($v);
+        return $success;
+    }
+    public static function addInstructor($data){
+        $obj = new connection();
+        $c = $obj->getConnection();
+        foreach ($data["instructores"] as $instructorID) {
+            $sql = "INSERT INTO ficha_funcionario (cod_ficha, id_funcionario) VALUES (?, ?)";
+            $st = $c->prepare($sql);
+            $st->execute([$data["numFicha"], $instructorID]);     
+        }   
+        return "Instructores agregados correctamente.";
+    }
     public static function edit(){}
     public static function delete(){}
     public static function findById($codPrograma){

@@ -4,7 +4,7 @@ require_once "model/Atencion_modelo.php";
 use Carbon\Carbon;
 class Atencion_controller{
     function __construct(){
-        if (!isset($_SESSION["id"])) {
+        if(!isset($_SESSION["id"])){
             header("Location: /Bitacora");
         }
         $this->obj=new template();

@@ -54,6 +54,7 @@ $profileData = getProfileData();
                     <i class="fas fa-home"></i>
                     <span>Inicio</span></a>
             </li>
+            
 
             <!-- Divider -->
             <hr class="sidebar-divider">
@@ -137,7 +138,7 @@ $profileData = getProfileData();
 
             <li class="nav-item">
                 <a class="nav-link" href="?controller=funcionarios&action=index">
-                    <i class="fas fa-users"></i>
+                    <i class="fas fa-user-shield"></i>
                     <span>Funcionarios</span></a>
             </li>
             <li class="nav-item">
@@ -148,14 +149,14 @@ $profileData = getProfileData();
             <!-- Nav Item - Tables -->
             <li class="nav-item">
                 <a class="nav-link" href="?controller=observaciones&action=index">
-                    <i class="fas fa-comment"></i>
+                    <i class="fas fa-sticky-note"></i>
                     
                     <span>Observador del Aprendiz</span></a>
             </li>
 
             <li class="nav-item">
                 <a class="nav-link" href="?controller=Atencion&action=index">
-                    <i class="fas fa-file-invoice-dollar"></i>
+                    <i class="fas fa-exclamation-circle"></i>
                     <span>Llamados de atencion</span></a>
             </li>
 

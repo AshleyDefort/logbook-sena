@@ -4,7 +4,7 @@ require_once 'libs/connection.php';
 class funcionarios_controller
 {
     function __construct(){
-        if (!isset($_SESSION["id"])) {
+        if(!isset($_SESSION["id"])){
             header("Location: /Bitacora");
         }
         $this->obj = new template();
@@ -92,15 +92,20 @@ class funcionarios_controller
         $_SESSION["nombre"] = $r["Fun_Nom"];
         $_SESSION["apellido"] = $r["Fun_Ape"]; 
         $_SESSION["rol"] = $r["Fun_Rol"]; 
-        $mensaje = "";
-        $estado = 1;
-        $url = "?controller=main&action=home";
+        if(isset($_POST['rememberMe']))
+        {
+        setcookie('idFun',$id,time()+60*60);//1 hour
+        setcookie('password',$password,time()+60*60); //1 hour
+        }
+        else
+        {
+            setcookie('idFun',$id,time()-10);
+            setcookie('password',$password,time()-10); 
+        }
+        echo json_encode(array("mensaje" => "", "estado" => 1));
     } else {
-        $mensaje = "Datos incorrectos o Incompletos";
-        $estado = 2;
-        $url = "";
-    }
-    echo json_encode(array("mensaje" => $mensaje, "estado"=> $estado, "url"=>$url));
+        echo json_encode(array("mensaje" => "Datos incorrectos o Incompletos", "estado" => 2));
+    }    
 }
 
 
@@ -136,6 +141,10 @@ class funcionarios_controller
             $rutaFoto = $_FILES['nueva_foto']['tmp_name'];
             $datosFoto = file_get_contents($rutaFoto); // Leer el contenido de la nueva imagen
             $data["foto"] = $datosFoto;
+        }else{
+            $rutaPorDefecto = "public/img/profile_photo_default.png";
+            $datosFotoDefault = file_get_contents($rutaPorDefecto); // Leer el contenido de la imagen por defecto
+            $data["foto"] = $datosFotoDefault;
         }
     }
 

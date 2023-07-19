@@ -12,8 +12,20 @@ class main_controller{
         $this->obj-> loadTemplate("main/index");
         // $this->obj-> loadTemplate("main/frmLogin", false);
     }
-    public function frmlogin(){
-        $this->obj-> loadTemplate("main/frmLogin", false);
+    public function frmlogin() {
+        if (isset($_COOKIE['idFun']) && isset($_COOKIE['password'])) {
+            $this->obj->id = $_COOKIE['idFun'];
+            $this->obj->password = $_COOKIE['password'];
+        } else {
+            $this->obj->id = $this->obj->password = "";
+        }
+    
+        $data = array(
+            "id" => $this->obj->id,
+            "password" => $this->obj->password
+        );
+    
+        $this->obj->loadTemplate("main/frmLogin", false, $data);
     }
 
     public function frmreccont(){

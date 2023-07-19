@@ -6,8 +6,7 @@
         <?php
         if ($_SESSION["rol"] == "ADMIN") {
             echo '<a href="?controller=aprendices&action=frmRegistro&ficha=" class="btn btn-primary mb-3"> Registrar </a>';
-            echo '<a> </a>';
-            echo '<a href="?controller=aprendices&action=reportePDF" class="btn btn-light mb-3"> Reporte PDF </a>';
+           
         }
         ?>
         <div class="table-responsive">

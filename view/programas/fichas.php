@@ -5,7 +5,7 @@
         <h6 class="m-0 font-weight-bold text-light">Administrar Fichas</h6>
     </div>
     <div class="card-body">
-    <a href="?controller=programas&action=frmFichas&id=<?php $codPrograma=$_GET["id"]; echo $codPrograma; ?>" class="btn btn-primary mb-3">REGISTAR FICHAS</a>
+    <a href="?controller=programas&action=frmFichas&id=<?php $codPrograma=$_GET["id"]; echo $codPrograma; ?>" class="btn btn-primary mb-3">Registrar Fichas</a>
         <div class="row">   
           <?php
           if (count($this->fichas) > 0) {

@@ -66,19 +66,18 @@
 
                                         <div class="form-group">
     <input type="number" class="form-control form-control-user"
-              id="id" name="id" placeholder="Numero de documento">
+              id="id" name="id" placeholder="Numero de documento" value="<?php echo $this->id; ?>">
 
                                         </div>
                                        
                                    			<div class="form-group">
     <input type="password" class="form-control form-control-user"
-       id="password" name="password"placeholder="Password">
+       id="password" name="password"placeholder="Password" value="<?php echo $this->password; ?>">
                                         </div>
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <input type="checkbox" class="custom-control-input" id="rememberCheck" name="remember">
+                                                <label class="custom-control-label" for="rememberCheck">Recuérdame</label>
                                             </div>
                                         </div>
                                         <div class="form-group text-center">
@@ -87,9 +86,7 @@
                                          
                                     </form>
                                     <hr>
-                                    <div class="text-center">
-                                        <a class="small" href="?controller=main&action=frmreccont">¿Olvidaste Tu Contraseña?</a>
-                                    </div>
+            
                                 </div>
                             </div>
                         </div>

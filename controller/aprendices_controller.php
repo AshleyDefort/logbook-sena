@@ -4,7 +4,7 @@ require_once 'libs/connection.php';
 class aprendices_controller
 {
     function __construct(){
-        if (!isset($_SESSION["id"])) {
+        if(!isset($_SESSION["id"])){
             header("Location: /Bitacora");
         }
         $this->obj = new template();

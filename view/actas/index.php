@@ -43,16 +43,3 @@
 </div>
                          
 </div>
-<script>
-    function handleEnterKey(event) {
-        // Verificar si la tecla presionada es Enter (código 13)
-        if (event.keyCode === 13) {
-            event.preventDefault(); // Evitar el comportamiento predeterminado del Enter (por ejemplo, enviar el formulario)
-            filtrar(); // Realizar el filtro
-        }
-    }
-    var textoInput = document.getElementById('texto');
-
-    // Agregar un evento al campo de texto para capturar la tecla Enter
-    textoInput.addEventListener('keyup', handleEnterKey);
-</script>

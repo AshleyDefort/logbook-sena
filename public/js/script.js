@@ -47,6 +47,14 @@ try {
     let info = await respuesta.json();
 
     Swal.fire("", info.mensaje, "success");
+    document.getElementById("id").value = "";
+    document.getElementById("nombres").value = "";
+    document.getElementById("apellidos").value = "";
+    document.getElementById("telefono").value = "";
+    document.getElementById("correo").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("direccion").value = "";
+    inputFile.value = null;
   } catch (error) {
     Swal.fire("", "Error al registrar los datos", "error");
     console.log(error);
@@ -184,8 +192,66 @@ let regFichas = async () => {
     console.log(error);
   }
 };
+var descFichaInicial, inicioFichaInicial, finFichaInicial;
+function habilitarCampos(event) {
+  event.preventDefault();
+  event.stopPropagation();
+  descFichaInicial = document.getElementById("descFicha").value;
+  inicioFichaInicial = document.getElementById("inicioFicha").value;
+  finFichaInicial = document.getElementById("finFicha").value;
+  document.getElementById("descFicha").readOnly = false;
+  document.getElementById("inicioFicha").readOnly = false;
+  document.getElementById("finFicha").readOnly = false;
+  document.getElementById("idInstructores").type = "text";
+  document.getElementById("enviar").type = "submit";
+  document.getElementById("cancelar").hidden = false;
+}
+function cancelar() {
+  document.getElementById("descFicha").value = descFichaInicial;
+    document.getElementById("inicioFicha").value = inicioFichaInicial;
+    document.getElementById("finFicha").value = finFichaInicial;
+  document.getElementById("descFicha").readOnly = true;
+  document.getElementById("inicioFicha").readOnly = true;
+  document.getElementById("finFicha").readOnly = true;
+  document.getElementById("idInstructores").type = "hidden";
+  document.getElementById("idInstructores").value = "";
+  document.getElementById("enviar").type = "hidden";
+  document.getElementById("cancelar").hidden = true;
+}
+let edtFicha = async () =>{
+  try {
+    let numFicha = document.getElementById("numFicha").value;
+    let descFicha = document.getElementById("descFicha").value;
+    let fech_inic = document.getElementById("inicioFicha").value;
+    let fech_fin = document.getElementById("finFicha").value;
+    let instructores = document.getElementById("idInstructores").value;
 
+    let datos = new FormData();
+    datos.append("numFicha", numFicha);
+    datos.append("descFicha", descFicha);
+    datos.append("fechaInicio", fech_inic);
+    datos.append("fechaFin", fech_fin);
+    datos.append("instructores", instructores);
 
+    let respuesta = await fetch("?controller=programas&action=editFicha", {
+      method: "POST",
+      body: datos,
+    });
+    
+    let info = await respuesta.json();
+    Swal.fire({
+      title: "",
+      text: info.mensaje,
+      icon: "success",
+      didClose: () => {
+        location.reload();
+      }
+    });
+  } catch (error) {
+    Swal.fire("", "Error al registrar los datos", "error");
+    console.log(error);
+  }
+}
 let editarFuncionario = async (datos) => {
   try {
     let respuesta = await fetch("?controller=funcionarios&action=edit", {
@@ -195,7 +261,15 @@ let editarFuncionario = async (datos) => {
 
     let info = await respuesta.json();
     if (info.estado === 1) {
-      Swal.fire("", info.mensaje, "success");
+      Swal.fire({
+        title: "",
+        text: info.mensaje,
+        icon: "success",
+        didClose: () => {
+          location.reload();
+        }
+      });
+      
     } else {
       Swal.fire("", info.mensaje, "error");
     }
@@ -248,32 +322,28 @@ let edtFuncionario = async () => {
 };
 
 let login = async () => {
+  let doc = document.getElementById("doc").value;
+  let id = document.getElementById("id").value;
+  let password = document.getElementById("password").value;
+  let rememberMe = document.getElementById("rememberCheck").checked;
+  let datos = new FormData();
+  datos.append("doc", doc);
+  datos.append("id", id);
+  datos.append("password", password);
+  datos.append("rememberMe", rememberMe);
+
   try {
-    let doc = document.getElementById("doc").value;
-    let id = document.getElementById("id").value;
-    let password = document.getElementById("password").value;
-    let datos = new FormData();
-    datos.append("doc", doc);
-    datos.append("id", id);
-    datos.append("password", password);
-  
     let respuesta = await fetch("?controller=funcionarios&action=validar", {
       method: "POST",
       body: datos
     });
   
-    // Verificar si la respuesta es válida antes de analizarla como JSON
-    if (!respuesta.ok) {
-      throw new Error("Error en la solicitud: " + respuesta.status);
-    }
-  
     let info = await respuesta.json();
-  
     if (info.estado == 1) {
-      window.location.href = info.url;
-    } else {
+      window.location.href = "?controller=main&action=home";
+    } else  {
       Swal.fire("", info.mensaje, 'error');
-    }
+  }
   } catch (error) {
     console.error("Ocurrió un error al realizar la solicitud:", error);
     // Aquí puedes agregar código para manejar el error, como mostrar un mensaje al usuario
@@ -623,8 +693,8 @@ let eliminarObservacion =async(id) =>{
     confirmButtonText: 'Si, Eliminar!'
   }).then((result) => {
     if (result.isConfirmed) {
-      window.location.href = "?controller=observaciones&action=index";
           eliminarObservacionConf(id);
+          location.reload();
     }
   })
 }
@@ -637,7 +707,6 @@ let eliminarObservacionConf = async(id) =>{
     body: datos
   });
   let info = await respuesta.json();
-  window.location.href = "?controller=observaciones&action=index";
 }
 
 
@@ -845,3 +914,5 @@ $('.open-modal').on('click', function(e) {
   e.preventDefault();
   openModal($(this));
 });
+
+

@@ -3,7 +3,7 @@
         <h6 class="m-0 font-weight-bold text-white">Administrar Programas</h6>
     </div>
     <div class="card-body">
-        <a href="?controller=main&action=frmProgramas" class="btn btn-primary mb-3">REGISTAR PROGRAMAS</a>
+        <a href="?controller=main&action=frmProgramas" class="btn btn-primary mb-3">Registrar Programas</a>
         <div class="table-responsive">
         <table class="table table-bordered mt-3" id="dataTable" width="100%" cellspacing="0">
     <thead>

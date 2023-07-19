@@ -119,7 +119,7 @@ class funcionarios_modelo{
     public static function validarUsuario($data){
         $obj= new connection();
         $c= $obj->getConnection();
-        $sql="SELECT * from funcionario WHERE ID_Func=? AND Fun_Tip_Doc=? AND
+        $sql="SELECT Fun_Nom, Fun_Ape, ID_Func, Fun_Rol from funcionario WHERE ID_Func=? AND Fun_Tip_Doc=? AND
                                             Fun_Pswd=?" ;
         $st=$c->prepare($sql);
         $v= array($data["id"],$data["doc"], sha1($data["password"]));
